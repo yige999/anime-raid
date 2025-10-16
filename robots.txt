@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Disallow crawling of certain directories
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /*.json$
+Disallow: /js/admin.js
+
+# Sitemap location
+Sitemap: https://animeraid.wiki/sitemap.xml
+
+# Crawl delay (optional, be respectful to servers)
+Crawl-delay: 1
+
+# Special instructions for specific bots
+User-agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+
+# Allow image indexing
+User-agent: Googlebot-Image
+Allow: /assets/images/
+Allow: /assets/icons/
+
+# Allow CSS and JS indexing for better SEO
+User-agent: *
+Allow: /css/
+Allow: /js/

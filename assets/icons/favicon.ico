@@ -1,0 +1,14 @@
+<!-- 这是一个占位符文件 -->
+<!-- 在实际部署中，这里应该是一个真实的ICO favicon文件 -->
+<!-- 建议尺寸：16x16px, 32x32px -->
+<!-- 可以使用在线favicon生成器创建 -->
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6" fill="url(#faviconGradient)"/>
+  <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">AR</text>
+</svg>

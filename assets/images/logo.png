@@ -1,0 +1,14 @@
+<!-- 这是一个占位符文件 -->
+<!-- 在实际部署中，这里应该是一个真实的PNG logo图片 -->
+<!-- Anime Raid Wiki Logo - 建议尺寸：200x50px，透明背景 -->
+<!-- 可以使用在线logo生成器创建，或者使用以下SVG转换为PNG -->
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <text x="10" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="url(#logoGradient)">Anime Raid</text>
+  <text x="140" y="35" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Wiki</text>
+</svg>

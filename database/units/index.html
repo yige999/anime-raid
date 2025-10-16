@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Raid 角色数据库 | 完整角色资料</title>
-    <meta name="description" content="Anime Raid完整角色数据库，包含所有角色的属性、技能、装备、培养攻略等详细信息。">
+    <title>Anime Raid Character Database | All Characters & Stats 2025</title>
+    <meta name="description" content="Complete Anime Raid character database with stats, skills, equipment, tier lists, and detailed guides for all 150+ characters.">
 
-    <meta name="keywords" content="anime raid characters,角色数据库,角色属性,技能介绍,装备推荐">
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="anime raid characters, database, stats, skills, tier list, character guides, builds">
     <meta name="author" content="Anime Raid Wiki">
     <link rel="canonical" href="https://animeraid.wiki/database/units/">
 
+    <!-- Open Graph -->
+    <meta property="og:title" content="Anime Raid Character Database | All Characters & Stats 2025">
+    <meta property="og:description" content="Complete character database with stats, skills, equipment, and tier rankings">
+    <meta property="og:type" content="website">
+    <meta property="og:url" href="https://animeraid.wiki/database/units/">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../../css/main.css">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon.ico">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "headline": "Anime Raid Character Database",
+        "description": "Complete database of all Anime Raid characters with stats and guides",
+        "url": "https://animeraid.wiki/database/units/",
+        "mainEntity": {
+            "@type": "ItemList",
+            "name": "Anime Raid Characters",
+            "description": "Comprehensive list of all playable characters"
+        }
+    }
+    </script>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -26,256 +54,505 @@
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="../../guides/" class="text-gray-700 hover:text-red-600 transition-colors">攻略指南</a>
-                    <a href="../../codes/" class="text-gray-700 hover:text-red-600 transition-colors">兑换码</a>
-                    <a href="../../tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">角色排名</a>
-                    <a href="./" class="text-red-600 font-semibold">数据库</a>
-                    <a href="../../tools/" class="text-gray-700 hover:text-red-600 transition-colors">工具</a>
+                    <a href="../../guides/" class="text-gray-700 hover:text-red-600 transition-colors">Guides</a>
+                    <a href="../../codes/" class="text-gray-700 hover:text-red-600 transition-colors">Codes</a>
+                    <a href="../../tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">Tier List</a>
+                    <a href="./" class="text-red-600 font-semibold">Database</a>
+                    <a href="../../tools/" class="text-gray-700 hover:text-red-600 transition-colors">Tools</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">角色数据库</h1>
-            <p class="text-xl mb-8">浏览所有角色的详细信息，包括属性、技能、装备推荐和培养攻略</p>
-        </div>
-    </section>
-
-    <!-- Search and Filter -->
-    <section class="bg-white border-b py-6">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row gap-4 items-center">
-                <div class="search-box flex-1">
-                    <input type="text" placeholder="搜索角色名称..." class="search-input">
-                    <span class="search-icon">🔍</span>
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Character Database</h1>
+            <p class="text-xl mb-8">Complete stats, skills, builds and guides for all 150+ characters</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <div class="bg-white text-gray-900 px-6 py-3 rounded-lg font-bold inline-block">
+                    📊 150+ Characters
                 </div>
-                <div class="flex gap-2">
-                    <button class="filter-btn bg-red-600 text-white px-4 py-2 rounded-lg">全部</button>
-                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">S级</button>
-                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">A级</button>
-                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">B级</button>
+                <div class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-bold inline-block">
+                    ⭐ Real-time Stats
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Character Grid -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 character-cards">
-            <!-- S Tier Characters -->
-            <div class="character-card" data-type="attacker" data-rarity="S">
-                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-fire">火</div>
-                        <h3 class="font-bold text-lg">烈焰战士</h3>
-                        <div class="text-sm text-gray-600 mt-1">攻击型 • S级</div>
-                    </div>
+    <!-- Search and Filter Section -->
+    <section class="bg-white border-b sticky top-16 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="grid md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div class="md:col-span-2">
+                    <input type="text" id="character-search" placeholder="Search characters by name, role, or element..."
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">95</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">70</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">60</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
+
+                <!-- Role Filter -->
+                <div>
+                    <select id="role-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <option value="">All Roles</option>
+                        <option value="DPS">DPS</option>
+                        <option value="Tank">Tank</option>
+                        <option value="Healer">Healer</option>
+                        <option value="Support">Support</option>
+                    </select>
+                </div>
+
+                <!-- Element Filter -->
+                <div>
+                    <select id="element-filter" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        <option value="">All Elements</option>
+                        <option value="Fire">Fire</option>
+                        <option value="Water">Water</option>
+                        <option value="Earth">Earth</option>
+                        <option value="Wind">Wind</option>
+                        <option value="Light">Light</option>
+                        <option value="Dark">Dark</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="character-card" data-type="controller" data-rarity="S">
-                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-water">水</div>
-                        <h3 class="font-bold text-lg">寒冰法师</h3>
-                        <div class="text-sm text-gray-600 mt-1">控制型 • S级</div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">85</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">60</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">90</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
-                </div>
+            <!-- Tier Filter -->
+            <div class="flex flex-wrap gap-2 mt-4">
+                <button onclick="filterByTier('')" class="tier-filter-btn px-3 py-1 rounded-full text-sm font-medium bg-gray-600 text-white">
+                    All Tiers
+                </button>
+                <button onclick="filterByTier('S')" class="tier-filter-btn px-3 py-1 rounded-full text-sm font-medium bg-yellow-500 text-white">
+                    S-Tier
+                </button>
+                <button onclick="filterByTier('A')" class="tier-filter-btn px-3 py-1 rounded-full text-sm font-medium bg-purple-500 text-white">
+                    A-Tier
+                </button>
+                <button onclick="filterByTier('B')" class="tier-filter-btn px-3 py-1 rounded-full text-sm font-medium bg-blue-500 text-white">
+                    B-Tier
+                </button>
+                <button onclick="filterByTier('C')" class="tier-filter-btn px-3 py-1 rounded-full text-sm font-medium bg-gray-500 text-white">
+                    C-Tier
+                </button>
             </div>
+        </div>
+    </section>
 
-            <div class="character-card" data-type="healer" data-rarity="S">
-                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-light">光</div>
-                        <h3 class="font-bold text-lg">神圣牧师</h3>
-                        <div class="text-sm text-gray-600 mt-1">辅助型 • S级</div>
-                    </div>
+    <!-- Stats Overview -->
+    <section class="py-8 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="text-2xl font-bold text-yellow-600">15</div>
+                    <div class="text-gray-600">S-Tier Characters</div>
                 </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">50</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">75</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">98</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="text-2xl font-bold text-purple-600">28</div>
+                    <div class="text-gray-600">A-Tier Characters</div>
                 </div>
-            </div>
-
-            <div class="character-card" data-type="attacker" data-rarity="S">
-                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-dark">暗</div>
-                        <h3 class="font-bold text-lg">暗影刺客</h3>
-                        <div class="text-sm text-gray-600 mt-1">攻击型 • S级</div>
-                    </div>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="text-2xl font-bold text-blue-600">45</div>
+                    <div class="text-gray-600">B-Tier Characters</div>
                 </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">98</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">55</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">65</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
-                </div>
-            </div>
-
-            <!-- A Tier Characters -->
-            <div class="character-card" data-type="tank" data-rarity="A">
-                <div class="bg-gradient-to-r from-purple-100 to-purple-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-thunder">雷</div>
-                        <h3 class="font-bold text-lg">雷电骑士</h3>
-                        <div class="text-sm text-gray-600 mt-1">防御型 • A级</div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">75</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">90</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">70</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
-                </div>
-            </div>
-
-            <div class="character-card" data-type="attacker" data-rarity="A">
-                <div class="bg-gradient-to-r from-purple-100 to-purple-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-blood">血</div>
-                        <h3 class="font-bold text-lg">血族伯爵</h3>
-                        <div class="text-sm text-gray-600 mt-1">攻击型 • A级</div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">88</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">65</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">75</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
-                </div>
-            </div>
-
-            <!-- B Tier Characters -->
-            <div class="character-card" data-type="attacker" data-rarity="B">
-                <div class="bg-gradient-to-r from-blue-100 to-blue-200 p-4">
-                    <div class="text-center">
-                        <div class="character-avatar element-wind">风</div>
-                        <h3 class="font-bold text-lg">风行者</h3>
-                        <div class="text-sm text-gray-600 mt-1">攻击型 • B级</div>
-                    </div>
-                </div>
-                <div class="p-4">
-                    <div class="character-stats">
-                        <span>⚔️ 攻击:</span>
-                        <span class="stat-value" style="color: #dc2626">70</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>🛡️ 防御:</span>
-                        <span class="stat-value" style="color: #2563eb">60</span>
-                    </div>
-                    <div class="character-stats">
-                        <span>💚 辅助:</span>
-                        <span class="stat-value" style="color: #059669">65</span>
-                    </div>
-                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
-                        查看详情
-                    </a>
+                <div class="bg-white rounded-lg shadow p-4">
+                    <div class="text-2xl font-bold text-gray-600">62</div>
+                    <div class="text-gray-600">C-Tier Characters</div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Load More -->
-        <div class="text-center mt-12">
-            <button class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
-                加载更多角色 →
-            </button>
-        </div>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Featured Characters -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6">⭐ Featured Characters</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Shadow Assassin -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Shadow Assassin</h3>
+                            <span class="bg-yellow-400 text-gray-900 text-xs px-2 py-1 rounded-full font-bold">S</span>
+                        </div>
+                        <div class="text-sm text-gray-300">DPS • Dark</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                            <div>
+                                <div class="text-lg font-bold text-red-600">98</div>
+                                <div class="text-xs text-gray-600">ATK</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-green-600">65</div>
+                                <div class="text-xs text-gray-600">DEF</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-blue-600">85</div>
+                                <div class="text-xs text-gray-600">SPD</div>
+                            </div>
+                        </div>
+                        <a href="shadow-assassin.html" class="block w-full bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Holy Priest -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Holy Priest</h3>
+                            <span class="bg-yellow-400 text-gray-900 text-xs px-2 py-1 rounded-full font-bold">S</span>
+                        </div>
+                        <div class="text-sm text-gray-300">Healer • Light</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                            <div>
+                                <div class="text-lg font-bold text-red-600">45</div>
+                                <div class="text-xs text-gray-600">ATK</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-green-600">72</div>
+                                <div class="text-xs text-gray-600">DEF</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-blue-600">68</div>
+                                <div class="text-xs text-gray-600">SPD</div>
+                            </div>
+                        </div>
+                        <a href="holy-priest.html" class="block w-full bg-indigo-600 text-white text-center py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                            View Details →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Fire Warrior -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-r from-red-500 to-orange-500 text-white p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Fire Warrior</h3>
+                            <span class="bg-purple-400 text-white text-xs px-2 py-1 rounded-full font-bold">A</span>
+                        </div>
+                        <div class="text-sm text-gray-300">DPS • Fire</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                            <div>
+                                <div class="text-lg font-bold text-red-600">89</div>
+                                <div class="text-xs text-gray-600">ATK</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-green-600">78</div>
+                                <div class="text-xs text-gray-600">DEF</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-blue-600">62</div>
+                                <div class="text-xs text-gray-600">SPD</div>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-gray-400 text-white text-center py-2 rounded-lg">
+                            Coming Soon
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ice Mage -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform">
+                    <div class="bg-gradient-to-r from-blue-400 to-cyan-400 text-white p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">Ice Mage</h3>
+                            <span class="bg-purple-400 text-white text-xs px-2 py-1 rounded-full font-bold">A</span>
+                        </div>
+                        <div class="text-sm text-gray-300">Control • Water</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                            <div>
+                                <div class="text-lg font-bold text-red-600">82</div>
+                                <div class="text-xs text-gray-600">ATK</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-green-600">58</div>
+                                <div class="text-xs text-gray-600">DEF</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-blue-600">71</div>
+                                <div class="text-xs text-gray-600">SPD</div>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-gray-400 text-white text-center py-2 rounded-lg">
+                            Coming Soon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Characters Grid -->
+        <section>
+            <h2 class="text-3xl font-bold mb-6">📋 All Characters</h2>
+
+            <div id="characters-grid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Characters will be dynamically loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-8">
+                <button id="load-more-btn" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                    Load More Characters
+                </button>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <p>&copy; 2025 Anime Raid Wiki. 本站内容仅作学习交流使用。</p>
-                <p class="text-gray-400 mt-2">角色数据基于当前版本，会随游戏更新而调整</p>
+                <p>&copy; 2025 Anime Raid Wiki. All content is for educational and entertainment purposes.</p>
+                <p class="text-gray-400 mt-2">Character stats and information are regularly updated</p>
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script src="../../js/main.js"></script>
+    <script src="../../js/cms.js"></script>
+    <script>
+        // Character Database JavaScript
+        const characters = [
+            {
+                id: 'shadow-assassin',
+                name: 'Shadow Assassin',
+                tier: 'S',
+                role: 'DPS',
+                element: 'Dark',
+                rating: 98,
+                stats: { atk: 98, def: 65, spd: 85, hp: 70 },
+                description: 'Master of stealth and critical strikes',
+                hasPage: true
+            },
+            {
+                id: 'holy-priest',
+                name: 'Holy Priest',
+                tier: 'S',
+                role: 'Healer',
+                element: 'Light',
+                rating: 96,
+                stats: { atk: 45, def: 72, spd: 68, hp: 85 },
+                description: 'Powerful healer with team protection',
+                hasPage: true
+            },
+            {
+                id: 'fire-warrior',
+                name: 'Fire Warrior',
+                tier: 'A',
+                role: 'DPS',
+                element: 'Fire',
+                rating: 87,
+                stats: { atk: 89, def: 78, spd: 62, hp: 82 },
+                description: 'Balanced fighter with fire abilities',
+                hasPage: false
+            },
+            {
+                id: 'ice-mage',
+                name: 'Ice Mage',
+                tier: 'A',
+                role: 'Control',
+                element: 'Water',
+                rating: 84,
+                stats: { atk: 82, def: 58, spd: 71, hp: 65 },
+                description: 'Crowd control specialist with ice magic',
+                hasPage: false
+            },
+            {
+                id: 'stone-guardian',
+                name: 'Stone Guardian',
+                tier: 'A',
+                role: 'Tank',
+                element: 'Earth',
+                rating: 85,
+                stats: { atk: 52, def: 95, spd: 45, hp: 92 },
+                description: 'Ultimate tank with massive defense',
+                hasPage: false
+            },
+            {
+                id: 'wind-ranger',
+                name: 'Wind Ranger',
+                tier: 'B',
+                role: 'Support',
+                element: 'Wind',
+                rating: 76,
+                stats: { atk: 71, def: 62, spd: 88, hp: 68 },
+                description: 'Ranged support with speed buffs',
+                hasPage: false
+            },
+            {
+                id: 'lightning-sorcerer',
+                name: 'Lightning Sorcerer',
+                tier: 'A',
+                role: 'DPS',
+                element: 'Wind',
+                rating: 82,
+                stats: { atk: 86, def: 55, spd: 78, hp: 60 },
+                description: 'Area damage specialist with lightning',
+                hasPage: false
+            },
+            {
+                id: 'nature-druid',
+                name: 'Nature Druid',
+                tier: 'B',
+                role: 'Support',
+                element: 'Earth',
+                rating: 74,
+                stats: { atk: 58, def: 68, spd: 65, hp: 75 },
+                description: 'Healing and nature-based support',
+                hasPage: false
+            }
+        ];
+
+        let filteredCharacters = [...characters];
+        let displayedCount = 8;
+
+        function initializeDatabase() {
+            renderCharacters();
+            setupEventListeners();
+        }
+
+        function renderCharacters() {
+            const grid = document.getElementById('characters-grid');
+            const charactersToShow = filteredCharacters.slice(0, displayedCount);
+
+            grid.innerHTML = charactersToShow.map(character => createCharacterCard(character)).join('');
+
+            // Update load more button
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            if (displayedCount >= filteredCharacters.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-block';
+            }
+        }
+
+        function createCharacterCard(character) {
+            const tierColors = {
+                'S': 'from-yellow-400 to-yellow-600',
+                'A': 'from-purple-400 to-purple-600',
+                'B': 'from-blue-400 to-blue-600',
+                'C': 'from-gray-400 to-gray-600'
+            };
+
+            const elementColors = {
+                'Fire': 'from-red-500 to-orange-500',
+                'Water': 'from-blue-400 to-cyan-400',
+                'Earth': 'from-green-500 to-green-700',
+                'Wind': 'from-gray-400 to-gray-600',
+                'Light': 'from-yellow-300 to-yellow-500',
+                'Dark': 'from-gray-700 to-gray-900'
+            };
+
+            return `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform character-card"
+                     data-tier="${character.tier}" data-role="${character.role}" data-element="${character.element}">
+                    <div class="bg-gradient-to-r ${elementColors[character.element]} text-white p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-lg font-bold">${character.name}</h3>
+                            <span class="bg-yellow-400 text-gray-900 text-xs px-2 py-1 rounded-full font-bold">${character.tier}</span>
+                        </div>
+                        <div class="text-sm text-gray-300">${character.role} • ${character.element}</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-sm text-gray-600 mb-3">${character.description}</div>
+                        <div class="grid grid-cols-4 gap-1 text-center mb-3">
+                            <div>
+                                <div class="text-lg font-bold text-red-600">${character.stats.atk}</div>
+                                <div class="text-xs text-gray-600">ATK</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-green-600">${character.stats.def}</div>
+                                <div class="text-xs text-gray-600">DEF</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-blue-600">${character.stats.spd}</div>
+                                <div class="text-xs text-gray-600">SPD</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold text-purple-600">${character.stats.hp}</div>
+                                <div class="text-xs text-gray-600">HP</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-indigo-600 mb-1">${character.rating}/100</div>
+                            <a href="${character.hasPage ? character.id + '.html' : '#'}"
+                               class="${character.hasPage ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-gray-400 cursor-not-allowed'} text-white px-4 py-2 rounded-lg inline-block transition-colors">
+                                ${character.hasPage ? 'View Details →' : 'Coming Soon'}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupEventListeners() {
+            // Search functionality
+            document.getElementById('character-search').addEventListener('input', (e) => {
+                filterCharacters();
+            });
+
+            // Filter dropdowns
+            document.getElementById('role-filter').addEventListener('change', filterCharacters);
+            document.getElementById('element-filter').addEventListener('change', filterCharacters);
+
+            // Load more button
+            document.getElementById('load-more-btn').addEventListener('click', () => {
+                displayedCount += 8;
+                renderCharacters();
+            });
+        }
+
+        function filterCharacters() {
+            const searchTerm = document.getElementById('character-search').value.toLowerCase();
+            const roleFilter = document.getElementById('role-filter').value;
+            const elementFilter = document.getElementById('element-filter').value;
+
+            filteredCharacters = characters.filter(character => {
+                const matchesSearch = !searchTerm ||
+                    character.name.toLowerCase().includes(searchTerm) ||
+                    character.role.toLowerCase().includes(searchTerm) ||
+                    character.element.toLowerCase().includes(searchTerm) ||
+                    character.description.toLowerCase().includes(searchTerm);
+
+                const matchesRole = !roleFilter || character.role === roleFilter;
+                const matchesElement = !elementFilter || character.element === elementFilter;
+
+                return matchesSearch && matchesRole && matchesElement;
+            });
+
+            displayedCount = 8;
+            renderCharacters();
+        }
+
+        function filterByTier(tier) {
+            // Update button styles
+            document.querySelectorAll('.tier-filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-offset-2', 'ring-indigo-500');
+            });
+            event.target.classList.add('ring-2', 'ring-offset-2', 'ring-indigo-500');
+
+            // Filter characters
+            if (tier) {
+                filteredCharacters = characters.filter(character => character.tier === tier);
+            } else {
+                filteredCharacters = [...characters];
+            }
+
+            displayedCount = 8;
+            renderCharacters();
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeDatabase);
+    </script>
 </body>
 </html>
