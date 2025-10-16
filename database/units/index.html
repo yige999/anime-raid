@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Raid 角色数据库 | 完整角色资料</title>
+    <meta name="description" content="Anime Raid完整角色数据库，包含所有角色的属性、技能、装备、培养攻略等详细信息。">
+
+    <meta name="keywords" content="anime raid characters,角色数据库,角色属性,技能介绍,装备推荐">
+    <meta name="author" content="Anime Raid Wiki">
+    <link rel="canonical" href="https://animeraid.wiki/database/units/">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon.ico">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../../" class="flex items-center">
+                        <img src="../../assets/images/logo.png" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
+                        <span class="text-xl font-bold text-gray-900">Anime Raid Wiki</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../guides/" class="text-gray-700 hover:text-red-600 transition-colors">攻略指南</a>
+                    <a href="../../codes/" class="text-gray-700 hover:text-red-600 transition-colors">兑换码</a>
+                    <a href="../../tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">角色排名</a>
+                    <a href="./" class="text-red-600 font-semibold">数据库</a>
+                    <a href="../../tools/" class="text-gray-700 hover:text-red-600 transition-colors">工具</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">角色数据库</h1>
+            <p class="text-xl mb-8">浏览所有角色的详细信息，包括属性、技能、装备推荐和培养攻略</p>
+        </div>
+    </section>
+
+    <!-- Search and Filter -->
+    <section class="bg-white border-b py-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="search-box flex-1">
+                    <input type="text" placeholder="搜索角色名称..." class="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="filter-btn bg-red-600 text-white px-4 py-2 rounded-lg">全部</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">S级</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">A级</button>
+                    <button class="filter-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg">B级</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Character Grid -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 character-cards">
+            <!-- S Tier Characters -->
+            <div class="character-card" data-type="attacker" data-rarity="S">
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-fire">火</div>
+                        <h3 class="font-bold text-lg">烈焰战士</h3>
+                        <div class="text-sm text-gray-600 mt-1">攻击型 • S级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">95</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">70</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">60</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <div class="character-card" data-type="controller" data-rarity="S">
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-water">水</div>
+                        <h3 class="font-bold text-lg">寒冰法师</h3>
+                        <div class="text-sm text-gray-600 mt-1">控制型 • S级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">85</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">60</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">90</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <div class="character-card" data-type="healer" data-rarity="S">
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-light">光</div>
+                        <h3 class="font-bold text-lg">神圣牧师</h3>
+                        <div class="text-sm text-gray-600 mt-1">辅助型 • S级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">50</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">75</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">98</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <div class="character-card" data-type="attacker" data-rarity="S">
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-dark">暗</div>
+                        <h3 class="font-bold text-lg">暗影刺客</h3>
+                        <div class="text-sm text-gray-600 mt-1">攻击型 • S级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">98</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">55</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">65</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- A Tier Characters -->
+            <div class="character-card" data-type="tank" data-rarity="A">
+                <div class="bg-gradient-to-r from-purple-100 to-purple-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-thunder">雷</div>
+                        <h3 class="font-bold text-lg">雷电骑士</h3>
+                        <div class="text-sm text-gray-600 mt-1">防御型 • A级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">75</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">90</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">70</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <div class="character-card" data-type="attacker" data-rarity="A">
+                <div class="bg-gradient-to-r from-purple-100 to-purple-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-blood">血</div>
+                        <h3 class="font-bold text-lg">血族伯爵</h3>
+                        <div class="text-sm text-gray-600 mt-1">攻击型 • A级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">88</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">65</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">75</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+
+            <!-- B Tier Characters -->
+            <div class="character-card" data-type="attacker" data-rarity="B">
+                <div class="bg-gradient-to-r from-blue-100 to-blue-200 p-4">
+                    <div class="text-center">
+                        <div class="character-avatar element-wind">风</div>
+                        <h3 class="font-bold text-lg">风行者</h3>
+                        <div class="text-sm text-gray-600 mt-1">攻击型 • B级</div>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="character-stats">
+                        <span>⚔️ 攻击:</span>
+                        <span class="stat-value" style="color: #dc2626">70</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>🛡️ 防御:</span>
+                        <span class="stat-value" style="color: #2563eb">60</span>
+                    </div>
+                    <div class="character-stats">
+                        <span>💚 辅助:</span>
+                        <span class="stat-value" style="color: #059669">65</span>
+                    </div>
+                    <a href="#" class="block mt-4 text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        查看详情
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More -->
+        <div class="text-center mt-12">
+            <button class="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
+                加载更多角色 →
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p>&copy; 2025 Anime Raid Wiki. 本站内容仅作学习交流使用。</p>
+                <p class="text-gray-400 mt-2">角色数据基于当前版本，会随游戏更新而调整</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

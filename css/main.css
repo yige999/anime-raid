@@ -1,0 +1,499 @@
+/* Anime Raid Wiki - Custom CSS */
+
+/* ===== 基础样式 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    line-height: 1.6;
+    color: #1f2937;
+}
+
+/* ===== 导航样式 ===== */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #dc2626, #f59e0b);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ===== 英雄区域动画 ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-subtitle {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero-buttons {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* ===== 卡片样式 ===== */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== 兑换码样式 ===== */
+.code-badge {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.code-badge:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.code-badge.expired {
+    border-left-color: #ef4444;
+    opacity: 0.7;
+}
+
+.code-badge.expiring {
+    border-left-color: #f59e0b;
+}
+
+.code-status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-expiring {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-expired {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* ===== Tier List 样式 ===== */
+.tier-header {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+}
+
+.tier-s {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+}
+
+.tier-a {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    color: white;
+}
+
+.tier-b {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: white;
+}
+
+.tier-c {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: white;
+}
+
+.character-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.character-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--tier-color), transparent);
+}
+
+.character-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+.character-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.character-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: var(--stat-color);
+}
+
+/* ===== 元素颜色 ===== */
+.element-fire { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.element-water { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.element-nature { background: linear-gradient(135deg, #10b981, #059669); }
+.element-thunder { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.element-dark { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.element-light { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.element-wind { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+.element-earth { background: linear-gradient(135deg, #78716c, #57534e); }
+
+/* ===== 按钮样式 ===== */
+.btn-primary {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(220, 38, 38, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #374151;
+    border: 2px solid #e5e7eb;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    border-color: #dc2626;
+    color: #dc2626;
+    transform: translateY(-2px);
+}
+
+/* ===== 筛选按钮 ===== */
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: white;
+    transform: scale(1.05);
+}
+
+.filter-btn:not(.active):hover {
+    background: #e5e7eb;
+    transform: translateY(-2px);
+}
+
+/* ===== 进度条 ===== */
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #059669);
+    border-radius: 4px;
+    position: relative;
+    animation: progressPulse 2s ease-in-out infinite;
+}
+
+@keyframes progressPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* ===== 工具提示 ===== */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 50;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* ===== 搜索框 ===== */
+.search-box {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+}
+
+/* ===== 标签样式 ===== */
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #f3f4f6;
+    color: #4b5563;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+.tag-hot {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.tag-new {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.tag-featured {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+/* ===== 加载动画 ===== */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #dc2626;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.125rem;
+    }
+
+    .character-card {
+        margin-bottom: 1rem;
+    }
+
+    .tier-header {
+        font-size: 1.125rem;
+        padding: 10px 20px;
+    }
+
+    .search-box {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .card {
+        margin: 0.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ===== 打印样式 ===== */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #e5e7eb;
+    }
+}
+
+/* ===== 可访问性 ===== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 焦点样式 */
+.focus-visible:focus {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+}
+
+/* 减少动画 (用户偏好) */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

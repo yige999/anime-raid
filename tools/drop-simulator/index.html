@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Raid Drop Rate Simulator | 掉率模拟器</title>
+    <meta name="description" content="Anime Raid掉落概率模拟器，模拟Boss掉落、关卡概率、装备获取。可视化掉率统计，帮助制定最优刷图策略。">
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="anime raid drop rate simulator,掉率模拟器,掉落概率,boss掉落,装备获取">
+    <meta name="author" content="Anime Raid Wiki">
+    <link rel="canonical" href="https://animeraid.wiki/tools/drop-simulator/">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon.ico">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../../" class="flex items-center">
+                        <img src="../../assets/images/logo.png" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
+                        <span class="text-xl font-bold text-gray-900">Anime Raid Wiki</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../guides/" class="text-gray-700 hover:text-red-600 transition-colors">攻略指南</a>
+                    <a href="../../codes/" class="text-gray-700 hover:text-red-600 transition-colors">兑换码</a>
+                    <a href="../../tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">角色排名</a>
+                    <a href="../../database/units/" class="text-gray-700 hover:text-red-600 transition-colors">数据库</a>
+                    <a href="../" class="text-red-600 font-semibold">工具</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Drop Rate Simulator</h1>
+            <p class="text-xl mb-8">掉率模拟器 - 模拟Boss掉落概率，优化你的刷图策略</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="startSimulation()" class="bg-white text-purple-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                    🎰 开始模拟
+                </button>
+                <button onclick="resetSimulation()" class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                    🔄 重置结果
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulator Interface -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- Control Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-xl font-bold mb-6">⚙️ 模拟设置</h2>
+
+                    <!-- Boss Selection -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">选择Boss</label>
+                        <select id="boss-select" class="w-full p-3 border border-gray-300 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200">
+                            <option value="flame-dragon">烈焰龙王</option>
+                            <option value="ice-queen">冰雪女王</option>
+                            <option value="shadow-lord">暗影领主</option>
+                            <option value="thunder-giant">雷鸣巨人</option>
+                            <option value="ancient-tree">远古树精</option>
+                        </select>
+                    </div>
+
+                    <!-- Difficulty -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">难度等级</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setDifficulty('normal')" class="difficulty-btn active bg-green-100 text-green-700 p-2 rounded text-sm font-semibold">普通</button>
+                            <button onclick="setDifficulty('hard')" class="difficulty-btn bg-gray-100 text-gray-700 p-2 rounded text-sm font-semibold">困难</button>
+                            <button onclick="setDifficulty('extreme')" class="difficulty-btn bg-gray-100 text-gray-700 p-2 rounded text-sm font-semibold">极限</button>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Count -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            模拟次数: <span id="sim-count-value" class="text-purple-600">100</span>
+                        </label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setSimCount(10)" class="bg-gray-100 hover:bg-purple-100 p-2 rounded text-sm font-semibold transition-colors">10次</button>
+                            <button onclick="setSimCount(100)" class="bg-purple-100 text-purple-700 p-2 rounded text-sm font-semibold">100次</button>
+                            <button onclick="setSimCount(1000)" class="bg-gray-100 hover:bg-purple-100 p-2 rounded text-sm font-semibold transition-colors">1000次</button>
+                        </div>
+                        <input type="range" id="sim-count-slider" min="10" max="1000" value="100" step="10"
+                               class="w-full mt-2 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <!-- Drop Rate Display -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold mb-3">预期掉落率</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">传说装备</span>
+                                <span class="text-sm font-bold text-purple-600">2.5%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">史诗装备</span>
+                                <span class="text-sm font-bold text-blue-600">8.0%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">稀有装备</span>
+                                <span class="text-sm font-bold text-green-600">25.0%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">普通装备</span>
+                                <span class="text-sm font-bold text-gray-600">64.5%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bonus Settings -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold mb-3">加成设置</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="vip-bonus" class="mr-2">
+                                <span class="text-sm">VIP掉落加成 (+10%)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="event-bonus" class="mr-2">
+                                <span class="text-sm">活动掉落加成 (+20%)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="lucky-tome" class="mr-2">
+                                <span class="text-sm">幸运加成 (+15%)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onclick="startSimulation()"
+                            class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors">
+                        🎰 开始模拟
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="lg:col-span-2">
+                <!-- Simulation Results -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-6">📊 模拟结果</h2>
+
+                    <div id="simulation-results" class="hidden">
+                        <!-- Summary Stats -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-purple-600" id="total-drops">0</div>
+                                <div class="text-sm text-gray-600">总掉落</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-orange-600" id="legendary-count">0</div>
+                                <div class="text-sm text-gray-600">传说装备</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-blue-600" id="epic-count">0</div>
+                                <div class="text-sm text-gray-600">史诗装备</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-green-600" id="rare-count">0</div>
+                                <div class="text-sm text-gray-600">稀有装备</div>
+                            </div>
+                        </div>
+
+                        <!-- Drop History -->
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4">📜 掉落历史</h3>
+                            <div id="drop-history" class="max-h-64 overflow-y-auto bg-gray-50 rounded-lg p-4">
+                                <!-- Drop history items will be added here -->
+                            </div>
+                        </div>
+
+                        <!-- Chart -->
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4">📈 掉落分布图</h3>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <canvas id="drop-chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder when no simulation -->
+                    <div id="no-simulation" class="text-center py-12 text-gray-500">
+                        <div class="text-6xl mb-4">🎰</div>
+                        <p class="text-lg font-semibold">还没有模拟数据</p>
+                        <p class="text-sm mt-2">点击"开始模拟"按钮来开始掉落模拟</p>
+                    </div>
+                </div>
+
+                <!-- Statistical Analysis -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-6">📈 统计分析</h2>
+
+                    <div id="statistical-analysis" class="hidden">
+                        <!-- Actual vs Expected -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold mb-4">实际 vs 预期掉落率</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>传说装备</span>
+                                        <span>实际: <span id="actual-legendary">0%</span> | 预期: 2.5%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-purple-500 h-2 rounded-full" id="legendary-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>史诗装备</span>
+                                        <span>实际: <span id="actual-epic">0%</span> | 预期: 8.0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" id="epic-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm mb-1">
+                                        <span>稀有装备</span>
+                                        <span>实际: <span id="actual-rare">0%</span> | 预期: 25.0%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" id="rare-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lucky Streaks -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold mb-4">🍀 幸运统计</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-yellow-50 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-yellow-600" id="lucky-streak">0</div>
+                                    <div class="text-sm text-gray-600">最长连续传说</div>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-red-600" id="unlucky-streak">0</div>
+                                    <div class="text-sm text-gray-600">最长无传说</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cost Analysis -->
+                        <div>
+                            <h3 class="font-semibold mb-4">💰 成本分析</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <div class="text-lg font-bold text-purple-600" id="cost-per-legendary">0</div>
+                                    <div class="text-sm text-gray-600">每件传说体力消耗</div>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <div class="text-lg font-bold text-blue-600" id="total-cost">0</div>
+                                    <div class="text-sm text-gray-600">总体力消耗</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">💡 策略建议</h2>
+
+                    <div id="recommendations" class="space-y-4 hidden">
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="font-semibold text-green-700">✅ 最优策略</h3>
+                            <p class="text-sm text-gray-600">基于当前掉率分析，建议在活动期间使用幸运加成进行刷取，可以将传说掉率提升至3.4%。</p>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-semibold text-blue-700">📊 效率分析</h3>
+                            <p class="text-sm text-gray-600">平均需要<span id="avg-attempts">40</span>次挑战可以获得一件传说装备，建议准备充足的体力。</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-500 pl-4">
+                            <h3 class="font-semibold text-yellow-700">⚠️ 风险提醒</h3>
+                            <p class="text-sm text-gray-600">由于随机性存在，实际掉落可能偏离预期值，建议做好长期规划。</p>
+                        </div>
+                    </div>
+
+                    <div id="no-recommendations" class="text-center py-8 text-gray-500">
+                        <p>完成模拟后显示策略建议</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p>&copy; 2025 Anime Raid Wiki. 本站内容仅作学习交流使用。</p>
+                <p class="text-gray-400 mt-2">掉率模拟器基于概率计算，实际游戏掉落以官方为准</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/main.js"></script>
+    <script>
+        // Drop Rate Simulator JavaScript
+        let simulationData = {
+            boss: 'flame-dragon',
+            difficulty: 'normal',
+            count: 100,
+            bonuses: {
+                vip: false,
+                event: false,
+                lucky: false
+            },
+            results: {
+                legendary: 0,
+                epic: 0,
+                rare: 0,
+                common: 0,
+                history: []
+            }
+        };
+
+        let dropChart = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSimulator();
+        });
+
+        function initializeSimulator() {
+            // Simulation count slider
+            const slider = document.getElementById('sim-count-slider');
+            const valueDisplay = document.getElementById('sim-count-value');
+
+            slider.addEventListener('input', function() {
+                simulationData.count = parseInt(this.value);
+                valueDisplay.textContent = this.value;
+            });
+
+            // Boss selection
+            document.getElementById('boss-select').addEventListener('change', function() {
+                simulationData.boss = this.value;
+            });
+
+            // Bonuses
+            ['vip', 'event', 'lucky'].forEach(bonus => {
+                document.getElementById(`${bonus}-bonus`).addEventListener('change', function() {
+                    simulationData.bonuses[bonus] = this.checked;
+                });
+            });
+        }
+
+        function setDifficulty(level) {
+            simulationData.difficulty = level;
+
+            // Update button states
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-green-100', 'text-green-700', 'bg-yellow-100', 'text-yellow-700', 'bg-red-100', 'text-red-700');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+
+            const activeBtn = Array.from(document.querySelectorAll('.difficulty-btn')).find(btn =>
+                btn.textContent.toLowerCase().includes(level) ||
+                (level === 'normal' && btn.textContent === '普通') ||
+                (level === 'hard' && btn.textContent === '困难') ||
+                (level === 'extreme' && btn.textContent === '极限')
+            );
+
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+                if (level === 'normal') {
+                    activeBtn.classList.add('active', 'bg-green-100', 'text-green-700');
+                } else if (level === 'hard') {
+                    activeBtn.classList.add('active', 'bg-yellow-100', 'text-yellow-700');
+                } else {
+                    activeBtn.classList.add('active', 'bg-red-100', 'text-red-700');
+                }
+            }
+        }
+
+        function setSimCount(count) {
+            simulationData.count = count;
+            document.getElementById('sim-count-slider').value = count;
+            document.getElementById('sim-count-value').textContent = count;
+        }
+
+        function getDropRates() {
+            const baseRates = {
+                normal: { legendary: 0.025, epic: 0.08, rare: 0.25, common: 0.645 },
+                hard: { legendary: 0.035, epic: 0.10, rare: 0.30, common: 0.565 },
+                extreme: { legendary: 0.05, epic: 0.15, rare: 0.35, common: 0.45 }
+            };
+
+            let rates = { ...baseRates[simulationData.difficulty] };
+
+            // Apply bonuses
+            if (simulationData.bonuses.vip) {
+                Object.keys(rates).forEach(key => {
+                    if (key !== 'common') rates[key] *= 1.1;
+                });
+            }
+            if (simulationData.bonuses.event) {
+                Object.keys(rates).forEach(key => {
+                    if (key !== 'common') rates[key] *= 1.2;
+                });
+            }
+            if (simulationData.bonuses.lucky) {
+                Object.keys(rates).forEach(key => {
+                    if (key !== 'common') rates[key] *= 1.15;
+                });
+            }
+
+            // Normalize
+            const total = Object.values(rates).reduce((sum, rate) => sum + rate, 0);
+            Object.keys(rates).forEach(key => {
+                rates[key] /= total;
+            });
+
+            return rates;
+        }
+
+        function simulateDrop() {
+            const rates = getDropRates();
+            const random = Math.random();
+
+            let cumulative = 0;
+            for (const [rarity, rate] of Object.entries(rates)) {
+                cumulative += rate;
+                if (random <= cumulative) {
+                    return rarity;
+                }
+            }
+
+            return 'common';
+        }
+
+        function startSimulation() {
+            showToast('开始模拟掉落...', 'info');
+
+            // Reset results
+            simulationData.results = {
+                legendary: 0,
+                epic: 0,
+                rare: 0,
+                common: 0,
+                history: []
+            };
+
+            // Run simulation
+            for (let i = 0; i < simulationData.count; i++) {
+                const drop = simulateDrop();
+                simulationData.results[drop]++;
+                simulationData.results.history.push({
+                    attempt: i + 1,
+                    drop: drop,
+                    item: generateItemName(drop)
+                });
+            }
+
+            // Update display
+            updateResults();
+            updateChart();
+            updateStatistics();
+            updateRecommendations();
+
+            showToast('模拟完成！', 'success');
+        }
+
+        function generateItemName(rarity) {
+            const items = {
+                legendary: ['烈焰龙剑', '冰霜护甲', '暗影斗篷', '雷鸣战锤'],
+                epic: ['炽热长剑', '寒冰法杖', '暗影匕首', '雷霆战斧'],
+                rare: ['火焰短剑', '冰霜护符', '暗影腰带', '雷鸣护腕'],
+                common: ['铁剑', '布甲', '皮靴', '木盾']
+            };
+
+            const rarityItems = items[rarity];
+            return rarityItems[Math.floor(Math.random() * rarityItems.length)];
+        }
+
+        function updateResults() {
+            // Show results section
+            document.getElementById('simulation-results').classList.remove('hidden');
+            document.getElementById('no-simulation').classList.add('hidden');
+
+            // Update counters
+            document.getElementById('total-drops').textContent = simulationData.count;
+            document.getElementById('legendary-count').textContent = simulationData.results.legendary;
+            document.getElementById('epic-count').textContent = simulationData.results.epic;
+            document.getElementById('rare-count').textContent = simulationData.results.rare;
+
+            // Update drop history (show last 20 items)
+            const historyContainer = document.getElementById('drop-history');
+            const recentHistory = simulationData.results.history.slice(-20).reverse();
+
+            const historyHtml = recentHistory.map(item => {
+                const rarityColors = {
+                    legendary: 'text-purple-600 bg-purple-50',
+                    epic: 'text-blue-600 bg-blue-50',
+                    rare: 'text-green-600 bg-green-50',
+                    common: 'text-gray-600 bg-gray-50'
+                };
+
+                const rarityIcons = {
+                    legendary: '⭐',
+                    epic: '💎',
+                    rare: '🔷',
+                    common: '⚪'
+                };
+
+                return `
+                    <div class="flex justify-between items-center p-2 rounded ${rarityColors[item.drop]} mb-1">
+                        <span class="text-sm">#${item.attempt}</span>
+                        <span class="font-semibold">${rarityIcons[item.drop]} ${item.item}</span>
+                    </div>
+                `;
+            }).join('');
+
+            historyContainer.innerHTML = historyHtml;
+        }
+
+        function updateChart() {
+            const ctx = document.getElementById('drop-chart').getContext('2d');
+
+            if (dropChart) {
+                dropChart.destroy();
+            }
+
+            dropChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['传说', '史诗', '稀有', '普通'],
+                    datasets: [{
+                        label: '掉落数量',
+                        data: [
+                            simulationData.results.legendary,
+                            simulationData.results.epic,
+                            simulationData.results.rare,
+                            simulationData.results.common
+                        ],
+                        backgroundColor: [
+                            'rgba(147, 51, 234, 0.6)',
+                            'rgba(59, 130, 246, 0.6)',
+                            'rgba(34, 197, 94, 0.6)',
+                            'rgba(156, 163, 175, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(147, 51, 234, 1)',
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(156, 163, 175, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateStatistics() {
+            // Show statistics section
+            document.getElementById('statistical-analysis').classList.remove('hidden');
+
+            // Calculate actual rates
+            const total = simulationData.count;
+            const legendaryRate = (simulationData.results.legendary / total * 100).toFixed(1);
+            const epicRate = (simulationData.results.epic / total * 100).toFixed(1);
+            const rareRate = (simulationData.results.rare / total * 100).toFixed(1);
+
+            // Update actual rates
+            document.getElementById('actual-legendary').textContent = legendaryRate + '%';
+            document.getElementById('actual-epic').textContent = epicRate + '%';
+            document.getElementById('actual-rare').textContent = rareRate + '%';
+
+            // Update progress bars
+            document.getElementById('legendary-bar').style.width = legendaryRate + '%';
+            document.getElementById('epic-bar').style.width = epicRate + '%';
+            document.getElementById('rare-bar').style.width = rareRate + '%';
+
+            // Calculate lucky/unlucky streaks
+            const history = simulationData.results.history;
+            let luckyStreak = 0;
+            let unluckyStreak = 0;
+            let currentLucky = 0;
+            let currentUnlucky = 0;
+
+            history.forEach(item => {
+                if (item.drop === 'legendary') {
+                    currentLucky++;
+                    currentUnlucky = 0;
+                    luckyStreak = Math.max(luckyStreak, currentLucky);
+                } else {
+                    currentUnlucky++;
+                    currentLucky = 0;
+                    unluckyStreak = Math.max(unluckyStreak, currentUnlucky);
+                }
+            });
+
+            document.getElementById('lucky-streak').textContent = luckyStreak;
+            document.getElementById('unlucky-streak').textContent = unluckyStreak;
+
+            // Calculate cost analysis
+            const costPerRun = 20; // Assume 20 stamina per run
+            const totalCost = total * costPerRun;
+            const costPerLegendary = simulationData.results.legendary > 0 ?
+                Math.round(totalCost / simulationData.results.legendary) : 0;
+
+            document.getElementById('cost-per-legendary').textContent = costPerLegendary;
+            document.getElementById('total-cost').textContent = totalCost.toLocaleString();
+        }
+
+        function updateRecommendations() {
+            // Show recommendations
+            document.getElementById('recommendations').classList.remove('hidden');
+            document.getElementById('no-recommendations').classList.add('hidden');
+
+            // Calculate average attempts for legendary
+            const avgAttempts = simulationData.results.legendary > 0 ?
+                Math.round(simulationData.count / simulationData.results.legendary) : 0;
+
+            if (avgAttempts > 0) {
+                document.getElementById('avg-attempts').textContent = avgAttempts;
+            } else {
+                document.getElementById('avg-attempts').textContent = 'N/A (未掉落)';
+            }
+        }
+
+        function resetSimulation() {
+            if (confirm('确定要重置所有模拟结果吗？')) {
+                // Hide results
+                document.getElementById('simulation-results').classList.add('hidden');
+                document.getElementById('no-simulation').classList.remove('hidden');
+                document.getElementById('statistical-analysis').classList.add('hidden');
+                document.getElementById('recommendations').classList.add('hidden');
+                document.getElementById('no-recommendations').classList.remove('hidden');
+
+                // Reset data
+                simulationData.results = {
+                    legendary: 0,
+                    epic: 0,
+                    rare: 0,
+                    common: 0,
+                    history: []
+                };
+
+                // Destroy chart
+                if (dropChart) {
+                    dropChart.destroy();
+                    dropChart = null;
+                }
+
+                showToast('模拟器已重置', 'success');
+            }
+        }
+    </script>
+</body>
+</html>

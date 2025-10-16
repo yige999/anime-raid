@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Raid Build Calculator | 角色配装计算器</title>
+    <meta name="description" content="Anime Raid角色配装计算器，自动计算最优Build方案。输入角色和装备信息，获取属性评分、伤害计算和最优推荐。">
+
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="anime raid build calculator,配装计算器,角色搭配,属性计算,伤害计算">
+    <meta name="author" content="Anime Raid Wiki">
+    <link rel="canonical" href="https://animeraid.wiki/tools/build-calculator/">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon.ico">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../../" class="flex items-center">
+                        <img src="../../assets/images/logo.png" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
+                        <span class="text-xl font-bold text-gray-900">Anime Raid Wiki</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../../guides/" class="text-gray-700 hover:text-red-600 transition-colors">攻略指南</a>
+                    <a href="../../codes/" class="text-gray-700 hover:text-red-600 transition-colors">兑换码</a>
+                    <a href="../../tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">角色排名</a>
+                    <a href="../../database/units/" class="text-gray-700 hover:text-red-600 transition-colors">数据库</a>
+                    <a href="../" class="text-red-600 font-semibold">工具</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Build Calculator</h1>
+            <p class="text-xl mb-8">角色配装计算器 - 输入角色与装备信息，自动计算最优Build方案</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="resetCalculator()" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                    🔄 重置计算器
+                </button>
+                <button onclick="shareBuild()" class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                    🔗 分享Build
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Interface -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- Input Panel -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
+                    <h2 class="text-xl font-bold mb-6">⚙️ 输入参数</h2>
+
+                    <!-- Character Selection -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">选择角色</label>
+                        <select id="character-select" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="">请选择角色...</option>
+                            <option value="flame-warrior">烈焰战士 (S级)</option>
+                            <option value="ice-mage">寒冰法师 (S级)</option>
+                            <option value="holy-priest">神圣牧师 (S级)</option>
+                            <option value="shadow-assassin">暗影刺客 (S级)</option>
+                            <option value="thunder-knight">雷电骑士 (A级)</option>
+                            <option value="blood-count">血族伯爵 (A级)</option>
+                        </select>
+                    </div>
+
+                    <!-- Level -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            角色等级: <span id="level-value" class="text-blue-600">80</span>
+                        </label>
+                        <input type="range" id="level-slider" min="1" max="100" value="80"
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+
+                    <!-- Weapon -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">武器选择</label>
+                        <select id="weapon-select" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="">请选择武器...</option>
+                            <option value="sword-fire">烈焰之剑 (火)</option>
+                            <option value="staff-ice">寒冰法杖 (水)</option>
+                            <option value="bow-wind">疾风之弓 (风)</option>
+                            <option value="dagger-dark">暗影匕首 (暗)</option>
+                        </select>
+                    </div>
+
+                    <!-- Armor -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">防具选择</label>
+                        <select id="armor-select" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="">请选择防具...</option>
+                            <option value="plate-legendary">传说板甲</option>
+                            <option value="robe-epic">史诗法袍</option>
+                            <option value="leather-rare">稀有皮甲</option>
+                        </select>
+                    </div>
+
+                    <!-- Accessory -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">饰品选择</label>
+                        <select id="accessory-select" class="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                            <option value="">请选择饰品...</option>
+                            <option value="ring-power">力量戒指</option>
+                            <option value="necklet-intellect">智力项链</option>
+                            <option value="earring-agility">敏捷耳环</option>
+                        </select>
+                    </div>
+
+                    <!-- Skill Points -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">技能点分配</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">攻击技能:</span>
+                                <input type="number" id="attack-skills" min="0" max="20" value="10"
+                                       class="w-16 p-1 border rounded text-center">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">防御技能:</span>
+                                <input type="number" id="defense-skills" min="0" max="20" value="5"
+                                       class="w-16 p-1 border rounded text-center">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">辅助技能:</span>
+                                <input type="number" id="support-skills" min="0" max="20" value="5"
+                                       class="w-16 p-1 border rounded text-center">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateBuild()"
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors">
+                        🧮 计算Build
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="lg:col-span-2">
+                <!-- Stats Overview -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-6">📊 属性总览</h2>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-red-600 counter" data-target="12500">0</div>
+                            <div class="text-sm text-gray-600">攻击力</div>
+                            <div class="text-xs text-green-600">+2,500</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 counter" data-target="8500">0</div>
+                            <div class="text-sm text-gray-600">防御力</div>
+                            <div class="text-xs text-green-600">+1,200</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600 counter" data-target="45000">0</div>
+                            <div class="text-sm text-gray-600">生命值</div>
+                            <div class="text-xs text-green-600">+8,000</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600 counter" data-target="85">0</div>
+                            <div class="text-sm text-gray-600">评分</div>
+                            <div class="text-xs text-yellow-600">S级</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Stats -->
+                    <div class="mt-8 pt-6 border-t">
+                        <h3 class="font-semibold mb-4">详细属性</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">暴击率</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                                        <div class="bg-red-500 h-2 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                    <span class="text-sm font-semibold">65%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">暴击伤害</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                                        <div class="bg-orange-500 h-2 rounded-full" style="width: 180%"></div>
+                                    </div>
+                                    <span class="text-sm font-semibold">180%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">攻击速度</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 45%"></div>
+                                    </div>
+                                    <span class="text-sm font-semibold">45%</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">元素精通</span>
+                                <div class="flex items-center">
+                                    <div class="w-32 bg-gray-200 rounded-full h-2 mr-3">
+                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                    <span class="text-sm font-semibold">480</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Damage Calculator -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-6">⚔️ 伤害计算</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold mb-3">基础伤害</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-red-600 mb-2">8,450</div>
+                                <div class="text-sm text-gray-600">普通攻击期望伤害</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-3">技能伤害</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-orange-600 mb-2">25,350</div>
+                                <div class="text-sm text-gray-600">大招技能期望伤害</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-3">暴击伤害</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-purple-600 mb-2">15,210</div>
+                                <div class="text-sm text-gray-600">暴击时平均伤害</div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-3">DPS输出</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <div class="text-2xl font-bold text-green-600 mb-2">3,250</div>
+                                <div class="text-sm text-gray-600">每秒期望伤害输出</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-xl font-bold mb-6">💡 优化建议</h2>
+
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="font-semibold text-green-700">✅ 优秀配置</h3>
+                            <p class="text-sm text-gray-600">当前配装已经很不错了，火属性武器搭配烈焰战士发挥最大威力。</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-500 pl-4">
+                            <h3 class="font-semibold text-yellow-700">⚠️ 改进建议</h3>
+                            <p class="text-sm text-gray-600">建议将防具升级到传说品质，可以额外获得15%的属性加成。</p>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-semibold text-blue-700">🎯 优化方向</h3>
+                            <p class="text-sm text-gray-600">考虑更换为力量戒指，可以提升约800点攻击力，整体DPS提升约5%。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternative Builds -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">🔄 其他Build方案</h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                            <h3 class="font-semibold mb-2">暴击流Build</h3>
+                            <div class="text-sm text-gray-600 mb-3">最大化暴击率和暴击伤害</div>
+                            <div class="text-xs text-gray-500">
+                                <div>• 暴击率: 85%</div>
+                                <div>• 暴击伤害: 220%</div>
+                                <div>• 评分: 88</div>
+                            </div>
+                        </div>
+                        <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+                            <h3 class="font-semibold mb-2">生存流Build</h3>
+                            <div class="text-sm text-gray-600 mb-3">提升生存能力和持续输出</div>
+                            <div class="text-xs text-gray-500">
+                                <div>• 生命值: 65,000</div>
+                                <div>• 防御力: 12,000</div>
+                                <div>• 评分: 82</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p>&copy; 2025 Anime Raid Wiki. 本站内容仅作学习交流使用。</p>
+                <p class="text-gray-400 mt-2">Build Calculator数据基于当前版本，实际效果请以游戏内为准</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../../js/main.js"></script>
+    <script>
+        // Calculator specific JavaScript
+        let currentBuild = {
+            character: '',
+            level: 80,
+            weapon: '',
+            armor: '',
+            accessory: '',
+            skills: {
+                attack: 10,
+                defense: 5,
+                support: 5
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCalculator();
+        });
+
+        function initializeCalculator() {
+            // Level slider
+            const levelSlider = document.getElementById('level-slider');
+            const levelValue = document.getElementById('level-value');
+
+            levelSlider.addEventListener('input', function() {
+                levelValue.textContent = this.value;
+                currentBuild.level = parseInt(this.value);
+            });
+
+            // Character selection
+            document.getElementById('character-select').addEventListener('change', function() {
+                currentBuild.character = this.value;
+                if (this.value) {
+                    loadCharacterPreset(this.value);
+                }
+            });
+
+            // Equipment selection
+            ['weapon', 'armor', 'accessory'].forEach(type => {
+                document.getElementById(`${type}-select`).addEventListener('change', function() {
+                    currentBuild[type] = this.value;
+                });
+            });
+
+            // Skill points
+            ['attack', 'defense', 'support'].forEach(skill => {
+                document.getElementById(`${skill}-skills`).addEventListener('input', function() {
+                    currentBuild.skills[skill] = parseInt(this.value) || 0;
+                });
+            });
+        }
+
+        function loadCharacterPreset(characterId) {
+            const presets = {
+                'flame-warrior': {
+                    weapon: 'sword-fire',
+                    armor: 'plate-legendary',
+                    accessory: 'ring-power',
+                    skills: { attack: 15, defense: 3, support: 2 }
+                },
+                'ice-mage': {
+                    weapon: 'staff-ice',
+                    armor: 'robe-epic',
+                    accessory: 'necklet-intellect',
+                    skills: { attack: 12, defense: 2, support: 6 }
+                },
+                'holy-priest': {
+                    weapon: 'staff-ice',
+                    armor: 'robe-epic',
+                    accessory: 'necklet-intellect',
+                    skills: { attack: 3, defense: 5, support: 12 }
+                }
+            };
+
+            const preset = presets[characterId];
+            if (preset) {
+                // Apply preset values
+                document.getElementById('weapon-select').value = preset.weapon;
+                document.getElementById('armor-select').value = preset.armor;
+                document.getElementById('accessory-select').value = preset.accessory;
+                document.getElementById('attack-skills').value = preset.skills.attack;
+                document.getElementById('defense-skills').value = preset.skills.defense;
+                document.getElementById('support-skills').value = preset.skills.support;
+
+                // Update current build
+                Object.assign(currentBuild, preset);
+            }
+        }
+
+        function calculateBuild() {
+            if (!currentBuild.character) {
+                showToast('请先选择角色！', 'warning');
+                return;
+            }
+
+            // Show loading
+            showToast('正在计算Build...', 'info');
+
+            // Simulate calculation
+            setTimeout(() => {
+                updateResults();
+                showToast('Build计算完成！', 'success');
+            }, 1000);
+        }
+
+        function updateResults() {
+            // Animate counters
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                let current = 0;
+                const increment = target / 50;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+
+                updateCounter();
+            });
+
+            // Update progress bars
+            const progressBars = document.querySelectorAll('.bg-gray-200 .bg-red-500, .bg-gray-200 .bg-orange-500, .bg-gray-200 .bg-blue-500, .bg-gray-200 .bg-purple-500');
+            progressBars.forEach(bar => {
+                bar.style.transition = 'width 1s ease-out';
+            });
+        }
+
+        function resetCalculator() {
+            if (confirm('确定要重置所有输入吗？')) {
+                document.getElementById('character-select').value = '';
+                document.getElementById('level-slider').value = 80;
+                document.getElementById('level-value').textContent = '80';
+                document.getElementById('weapon-select').value = '';
+                document.getElementById('armor-select').value = '';
+                document.getElementById('accessory-select').value = '';
+                document.getElementById('attack-skills').value = 10;
+                document.getElementById('defense-skills').value = 5;
+                document.getElementById('support-skills').value = 5;
+
+                currentBuild = {
+                    character: '',
+                    level: 80,
+                    weapon: '',
+                    armor: '',
+                    accessory: '',
+                    skills: {
+                        attack: 10,
+                        defense: 5,
+                        support: 5
+                    }
+                };
+
+                showToast('计算器已重置', 'success');
+            }
+        }
+
+        function shareBuild() {
+            const buildData = btoa(JSON.stringify(currentBuild));
+            const shareUrl = `${window.location.origin}${window.location.pathname}?build=${buildData}`;
+
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                showToast('Build链接已复制到剪贴板！', 'success');
+            }).catch(() => {
+                showToast('复制失败，请手动复制', 'error');
+            });
+        }
+
+        // Load build from URL if exists
+        function loadBuildFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const buildData = urlParams.get('build');
+
+            if (buildData) {
+                try {
+                    const build = JSON.parse(atob(buildData));
+                    // Apply loaded build to form
+                    document.getElementById('character-select').value = build.character || '';
+                    document.getElementById('level-slider').value = build.level || 80;
+                    document.getElementById('level-value').textContent = build.level || 80;
+                    document.getElementById('weapon-select').value = build.weapon || '';
+                    document.getElementById('armor-select').value = build.armor || '';
+                    document.getElementById('accessory-select').value = build.accessory || '';
+
+                    if (build.skills) {
+                        document.getElementById('attack-skills').value = build.skills.attack || 0;
+                        document.getElementById('defense-skills').value = build.skills.defense || 0;
+                        document.getElementById('support-skills').value = build.skills.support || 0;
+                    }
+
+                    Object.assign(currentBuild, build);
+                    calculateBuild();
+                } catch (e) {
+                    console.error('Failed to load build from URL:', e);
+                }
+            }
+        }
+
+        // Load build from URL on page load
+        loadBuildFromUrl();
+    </script>
+</body>
+</html>
