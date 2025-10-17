@@ -1,0 +1,169 @@
+<!-- External References Component -->
+<!-- This component can be included in any page to add authoritative external links -->
+<div class="external-references-section mt-12 p-6 bg-gray-50 rounded-lg">
+    <h3 class="text-lg font-semibold mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+        </svg>
+        Authoritative Sources
+    </h3>
+
+    <div class="grid md:grid-cols-2 gap-4 mb-6" id="external-links-container">
+        <!-- Links will be dynamically populated based on page content -->
+    </div>
+
+    <div class="text-sm text-gray-600 border-t pt-4">
+        <p class="mb-2">
+            <strong>Why we reference external sources:</strong> We link to authoritative sources to provide you with the most comprehensive and accurate information. These external resources offer additional insights and official updates about Anime Raid.
+        </p>
+        <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                ✓ Verified Information
+            </span>
+            <span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+                ✓ Official Sources
+            </span>
+            <span class="inline-flex items-center px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+                ✓ Community Driven
+            </span>
+            <span class="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded">
+                ✓ Real-time Updates
+            </span>
+        </div>
+    </div>
+</div>
+
+<script>
+// External References Manager
+class ExternalReferencesManager {
+    constructor() {
+        this.pageType = this.detectPageType();
+        this.keywords = this.extractKeywords();
+        this.references = [];
+    }
+
+    detectPageType() {
+        const path = window.location.pathname;
+
+        if (path.includes('/codes/')) return 'codes';
+        if (path.includes('/tier-list')) return 'tierlist';
+        if (path.includes('/guides/')) return 'guides';
+        if (path.includes('/database/')) return 'database';
+        if (path.includes('/tools/')) return 'tools';
+
+        return 'homepage';
+    }
+
+    extractKeywords() {
+        const keywords = [];
+        const pageTitle = document.title.toLowerCase();
+        const pageContent = document.body.textContent.toLowerCase();
+
+        // Extract keywords based on page type
+        switch(this.pageType) {
+            case 'codes':
+                keywords.push('codes', 'redeem', 'rewards', 'free', 'items');
+                break;
+            case 'tierlist':
+                keywords.push('tier list', 'rankings', 'best', 'meta', 'units');
+                break;
+            case 'guides':
+                keywords.push('guide', 'how to', 'tutorial', 'tips', 'strategy');
+                break;
+            case 'database':
+                keywords.push('characters', 'units', 'stats', 'database');
+                break;
+        }
+
+        // Extract keywords from title
+        if (pageTitle.includes('anime raid')) keywords.push('anime raid');
+        if (pageTitle.includes('roblox')) keywords.push('roblox');
+
+        return [...new Set(keywords)];
+    }
+
+    generateReferences() {
+        if (!window.seoLinkOptimizer) {
+            console.warn('SEO Link Optimizer not available');
+            return;
+        }
+
+        this.references = window.seoLinkOptimizer.generateAuthoritativeLinks(this.pageType, this.keywords);
+        this.renderReferences();
+    }
+
+    renderReferences() {
+        const container = document.getElementById('external-links-container');
+
+        if (!container || this.references.length === 0) {
+            container.innerHTML = '<p class="text-gray-500 text-sm">No external references available for this page.</p>';
+            return;
+        }
+
+        container.innerHTML = this.references.map(link => `
+            <div class="flex items-start space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors">
+                <div class="flex-shrink-0">
+                    <svg class="w-5 h-5 text-blue-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path>
+                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <a href="${link.url}"
+                       target="_blank"
+                       rel="${link.rel}"
+                       title="${link.title}"
+                       class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                        ${link.anchorText}
+                    </a>
+                    <div class="text-xs text-gray-500 mt-1">
+                        ${link.source} • ${this.getCategoryDescription(link.type)}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    getCategoryDescription(type) {
+        const descriptions = {
+            'official': 'Official Game Information',
+            'codes': 'Working Codes & Rewards',
+            'tierlist': 'Character Rankings',
+            'guide': 'Game Guides & Tips',
+            'news': 'Latest News & Updates',
+            'video': 'Video Content & Tutorials',
+            'stats': 'Game Statistics & Data',
+            'community': 'Community Resources'
+        };
+
+        return descriptions[type] || 'External Resource';
+    }
+
+    initialize() {
+        // Wait for SEO optimizer to be ready
+        const checkSEO = () => {
+            if (window.seoLinkOptimizer) {
+                this.generateReferences();
+            } else {
+                setTimeout(checkSEO, 500);
+            }
+        };
+
+        checkSEO();
+    }
+}
+
+// Initialize external references when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if the external references section exists
+    const referencesSection = document.querySelector('.external-references-section');
+    if (referencesSection) {
+        const referencesManager = new ExternalReferencesManager();
+        referencesManager.initialize();
+    }
+});
+
+// Make it available globally
+window.ExternalReferencesManager = ExternalReferencesManager;
+</script>

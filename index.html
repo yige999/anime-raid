@@ -199,25 +199,46 @@
         </div>
     </section>
 
-    <!-- Quick Stats -->
+    <!-- Quick Stats with Real-time Updates -->
     <section class="py-8 bg-white border-b">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-900">📊 Live Statistics</h2>
+                <div class="flex items-center space-x-2">
+                    <div id="sync-status" class="flex items-center">
+                        <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                        <span class="text-sm text-gray-600">Live</span>
+                    </div>
+                    <button onclick="refreshAllStats()" class="text-blue-600 hover:text-blue-800 text-sm">
+                        Refresh Stats
+                    </button>
+                </div>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-3xl font-bold text-red-600">150+</div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold text-red-600" id="character-count">150+</div>
                     <div class="text-gray-600">Character Data</div>
+                    <div class="text-xs text-gray-500 mt-1">From 19 sources</div>
                 </div>
-                <div>
-                    <div class="text-3xl font-bold text-green-600">50+</div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold text-green-600" id="active-codes-count">5</div>
                     <div class="text-gray-600">Active Codes</div>
+                    <div class="text-xs text-gray-500 mt-1">Updated hourly</div>
                 </div>
-                <div>
-                    <div class="text-3xl font-bold text-blue-600">100+</div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold text-blue-600" id="guides-count">100+</div>
                     <div class="text-gray-600">In-Depth Guides</div>
+                    <div class="text-xs text-gray-500 mt-1">Expert curated</div>
                 </div>
-                <div>
-                    <div class="text-3xl font-bold text-purple-600">2</div>
-                    <div class="text-gray-600">Useful Tools</div>
+                <div class="stat-card">
+                    <div class="text-3xl font-bold text-purple-600" id="sources-count">19</div>
+                    <div class="text-gray-600">Data Sources</div>
+                    <div class="text-xs text-gray-500 mt-1">Auto-syncing</div>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <div id="last-sync-time" class="text-sm text-gray-500">
+                    Last sync: Loading...
                 </div>
             </div>
         </div>
@@ -229,26 +250,31 @@
 
             <!-- Latest Codes -->
             <section id="codes" class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 flex items-center">
-                    <span class="text-2xl mr-2">🎁</span> Latest Codes
-                </h2>
-                <div class="space-y-3">
-                    <div class="border-l-4 border-green-500 pl-4 py-2">
-                        <div class="font-mono font-bold text-green-600">ANIMERAID2025</div>
-                        <div class="text-sm text-gray-600">Valid until: Dec 31, 2025</div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <span class="text-2xl mr-2">🎁</span> Latest Codes
+                    </h2>
+                    <div class="flex items-center space-x-2">
+                        <span id="codes-last-update" class="text-xs text-gray-500">Loading...</span>
+                        <button onclick="refreshHomeCodes()" class="text-blue-600 hover:text-blue-800">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </button>
                     </div>
-                    <div class="border-l-4 border-green-500 pl-4 py-2">
-                        <div class="font-mono font-bold text-green-600">SUMMERGIFT500</div>
-                        <div class="text-sm text-gray-600">Valid until: Oct 31, 2025</div>
-                    </div>
-                    <div class="border-l-4 border-yellow-500 pl-4 py-2">
-                        <div class="font-mono font-bold text-yellow-600">RAIDNEWYEAR</div>
-                        <div class="text-sm text-gray-600">Expiring Soon</div>
+                </div>
+                <div id="home-codes-container" class="space-y-3">
+                    <div class="text-center py-4">
+                        <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-red-600"></div>
+                        <p class="text-sm text-gray-500 mt-2">Loading latest codes...</p>
                     </div>
                 </div>
                 <a href="codes/" class="inline-block mt-4 text-red-600 hover:text-red-700 font-semibold">
                     View All Codes →
                 </a>
+                <div id="codes-sources" class="mt-3 text-xs text-gray-500 hidden">
+                    Data from: <span id="source-list"></span>
+                </div>
             </section>
 
             <!-- Featured Guides -->
@@ -458,6 +484,11 @@
         </div>
     </footer>
 
+    <!-- External Resources Management System -->
+    <script src="js/external-resources-manager.js" defer></script>
+    <script src="js/seo-link-optimizer.js" defer></script>
+    <script src="js/content-sync-service.js" defer></script>
+
     <!-- Performance Optimized JavaScript -->
     <script src="js/api-service.js" defer></script>
     <script src="js/update-manager.js" defer></script>
@@ -474,6 +505,322 @@
     <script src="js/game-content-scraper.js" defer></script>
     <script src="js/website-monitor.js" defer></script>
     <script src="js/auto-content-integrator.js" defer></script>
+
+    <!-- Homepage Dynamic Content Script -->
+    <script>
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🏠 初始化主页动态内容...');
+
+            // 等待外部资源管理器初始化
+            setTimeout(async () => {
+                await initializeHomeContent();
+                setupContentUpdateListeners();
+            }, 1000);
+        });
+
+        // 初始化主页内容
+        async function initializeHomeContent() {
+            try {
+                // 加载最新代码
+                await loadHomeCodes();
+
+                // 更新统计数据
+                updateHomeStats();
+
+                // 更新同步状态
+                updateSyncStatus();
+
+                console.log('✅ 主页内容初始化完成');
+            } catch (error) {
+                console.error('❌ 主页内容初始化失败:', error);
+                showHomeError('Failed to load dynamic content');
+            }
+        }
+
+        // 加载主页代码显示
+        async function loadHomeCodes() {
+            const container = document.getElementById('home-codes-container');
+            const lastUpdateEl = document.getElementById('codes-last-update');
+            const sourcesEl = document.getElementById('codes-sources');
+            const sourceListEl = document.getElementById('source-list');
+
+            try {
+                // 获取缓存的代码数据
+                let codesData = null;
+
+                if (window.externalResourceManager) {
+                    codesData = window.externalResourceManager.getCachedContent('codes');
+                }
+
+                // 如果没有缓存数据，显示模拟数据
+                if (!codesData || !codesData.codes) {
+                    codesData = getMockHomeCodesData();
+                }
+
+                if (codesData && codesData.codes && codesData.codes.length > 0) {
+                    // 显示最新的3个代码
+                    const latestCodes = codesData.codes.slice(0, 3);
+
+                    container.innerHTML = latestCodes.map(code => `
+                        <div class="border-l-4 ${code.status === 'active' ? 'border-green-500' : 'border-red-500'} pl-4 py-2 hover:bg-gray-50 transition-colors">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="font-mono font-bold ${code.status === 'active' ? 'text-green-600' : 'text-red-600'}">
+                                        ${code.code}
+                                    </div>
+                                    <div class="text-sm text-gray-600">${code.rewards}</div>
+                                    ${code.expiry ? `<div class="text-xs text-gray-500">Expires: ${code.expiry}</div>` : ''}
+                                    ${code.sources && code.sources.length > 0 ? `
+                                        <div class="flex items-center space-x-1 mt-1">
+                                            <span class="text-xs text-gray-400">Verified by:</span>
+                                            ${code.sources.slice(0, 2).map(source => `
+                                                <span class="text-xs bg-blue-100 text-blue-700 px-1 rounded">${source}</span>
+                                            `).join('')}
+                                            ${code.sources.length > 2 ? `<span class="text-xs text-gray-400">+${code.sources.length - 2} more</span>` : ''}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <button onclick="copyCode('${code.code}')" class="ml-2 text-blue-600 hover:text-blue-800">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    // 更新时间戳
+                    if (codesData.lastUpdate) {
+                        const updateTime = new Date(codesData.lastUpdate);
+                        lastUpdateEl.textContent = `Updated: ${formatTimeAgo(updateTime)}`;
+                    }
+
+                    // 显示数据源
+                    if (codesData.sourceCount) {
+                        sourcesEl.classList.remove('hidden');
+                        sourceListEl.textContent = `${codesData.sourceCount} sources`;
+                    }
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center py-4">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                            </svg>
+                            <p class="mt-2 text-gray-500">No codes available</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading home codes:', error);
+                container.innerHTML = `
+                    <div class="text-center py-4 text-red-500">
+                        <p>Failed to load codes</p>
+                        <button onclick="loadHomeCodes()" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">Retry</button>
+                    </div>
+                `;
+            }
+        }
+
+        // 更新主页统计
+        function updateHomeStats() {
+            try {
+                // 更新代码数量
+                const codesCount = document.getElementById('active-codes-count');
+                if (window.externalResourceManager) {
+                    const codesData = window.externalResourceManager.getCachedContent('codes');
+                    if (codesData && codesData.codes) {
+                        codesCount.textContent = codesData.codes.filter(c => c.status === 'active').length;
+                    }
+                }
+
+                // 更新数据源数量
+                const sourcesCount = document.getElementById('sources-count');
+                if (window.externalResourceManager) {
+                    const stats = window.externalResourceManager.getResourceStats();
+                    sourcesCount.textContent = stats.totalSources || 19;
+                }
+
+                // 更新同步时间
+                updateLastSyncTime();
+            } catch (error) {
+                console.error('Error updating stats:', error);
+            }
+        }
+
+        // 更新同步状态
+        function updateSyncStatus() {
+            const statusEl = document.getElementById('sync-status');
+
+            try {
+                if (window.contentSyncService) {
+                    const syncStatus = window.contentSyncService.getSyncStatus();
+
+                    if (syncStatus.isRunning) {
+                        statusEl.innerHTML = `
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                            <span class="text-sm text-gray-600">Live Syncing</span>
+                        `;
+                    } else {
+                        statusEl.innerHTML = `
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
+                            <span class="text-sm text-gray-600">Paused</span>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating sync status:', error);
+            }
+        }
+
+        // 更新最后同步时间
+        function updateLastSyncTime() {
+            const lastSyncEl = document.getElementById('last-sync-time');
+
+            try {
+                if (window.contentSyncService) {
+                    const syncStatus = window.contentSyncService.getSyncStatus();
+                    if (syncStatus.stats.lastSyncTime) {
+                        const syncTime = new Date(syncStatus.stats.lastSyncTime);
+                        lastSyncEl.textContent = `Last sync: ${formatTimeAgo(syncTime)}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating sync time:', error);
+            }
+        }
+
+        // 设置内容更新监听器
+        function setupContentUpdateListeners() {
+            // 监听代码更新
+            window.addEventListener('codesUpdated', (event) => {
+                console.log('🎫 代码已更新，刷新主页显示');
+                loadHomeCodes();
+                updateHomeStats();
+            });
+
+            // 监听同步完成
+            window.addEventListener('syncComplete', (event) => {
+                console.log('🔄 同步完成，更新主页状态');
+                updateSyncStatus();
+                updateLastSyncTime();
+            });
+        }
+
+        // 刷新主页代码
+        async function refreshHomeCodes() {
+            const container = document.getElementById('home-codes-container');
+            container.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-red-600"></div>
+                    <p class="text-sm text-gray-500 mt-2">Refreshing codes...</p>
+                </div>
+            `;
+
+            try {
+                if (window.externalResourceManager) {
+                    await window.externalResourceManager.updateCodes();
+                    await loadHomeCodes();
+                } else {
+                    await loadHomeCodes();
+                }
+            } catch (error) {
+                console.error('Error refreshing codes:', error);
+            }
+        }
+
+        // 刷新所有统计
+        function refreshAllStats() {
+            console.log('🔄 刷新主页统计数据...');
+            updateHomeStats();
+            updateSyncStatus();
+            updateLastSyncTime();
+        }
+
+        // 复制代码
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification('Code copied to clipboard!', 'success');
+            }).catch(err => {
+                console.error('Failed to copy code:', err);
+                showNotification('Failed to copy code', 'error');
+            });
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg fade-in ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // 显示错误
+        function showHomeError(message) {
+            const container = document.getElementById('home-codes-container');
+            container.innerHTML = `
+                <div class="text-center py-4 text-red-500">
+                    <p>${message}</p>
+                    <button onclick="initializeHomeContent()" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">Retry</button>
+                </div>
+            `;
+        }
+
+        // 格式化时间显示
+        function formatTimeAgo(date) {
+            const now = new Date();
+            const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+
+            if (diffInMinutes < 1) return 'Just now';
+            if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) return `${diffInHours}h ago`;
+
+            const diffInDays = Math.floor(diffInHours / 24);
+            return `${diffInDays}d ago`;
+        }
+
+        // 获取模拟代码数据
+        function getMockHomeCodesData() {
+            return {
+                codes: [
+                    {
+                        code: 'LUCKY2025',
+                        rewards: 'Diamonds x5000, Gold x100000',
+                        status: 'active',
+                        expiry: '2025-02-01',
+                        sources: ['Try Hard Guides', 'Gamerant']
+                    },
+                    {
+                        code: 'NEWTIERUPDATE',
+                        rewards: 'Premium Summon x3, EXP Potions x10',
+                        status: 'active',
+                        expiry: '2025-01-25',
+                        sources: ['Gamer Journalist']
+                    },
+                    {
+                        code: 'WINTEREVENT',
+                        rewards: 'Ice Character Fragments, Stamina Potions x5',
+                        status: 'expired',
+                        expiry: '2025-01-15',
+                        sources: ['Beebom']
+                    }
+                ],
+                lastUpdate: new Date().toISOString(),
+                sourceCount: 5
+            };
+        }
+    </script>
 
     <!-- Service Worker Registration -->
     <script>

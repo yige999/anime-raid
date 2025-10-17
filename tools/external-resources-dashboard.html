@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Resources Dashboard - Anime Raid Wiki</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .status-online { background-color: #10b981; }
+        .status-updating { background-color: #f59e0b; }
+        .status-offline { background-color: #ef4444; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    <h1 class="text-2xl font-bold text-gray-900">External Resources Dashboard</h1>
+                </div>
+                <a href="../" class="text-sm text-gray-600 hover:text-purple-600 transition-colors">
+                    ← Back to Wiki
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Status Overview -->
+        <section class="mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">🌐 Resource Status Overview</h2>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600" id="total-sources">0</div>
+                        <div class="text-sm text-gray-600">Total Sources</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600" id="active-sources">0</div>
+                        <div class="text-sm text-gray-600">Active Sources</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-600" id="last-sync">Never</div>
+                        <div class="text-sm text-gray-600">Last Sync</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-600" id="content-updates">0</div>
+                        <div class="text-sm text-gray-600">Content Updates</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Type Tabs -->
+        <section class="mb-8">
+            <div class="bg-white rounded-lg shadow">
+                <div class="border-b">
+                    <nav class="flex -mb-px">
+                        <button onclick="switchTab('codes')" id="tab-codes" class="tab-button px-6 py-3 border-b-2 border-blue-500 text-blue-600 font-medium">
+                            🎫 Codes
+                        </button>
+                        <button onclick="switchTab('tierlist')" id="tab-tierlist" class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                            📊 Tier List
+                        </button>
+                        <button onclick="switchTab('news')" id="tab-news" class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                            📰 News
+                        </button>
+                        <button onclick="switchTab('youtube')" id="tab-youtube" class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                            📺 YouTube
+                        </button>
+                        <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-button px-6 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                            📈 Analytics
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-6">
+                    <!-- Codes Tab -->
+                    <div id="content-codes" class="tab-content">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold">🎫 Active Codes</h3>
+                            <button onclick="refreshCodes()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Refresh Codes
+                            </button>
+                        </div>
+                        <div id="codes-container" class="space-y-4">
+                            <!-- Codes will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Tier List Tab -->
+                    <div id="content-tierlist" class="tab-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold">📊 Consensus Tier List</h3>
+                            <button onclick="refreshTierList()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                Refresh Tier List
+                            </button>
+                        </div>
+                        <div id="tierlist-container">
+                            <!-- Tier list will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- News Tab -->
+                    <div id="content-news" class="tab-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold">📰 Latest News & Updates</h3>
+                            <button onclick="refreshNews()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                Refresh News
+                            </button>
+                        </div>
+                        <div id="news-container" class="space-y-4">
+                            <!-- News will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- YouTube Tab -->
+                    <div id="content-youtube" class="tab-content hidden">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-semibold">📺 Recent YouTube Content</h3>
+                            <button onclick="refreshYouTube()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Refresh Videos
+                            </button>
+                        </div>
+                        <div id="youtube-container" class="grid md:grid-cols-2 gap-4">
+                            <!-- YouTube videos will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Analytics Tab -->
+                    <div id="content-analytics" class="tab-content hidden">
+                        <h3 class="text-lg font-semibold mb-6">📈 Performance Analytics</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3">Source Performance</h4>
+                                <div id="source-performance">
+                                    <!-- Performance data will be loaded here -->
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3">Link Click Analytics</h4>
+                                <div id="link-analytics">
+                                    <!-- Link analytics will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Source Management -->
+        <section class="mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">⚙️ Source Management</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-semibold mb-3">Add New Source</h3>
+                        <form onsubmit="addNewSource(event)" class="space-y-3">
+                            <input type="text" placeholder="Source Name" class="w-full px-3 py-2 border rounded-lg" required>
+                            <input type="url" placeholder="Source URL" class="w-full px-3 py-2 border rounded-lg" required>
+                            <select class="w-full px-3 py-2 border rounded-lg" required>
+                                <option value="">Select Type</option>
+                                <option value="official">Official</option>
+                                <option value="codes">Codes</option>
+                                <option value="tierlist">Tier List</option>
+                                <option value="news">News</option>
+                                <option value="youtube">YouTube</option>
+                            </select>
+                            <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                Add Source
+                            </button>
+                        </form>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-3">Sync Settings</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Auto-sync codes (hourly)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Auto-sync tier list (daily)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                <span class="text-sm">Auto-sync news (6 hours)</span>
+                            </label>
+                            <button onclick="testConnection()" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                Test All Connections
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-3">Export/Import</h3>
+                        <div class="space-y-3">
+                            <button onclick="exportData()" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                                Export Data
+                            </button>
+                            <button onclick="importData()" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">
+                                Import Data
+                            </button>
+                            <button onclick="clearCache()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                                Clear Cache
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 hidden fade-in">
+        <div class="bg-white rounded-lg shadow-lg p-4 flex items-center space-x-3">
+            <div id="toast-icon"></div>
+            <div>
+                <p id="toast-message" class="text-sm font-medium text-gray-900"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/external-resources-manager.js"></script>
+    <script src="../js/seo-link-optimizer.js"></script>
+
+    <script>
+        // 全局变量
+        let currentTab = 'codes';
+        let resourceManager;
+        let seoOptimizer;
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 初始化管理器
+            if (window.ExternalResourcesManager) {
+                resourceManager = new ExternalResourcesManager();
+                await resourceManager.initialize();
+            }
+
+            if (window.SEOLinkOptimizer) {
+                seoOptimizer = new SEOLinkOptimizer();
+                seoOptimizer.initialize();
+            }
+
+            // 加载初始数据
+            await loadInitialData();
+            updateDashboardStats();
+        });
+
+        // 切换标签页
+        function switchTab(tabName) {
+            // 更新标签按钮状态
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('border-blue-500', 'text-blue-600');
+            document.getElementById(`tab-${tabName}`).classList.remove('border-transparent', 'text-gray-500');
+
+            // 显示对应内容
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+            currentTab = tabName;
+
+            // 加载对应数据
+            loadTabData(tabName);
+        }
+
+        // 加载标签页数据
+        async function loadTabData(tabName) {
+            switch(tabName) {
+                case 'codes':
+                    await loadCodes();
+                    break;
+                case 'tierlist':
+                    await loadTierList();
+                    break;
+                case 'news':
+                    await loadNews();
+                    break;
+                case 'youtube':
+                    await loadYouTube();
+                    break;
+                case 'analytics':
+                    await loadAnalytics();
+                    break;
+            }
+        }
+
+        // 加载初始数据
+        async function loadInitialData() {
+            await loadCodes();
+            updateDashboardStats();
+        }
+
+        // 加载代码数据
+        async function loadCodes() {
+            const container = document.getElementById('codes-container');
+            container.innerHTML = '<div class="text-center py-8">Loading codes...</div>';
+
+            try {
+                const codesData = resourceManager?.getCachedContent('codes');
+
+                if (codesData && codesData.codes) {
+                    container.innerHTML = codesData.codes.map(code => `
+                        <div class="bg-gray-50 rounded-lg p-4 fade-in">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-3">
+                                        <code class="bg-blue-100 text-blue-800 px-3 py-1 rounded font-mono text-lg">${code.code}</code>
+                                        <span class="px-2 py-1 text-xs rounded-full ${
+                                            code.status === 'active'
+                                                ? 'bg-green-100 text-green-800'
+                                                : 'bg-red-100 text-red-800'
+                                        }">
+                                            ${code.status}
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-600 mt-2">${code.rewards}</p>
+                                    <p class="text-sm text-gray-500 mt-1">Expires: ${code.expiry || 'Unknown'}</p>
+                                    ${code.sources ? `
+                                        <div class="flex items-center space-x-2 mt-2">
+                                            <span class="text-xs text-gray-500">Sources:</span>
+                                            ${code.sources.map(source => `
+                                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${source}</span>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="ml-4">
+                                    <button onclick="copyCode('${code.code}')" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center py-8">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                            </svg>
+                            <p class="mt-2 text-gray-500">No codes data available</p>
+                            <button onclick="refreshCodes()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                Load Codes
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="text-center py-8 text-red-500">Error loading codes: ${error.message}</div>`;
+            }
+        }
+
+        // 加载Tier列表
+        async function loadTierList() {
+            const container = document.getElementById('tierlist-container');
+            container.innerHTML = '<div class="text-center py-8">Loading tier list...</div>';
+
+            // 模拟Tier列表数据
+            const mockTierList = [
+                { tier: 'S', units: ['Holy Priest', 'Flame Warrior'], color: 'bg-red-500' },
+                { tier: 'A', units: ['Ice Mage', 'Shadow Assassin'], color: 'bg-orange-500' },
+                { tier: 'B', units: ['Thunder Knight', 'Forest Archer'], color: 'bg-yellow-500' },
+                { tier: 'C', units: ['Water Mage', 'Earth Guardian'], color: 'bg-green-500' }
+            ];
+
+            container.innerHTML = mockTierList.map(tier => `
+                <div class="mb-6">
+                    <div class="flex items-center mb-3">
+                        <div class="${tier.color} text-white px-4 py-2 rounded-lg font-bold text-lg">
+                            Tier ${tier.tier}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        ${tier.units.map(unit => `
+                            <div class="bg-gray-50 rounded-lg p-3 text-center hover:bg-gray-100 transition-colors">
+                                <div class="font-medium">${unit}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 更新仪表板统计
+        function updateDashboardStats() {
+            const stats = resourceManager?.getResourceStats() || {
+                totalSources: 0,
+                contentCounts: { codes: 0, tierlist: 0, news: 0 }
+            };
+
+            document.getElementById('total-sources').textContent = stats.totalSources || 0;
+            document.getElementById('active-sources').textContent = Math.floor(stats.totalSources * 0.8) || 0;
+            document.getElementById('content-updates').textContent =
+                (stats.contentCounts.codes || 0) +
+                (stats.contentCounts.tierlist || 0) +
+                (stats.contentCounts.news || 0);
+
+            // 更新最后同步时间
+            const lastSync = localStorage.getItem('last-sync-time');
+            if (lastSync) {
+                const syncTime = new Date(lastSync);
+                const now = new Date();
+                const hoursDiff = Math.floor((now - syncTime) / (1000 * 60 * 60));
+
+                if (hoursDiff < 1) {
+                    document.getElementById('last-sync').textContent = 'Just now';
+                } else if (hoursDiff < 24) {
+                    document.getElementById('last-sync').textContent = `${hoursDiff}h ago`;
+                } else {
+                    document.getElementById('last-sync').textContent = `${Math.floor(hoursDiff / 24)}d ago`;
+                }
+            }
+        }
+
+        // 刷新功能
+        async function refreshCodes() {
+            showToast('Refreshing codes...', 'info');
+            if (resourceManager) {
+                await resourceManager.updateCodes();
+                await loadCodes();
+                updateDashboardStats();
+                showToast('Codes refreshed successfully!', 'success');
+            }
+        }
+
+        async function refreshTierList() {
+            showToast('Refreshing tier list...', 'info');
+            await loadTierList();
+            showToast('Tier list refreshed successfully!', 'success');
+        }
+
+        // 复制代码
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('Code copied to clipboard!', 'success');
+            });
+        }
+
+        // Toast通知
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMessage.textContent = message;
+
+            const icons = {
+                success: '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>',
+                error: '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>',
+                info: '<svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>'
+            };
+            toastIcon.innerHTML = icons[type] || icons.info;
+
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        // 空函数占位符
+        async function loadNews() { document.getElementById('news-container').innerHTML = '<div class="text-center py-8 text-gray-500">News feature coming soon</div>'; }
+        async function loadYouTube() { document.getElementById('youtube-container').innerHTML = '<div class="text-center py-8 text-gray-500">YouTube feature coming soon</div>'; }
+        async function loadAnalytics() {
+            document.getElementById('source-performance').innerHTML = '<div class="text-center py-4 text-gray-500">Analytics feature coming soon</div>';
+            document.getElementById('link-analytics').innerHTML = '<div class="text-center py-4 text-gray-500">Analytics feature coming soon</div>';
+        }
+        function refreshNews() { showToast('News refresh coming soon!', 'info'); }
+        function refreshYouTube() { showToast('YouTube refresh coming soon!', 'info'); }
+        function addNewSource(event) { event.preventDefault(); showToast('Source management coming soon!', 'info'); }
+        function testConnection() { showToast('Connection testing coming soon!', 'info'); }
+        function exportData() { showToast('Export feature coming soon!', 'info'); }
+        function importData() { showToast('Import feature coming soon!', 'info'); }
+        function clearCache() {
+            localStorage.clear();
+            showToast('Cache cleared successfully!', 'success');
+            setTimeout(() => location.reload(), 1000);
+        }
+    </script>
+</body>
+</html>

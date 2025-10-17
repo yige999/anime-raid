@@ -1,0 +1,369 @@
+<!-- Content Timeline Component -->
+<div class="content-timeline-section mt-8">
+    <div class="max-w-4xl mx-auto">
+        <h3 class="text-xl font-bold mb-6 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+            </svg>
+            Recent Updates
+        </h3>
+
+        <div id="content-timeline" class="relative">
+            <!-- Timeline will be populated dynamically -->
+            <div class="text-center py-8 text-gray-500">
+                <div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+                <p class="mt-2">Loading recent updates...</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-6">
+            <button onclick="loadMoreTimeline()" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+                Load More Updates
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Content Timeline Manager
+class ContentTimelineManager {
+    constructor() {
+        this.timeline = [];
+        this.maxItems = 10;
+        this.currentOffset = 0;
+        this.container = document.getElementById('content-timeline');
+    }
+
+    async initialize() {
+        await this.loadTimeline();
+        this.setupUpdateListeners();
+    }
+
+    async loadTimeline() {
+        try {
+            // Generate mock timeline data
+            this.timeline = this.generateMockTimeline();
+            this.renderTimeline();
+        } catch (error) {
+            console.error('Error loading timeline:', error);
+            this.showError();
+        }
+    }
+
+    generateMockTimeline() {
+        const now = new Date();
+        const events = [];
+
+        // Recent codes update
+        events.push({
+            id: 'codes-update-1',
+            type: 'codes',
+            title: 'New Codes Added',
+            description: '3 new active codes added: LUCKY2025, NEWTIERUPDATE, WINTEREVENT',
+            timestamp: new Date(now.getTime() - 2 * 60 * 60 * 1000), // 2 hours ago
+            source: 'Multiple Sources',
+            icon: '🎫',
+            color: 'green'
+        });
+
+        // Tier list update
+        events.push({
+            id: 'tierlist-update-1',
+            type: 'tierlist',
+            title: 'Tier List Refreshed',
+            description: 'Character rankings updated based on latest meta changes',
+            timestamp: new Date(now.getTime() - 6 * 60 * 60 * 1000), // 6 hours ago
+            source: 'Pro Game Guides',
+            icon: '📊',
+            color: 'purple'
+        });
+
+        // News update
+        events.push({
+            id: 'news-update-1',
+            type: 'news',
+            title: 'New Event Announced',
+            description: 'Winter Wonderland event coming next week with exclusive rewards',
+            timestamp: new Date(now.getTime() - 12 * 60 * 60 * 1000), // 12 hours ago
+            source: 'Official Discord',
+            icon: '📰',
+            color: 'blue'
+        });
+
+        // Guide update
+        events.push({
+            id: 'guide-update-1',
+            type: 'guide',
+            title: 'Beginner\'s Guide Updated',
+            description: 'Added new sections on team building and resource management',
+            timestamp: new Date(now.getTime() - 24 * 60 * 60 * 1000), // 1 day ago
+            source: 'Community Feedback',
+            icon: '📖',
+            color: 'yellow'
+        });
+
+        // Character database update
+        events.push({
+            id: 'database-update-1',
+            type: 'database',
+            title: 'New Character Added',
+            description: 'Light Mage and Shadow Warrior added to the database',
+            timestamp: new Date(now.getTime() - 48 * 60 * 60 * 1000), // 2 days ago
+            source: 'Game Update',
+            icon: '🗂️',
+            color: 'red'
+        });
+
+        // Sort by timestamp (newest first)
+        return events.sort((a, b) => b.timestamp - a.timestamp);
+    }
+
+    renderTimeline() {
+        if (!this.container) return;
+
+        const itemsToShow = this.timeline.slice(0, this.maxItems);
+
+        if (itemsToShow.length === 0) {
+            this.container.innerHTML = `
+                <div class="text-center py-8 text-gray-500">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="mt-2">No recent updates</p>
+                </div>
+            `;
+            return;
+        }
+
+        this.container.innerHTML = `
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+
+                <!-- Timeline items -->
+                <div class="space-y-6">
+                    ${itemsToShow.map((item, index) => this.renderTimelineItem(item, index)).join('')}
+                </div>
+            </div>
+        `;
+    }
+
+    renderTimelineItem(item, index) {
+        const timeAgo = this.formatTimeAgo(item.timestamp);
+        const iconColors = {
+            green: 'bg-green-100 text-green-600',
+            purple: 'bg-purple-100 text-purple-600',
+            blue: 'bg-blue-100 text-blue-600',
+            yellow: 'bg-yellow-100 text-yellow-600',
+            red: 'bg-red-100 text-red-600'
+        };
+
+        return `
+            <div class="relative flex items-start space-x-4 group">
+                <!-- Timeline dot -->
+                <div class="relative z-10 flex-shrink-0">
+                    <div class="w-8 h-8 rounded-full ${iconColors[item.color]} flex items-center justify-center text-sm font-medium border-2 border-white shadow">
+                        ${item.icon}
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900">${item.title}</h4>
+                            <p class="text-sm text-gray-600 mt-1">${item.description}</p>
+                            <div class="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                                <span class="flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    ${timeAgo}
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                                    </svg>
+                                    ${item.source}
+                                </span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">
+                                    ${item.type}
+                                </span>
+                            </div>
+                        </div>
+                        ${this.getActionButtons(item)}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    getActionButtons(item) {
+        const buttons = [];
+
+        switch(item.type) {
+            case 'codes':
+                buttons.push({
+                    text: 'View Codes',
+                    href: '/codes/',
+                    primary: true
+                });
+                break;
+            case 'tierlist':
+                buttons.push({
+                    text: 'View Tier List',
+                    href: '/tier-lists/',
+                    primary: true
+                });
+                break;
+            case 'news':
+                buttons.push({
+                    text: 'Read More',
+                    href: '#',
+                    primary: false
+                });
+                break;
+            case 'guide':
+                buttons.push({
+                    text: 'Read Guide',
+                    href: '/guides/',
+                    primary: false
+                });
+                break;
+            case 'database':
+                buttons.push({
+                    text: 'View Database',
+                    href: '/database/units/',
+                    primary: false
+                });
+                break;
+        }
+
+        if (buttons.length === 0) return '';
+
+        return `
+            <div class="flex space-x-2 ml-4">
+                ${buttons.map(btn => `
+                    <a href="${btn.href}"
+                       class="${btn.primary ? 'bg-blue-600 text-white hover:bg-blue-700' : 'text-blue-600 hover:text-blue-800'} text-xs px-3 py-1 rounded transition-colors">
+                        ${btn.text}
+                    </a>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    formatTimeAgo(date) {
+        const now = new Date();
+        const diffInMinutes = Math.floor((now - date) / (1000 * 60));
+
+        if (diffInMinutes < 1) return 'Just now';
+        if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        if (diffInHours < 24) return `${diffInHours}h ago`;
+
+        const diffInDays = Math.floor(diffInHours / 24);
+        if (diffInDays < 7) return `${diffInDays}d ago`;
+
+        return date.toLocaleDateString();
+    }
+
+    setupUpdateListeners() {
+        // Listen for content updates and add them to timeline
+        window.addEventListener('codesUpdated', (event) => {
+            this.addTimelineEvent({
+                type: 'codes',
+                title: 'Codes Updated',
+                description: `${event.detail.length} codes refreshed from external sources`,
+                source: 'Auto-sync',
+                icon: '🎫',
+                color: 'green'
+            });
+        });
+
+        window.addEventListener('tierListUpdated', (event) => {
+            this.addTimelineEvent({
+                type: 'tierlist',
+                title: 'Tier List Updated',
+                description: 'Character rankings refreshed with latest data',
+                source: 'Auto-sync',
+                icon: '📊',
+                color: 'purple'
+            });
+        });
+
+        window.addEventListener('syncComplete', (event) => {
+            this.addTimelineEvent({
+                type: 'sync',
+                title: 'Content Synced',
+                description: `${event.detail.successful} sources updated successfully`,
+                source: 'Auto-sync',
+                icon: '🔄',
+                color: 'blue'
+            });
+        });
+    }
+
+    addTimelineEvent(eventData) {
+        const event = {
+            ...eventData,
+            id: 'event-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+            timestamp: new Date()
+        };
+
+        this.timeline.unshift(event);
+
+        // Keep only recent items
+        if (this.timeline.length > 50) {
+            this.timeline = this.timeline.slice(0, 50);
+        }
+
+        // Re-render if we're on the timeline page
+        if (this.container) {
+            this.renderTimeline();
+        }
+    }
+
+    loadMoreTimeline() {
+        this.maxItems += 10;
+        this.renderTimeline();
+    }
+
+    showError() {
+        if (!this.container) return;
+
+        this.container.innerHTML = `
+            <div class="text-center py-8 text-red-500">
+                <svg class="mx-auto h-12 w-12 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p class="mt-2">Failed to load timeline</p>
+                <button onclick="location.reload()" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">
+                    Try Again
+                </button>
+            </div>
+        `;
+    }
+}
+
+// Initialize timeline when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if the timeline section exists
+    const timelineSection = document.querySelector('.content-timeline-section');
+    if (timelineSection) {
+        const timelineManager = new ContentTimelineManager();
+        timelineManager.initialize();
+
+        // Make it globally available
+        window.contentTimelineManager = timelineManager;
+    }
+});
+
+// Global function for loading more timeline items
+window.loadMoreTimeline = function() {
+    if (window.contentTimelineManager) {
+        window.contentTimelineManager.loadMoreTimeline();
+    }
+};
+</script>

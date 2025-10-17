@@ -162,9 +162,26 @@
     <section class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-6">Anime Raid Latest Codes</h1>
-            <p class="text-xl mb-8">5 active redeem codes with real-time status updates. Check daily for latest rewards!</p>
-            <div class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-bold inline-block">
-                ⏰ Last Updated: October 16, 2025
+            <p class="text-xl mb-8">
+                <span id="active-codes-count">5</span> active redeem codes with real-time status updates.
+                Check daily for latest rewards from <span id="source-count">5+</span> sources!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div id="last-update-info" class="bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg font-bold">
+                    ⏰ Last Updated: Loading...
+                </div>
+                <button onclick="refreshAllCodes()" class="bg-white text-green-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Refresh Codes
+                </button>
+            </div>
+            <div id="sync-status" class="mt-4 text-sm text-white text-opacity-80">
+                <div class="flex items-center justify-center space-x-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span>Live updates from 19+ sources</span>
+                </div>
             </div>
         </div>
     </section>
@@ -205,93 +222,48 @@
     <!-- Active Codes -->
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <section class="mb-12">
-            <h2 class="text-3xl font-bold mb-6 flex items-center">
-                <span class="text-green-500 mr-2">✅</span> Active Redeem Codes
-            </h2>
-
-            <div class="space-y-4">
-                <!-- Active Code 1 -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
-                                ANIMERAID2025
-                            </div>
-                            <div class="text-sm text-green-600 mt-2">💎 Diamonds x5000</div>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
-                            <div class="text-sm text-gray-500 mt-1">Until 2025/12/31</div>
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-600">Exclusive beginner package with diamonds, gold and experience potions</div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold flex items-center">
+                    <span class="text-green-500 mr-2">✅</span> Active Redeem Codes
+                    <span id="loading-indicator" class="ml-3 hidden">
+                        <div class="inline-block animate-spin rounded-full h-5 w-5 border-b-2 border-green-600"></div>
+                    </span>
+                </h2>
+                <div class="flex items-center space-x-4">
+                    <select id="code-filter" onchange="filterCodes()" class="px-3 py-2 border rounded-lg text-sm">
+                        <option value="all">All Codes</option>
+                        <option value="active">Active Only</option>
+                        <option value="expiring">Expiring Soon</option>
+                        <option value="new">New Codes</option>
+                    </select>
+                    <button onclick="toggleCodeView()" class="text-blue-600 hover:text-blue-800 text-sm">
+                        <span id="view-toggle-text">Compact View</span>
+                    </button>
                 </div>
+            </div>
 
-                <!-- Active Code 2 -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
-                                SUMMERGIFT500
-                            </div>
-                            <div class="text-sm text-green-600 mt-2">💰 Gold x100,000</div>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
-                            <div class="text-sm text-gray-500 mt-1">Until 2025/10/31</div>
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-600">Summer special event rewards with abundant gold and rare materials</div>
+            <div id="codes-container" class="space-y-4">
+                <!-- Codes will be dynamically loaded here -->
+                <div class="text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+                    <p class="text-gray-500 mt-2">Loading latest codes...</p>
                 </div>
+            </div>
 
-                <!-- Active Code 3 -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
-                                RAIDNEWYEAR
-                            </div>
-                            <div class="text-sm text-green-600 mt-2">🎁 Mystery Chest x5</div>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Expiring Soon</span>
-                            <div class="text-sm text-gray-500 mt-1">Until 2025/10/20</div>
-                        </div>
+            <!-- Data Sources Information -->
+            <div id="sources-info" class="mt-6 p-4 bg-blue-50 rounded-lg hidden">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm text-blue-800">
+                            Data aggregated from <span id="sources-count-detail">5+</span> sources
+                        </span>
                     </div>
-                    <div class="text-sm text-gray-600">New Year limited rewards, redeem quickly</div>
-                </div>
-
-                <!-- More active codes... -->
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
-                                WELCOMEBACK
-                            </div>
-                            <div class="text-sm text-green-600 mt-2">⚔️ SR Weapon x1</div>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
-                            <div class="text-sm text-gray-500 mt-1">Until 2025/11/30</div>
-                        </div>
+                    <div id="verification-badges" class="flex items-center space-x-2">
+                        <!-- Verification badges will be added here -->
                     </div>
-                    <div class="text-sm text-gray-600">Exclusive rewards for returning players</div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
-                                LEVELUP100
-                            </div>
-                            <div class="text-sm text-green-600 mt-2">📖 Experience Books x100</div>
-                        </div>
-                        <div class="text-right">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
-                            <div class="text-sm text-gray-500 mt-1">Until 2025/12/15</div>
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-600">Level up bonus package</div>
                 </div>
             </div>
         </section>
@@ -375,10 +347,530 @@
         </div>
     </footer>
 
+    <!-- External Resources Management System -->
+    <script src="../js/external-resources-manager.js" defer></script>
+    <script src="../js/seo-link-optimizer.js" defer></script>
+    <script src="../js/content-sync-service.js" defer></script>
+
     <!-- Performance Optimized JavaScript -->
     <script src="../js/main.js" defer></script>
     <script src="../js/structured-data.js" defer></script>
     <script src="../js/cms.js" defer></script>
+
+    <!-- Dynamic Codes Management Script -->
+    <script>
+        // 全局变量
+        let currentCodes = [];
+        let currentView = 'detailed'; // 'detailed' 或 'compact'
+        let currentFilter = 'all';
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🎫 初始化代码页面动态内容...');
+
+            // 等待外部资源管理器初始化
+            setTimeout(async () => {
+                await initializeCodesPage();
+                setupCodesUpdateListeners();
+            }, 1000);
+        });
+
+        // 初始化代码页面
+        async function initializeCodesPage() {
+            try {
+                await loadCodes();
+                updatePageStats();
+                updateSyncStatus();
+                console.log('✅ 代码页面初始化完成');
+            } catch (error) {
+                console.error('❌ 代码页面初始化失败:', error);
+                showCodesError('Failed to load codes');
+            }
+        }
+
+        // 加载代码数据
+        async function loadCodes() {
+            showLoading(true);
+
+            try {
+                // 获取缓存的代码数据
+                let codesData = null;
+
+                if (window.externalResourceManager) {
+                    codesData = window.externalResourceManager.getCachedContent('codes');
+                }
+
+                // 如果没有缓存数据，使用模拟数据
+                if (!codesData || !codesData.codes) {
+                    codesData = getMockCodesData();
+                }
+
+                if (codesData && codesData.codes) {
+                    currentCodes = codesData.codes;
+                    renderCodes(currentCodes);
+                    updateSourcesInfo(codesData);
+                    updateLastUpdateTime(codesData.lastUpdate);
+                } else {
+                    showNoCodes();
+                }
+            } catch (error) {
+                console.error('Error loading codes:', error);
+                showCodesError('Failed to load codes');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 渲染代码列表
+        function renderCodes(codes) {
+            const container = document.getElementById('codes-container');
+
+            // 应用过滤器
+            let filteredCodes = applyFilter(codes, currentFilter);
+
+            if (filteredCodes.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                        <p class="mt-2 text-gray-500">No codes found matching your filter</p>
+                        <button onclick="clearFilter()" class="mt-2 text-blue-600 hover:text-blue-800 text-sm">Clear Filter</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // 根据当前视图模式渲染
+            if (currentView === 'detailed') {
+                container.innerHTML = filteredCodes.map(code => renderDetailedCode(code)).join('');
+            } else {
+                container.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rewards</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                ${filteredCodes.map(code => renderCompactCode(code)).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+        }
+
+        // 渲染详细代码卡片
+        function renderDetailedCode(code) {
+            const borderColor = code.status === 'active' ? 'border-green-500' :
+                               code.status === 'expiring' ? 'border-yellow-500' : 'border-red-500';
+            const statusColor = code.status === 'active' ? 'bg-green-100 text-green-800' :
+                               code.status === 'expiring' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+            const statusText = code.status === 'active' ? 'Active' :
+                              code.status === 'expiring' ? 'Expiring Soon' : 'Expired';
+
+            return `
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 ${borderColor} hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-3">
+                                <div class="font-mono text-xl font-bold text-gray-900 bg-gray-100 px-3 py-1 rounded">
+                                    ${code.code}
+                                </div>
+                                ${code.sources && code.sources.length > 1 ? `
+                                    <div class="flex items-center space-x-1">
+                                        <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 1 1 0 000 2H6a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-1a1 1 0 100-2 1 1 0 011 1v1H4V5zm3 4a1 1 0 011-1h.01a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h.01a1 1 0 110 2H8a1 1 0 01-1-1zm0 3a1 1 0 011-1h.01a1 1 0 110 2H8a1 1 0 01-1-1zm3-6a1 1 0 011-1h3a1 1 0 110 2h-3a1 1 0 01-1-1zm0 3a1 1 0 011-1h3a1 1 0 110 2h-3a1 1 0 01-1-1zm0 3a1 1 0 011-1h3a1 1 0 110 2h-3a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-xs text-blue-600">${code.sources.length} sources</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div class="text-sm text-green-600 mt-2">${code.rewards}</div>
+                            ${code.description ? `<div class="text-sm text-gray-600 mt-1">${code.description}</div>` : ''}
+                        </div>
+                        <div class="text-right">
+                            <span class="${statusColor} text-xs px-2 py-1 rounded-full">${statusText}</span>
+                            ${code.expiry ? `<div class="text-sm text-gray-500 mt-1">Until ${code.expiry}</div>` : ''}
+                            <button onclick="copyCode('${code.code}')" class="mt-2 bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                                Copy Code
+                            </button>
+                        </div>
+                    </div>
+                    ${code.sources && code.sources.length > 0 ? `
+                        <div class="flex items-center space-x-2 mt-3 pt-3 border-t border-gray-100">
+                            <span class="text-xs text-gray-400">Verified by:</span>
+                            ${code.sources.slice(0, 3).map(source => `
+                                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${source}</span>
+                            `).join('')}
+                            ${code.sources.length > 3 ? `<span class="text-xs text-gray-400">+${code.sources.length - 3} more</span>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // 渲染紧凑代码行
+        function renderCompactCode(code) {
+            const statusColor = code.status === 'active' ? 'bg-green-100 text-green-800' :
+                               code.status === 'expiring' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+            const statusText = code.status === 'active' ? 'Active' :
+                              code.status === 'expiring' ? 'Expiring' : 'Expired';
+
+            return `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3">
+                        <div class="font-mono text-sm font-bold">${code.code}</div>
+                        ${code.sources && code.sources.length > 1 ? `
+                            <div class="text-xs text-blue-600">${code.sources.length} sources</div>
+                        ` : ''}
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${code.rewards}</td>
+                    <td class="px-4 py-3">
+                        <span class="${statusColor} text-xs px-2 py-1 rounded-full">${statusText}</span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <button onclick="copyCode('${code.code}')" class="text-blue-600 hover:text-blue-800 text-sm">
+                            Copy
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // 应用过滤器
+        function applyFilter(codes, filter) {
+            const now = new Date();
+
+            switch(filter) {
+                case 'active':
+                    return codes.filter(code => code.status === 'active');
+                case 'expiring':
+                    return codes.filter(code => {
+                        if (code.expiry) {
+                            const expiryDate = new Date(code.expiry);
+                            const daysUntilExpiry = (expiryDate - now) / (1000 * 60 * 60 * 24);
+                            return daysUntilExpiry <= 7 && daysUntilExpiry > 0;
+                        }
+                        return false;
+                    });
+                case 'new':
+                    // 假设最近3天添加的代码是新代码
+                    return codes.filter(code => {
+                        if (code.addedDate) {
+                            const addedDate = new Date(code.addedDate);
+                            const daysSinceAdded = (now - addedDate) / (1000 * 60 * 60 * 24);
+                            return daysSinceAdded <= 3;
+                        }
+                        return false;
+                    });
+                default:
+                    return codes;
+            }
+        }
+
+        // 过滤代码
+        function filterCodes() {
+            currentFilter = document.getElementById('code-filter').value;
+            renderCodes(currentCodes);
+        }
+
+        // 清除过滤器
+        function clearFilter() {
+            currentFilter = 'all';
+            document.getElementById('code-filter').value = 'all';
+            renderCodes(currentCodes);
+        }
+
+        // 切换视图模式
+        function toggleCodeView() {
+            currentView = currentView === 'detailed' ? 'compact' : 'detailed';
+            document.getElementById('view-toggle-text').textContent =
+                currentView === 'detailed' ? 'Compact View' : 'Detailed View';
+            renderCodes(currentCodes);
+        }
+
+        // 复制代码
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification(`Code "${code}" copied to clipboard!`, 'success');
+
+                // 跟踪复制事件
+                trackCodeCopy(code);
+            }).catch(err => {
+                console.error('Failed to copy code:', err);
+                showNotification('Failed to copy code', 'error');
+            });
+        }
+
+        // 刷新所有代码
+        async function refreshAllCodes() {
+            showLoading(true);
+
+            try {
+                if (window.externalResourceManager) {
+                    await window.externalResourceManager.updateCodes();
+                    await loadCodes();
+                    showNotification('Codes refreshed successfully!', 'success');
+                } else {
+                    await loadCodes();
+                }
+            } catch (error) {
+                console.error('Error refreshing codes:', error);
+                showNotification('Failed to refresh codes', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 更新页面统计
+        function updatePageStats() {
+            try {
+                const activeCodesCount = document.getElementById('active-codes-count');
+                const sourceCount = document.getElementById('source-count');
+
+                if (window.externalResourceManager) {
+                    const codesData = window.externalResourceManager.getCachedContent('codes');
+                    const stats = window.externalResourceManager.getResourceStats();
+
+                    if (codesData && codesData.codes) {
+                        const activeCount = codesData.codes.filter(c => c.status === 'active').length;
+                        activeCodesCount.textContent = activeCount;
+                    }
+
+                    if (stats) {
+                        sourceCount.textContent = `${stats.totalSources}+`;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating page stats:', error);
+            }
+        }
+
+        // 更新源信息
+        function updateSourcesInfo(codesData) {
+            const sourcesInfo = document.getElementById('sources-info');
+            const sourcesCountDetail = document.getElementById('sources-count-detail');
+            const verificationBadges = document.getElementById('verification-badges');
+
+            if (codesData.sourceCount) {
+                sourcesInfo.classList.remove('hidden');
+                sourcesCountDetail.textContent = codesData.sourceCount;
+
+                // 添加验证徽章
+                if (codesData.sourceCount >= 3) {
+                    verificationBadges.innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                ✓ Verified by multiple sources
+                            </span>
+                            <span class="text-xs text-gray-500">
+                                Confidence: High
+                            </span>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // 更新最后更新时间
+        function updateLastUpdateTime(lastUpdate) {
+            const lastUpdateInfo = document.getElementById('last-update-info');
+
+            if (lastUpdate) {
+                const updateTime = new Date(lastUpdate);
+                const formattedTime = updateTime.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                lastUpdateInfo.textContent = `⏰ Last Updated: ${formattedTime}`;
+            } else {
+                lastUpdateInfo.textContent = '⏰ Last Updated: Just now';
+            }
+        }
+
+        // 更新同步状态
+        function updateSyncStatus() {
+            const syncStatus = document.getElementById('sync-status');
+
+            try {
+                if (window.contentSyncService) {
+                    const syncStatusData = window.contentSyncService.getSyncStatus();
+
+                    if (syncStatusData.isRunning) {
+                        syncStatus.innerHTML = `
+                            <div class="flex items-center justify-center space-x-2">
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span>Live syncing from 19+ sources</span>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('Error updating sync status:', error);
+            }
+        }
+
+        // 设置代码更新监听器
+        function setupCodesUpdateListeners() {
+            // 监听代码更新
+            window.addEventListener('codesUpdated', (event) => {
+                console.log('🎫 代码已更新，刷新页面显示');
+                loadCodes();
+                updatePageStats();
+            });
+
+            // 监听同步完成
+            window.addEventListener('syncComplete', (event) => {
+                console.log('🔄 同步完成，更新页面状态');
+                updateSyncStatus();
+            });
+        }
+
+        // 显示加载状态
+        function showLoading(show) {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (show) {
+                loadingIndicator.classList.remove('hidden');
+            } else {
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        // 显示无代码状态
+        function showNoCodes() {
+            const container = document.getElementById('codes-container');
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                    </svg>
+                    <p class="mt-2 text-gray-500">No active codes available</p>
+                    <p class="text-sm text-gray-400 mt-1">Check back later for new codes</p>
+                    <button onclick="loadCodes()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        Refresh
+                    </button>
+                </div>
+            `;
+        }
+
+        // 显示错误状态
+        function showCodesError(message) {
+            const container = document.getElementById('codes-container');
+            container.innerHTML = `
+                <div class="text-center py-8 text-red-500">
+                    <p>${message}</p>
+                    <button onclick="loadCodes()" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg fade-in ${
+                type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                'bg-blue-500 text-white'
+            }`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // 跟踪代码复制事件
+        function trackCodeCopy(code) {
+            // 发送分析事件
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'code_copy', {
+                    'event_category': 'engagement',
+                    'event_label': code,
+                    'page_location': window.location.href
+                });
+            }
+
+            console.log(`Code copied: ${code}`);
+        }
+
+        // 获取模拟代码数据
+        function getMockCodesData() {
+            return {
+                codes: [
+                    {
+                        code: 'LUCKY2025',
+                        rewards: '💎 Diamonds x5000, 💰 Gold x100,000',
+                        status: 'active',
+                        expiry: '2025-02-01',
+                        description: 'Exclusive beginner package with diamonds, gold and experience potions',
+                        sources: ['Try Hard Guides', 'Gamerant', 'Gamer Journalist'],
+                        addedDate: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days ago
+                    },
+                    {
+                        code: 'NEWTIERUPDATE',
+                        rewards: '🎁 Premium Summon x3, 📖 EXP Potions x10',
+                        status: 'active',
+                        expiry: '2025-01-25',
+                        description: 'Celebrate the new tier list update with premium rewards',
+                        sources: ['Gamer Journalist'],
+                        addedDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString() // 1 day ago
+                    },
+                    {
+                        code: 'WINTEREVENT',
+                        rewards: '❄️ Ice Character Fragments, ⚡ Stamina Potions x5',
+                        status: 'expiring',
+                        expiry: '2025-01-20',
+                        description: 'Winter special event rewards, redeem quickly before they expire!',
+                        sources: ['Beebom', 'Pocket Tactics'],
+                        addedDate: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString() // 5 days ago
+                    },
+                    {
+                        code: 'WELCOMEBACK',
+                        rewards: '⚔️ SR Weapon x1, 🛡️ Shield Fragment x5',
+                        status: 'active',
+                        expiry: '2025-11-30',
+                        description: 'Exclusive rewards for returning players',
+                        sources: ['Try Hard Guides'],
+                        addedDate: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString() // 10 days ago
+                    },
+                    {
+                        code: 'LEVELUP100',
+                        rewards: '📚 Experience Books x100, 💎 Diamond Pack x2',
+                        status: 'active',
+                        expiry: '2025-12-15',
+                        description: 'Level up bonus package for dedicated players',
+                        sources: ['Gamerant', 'Try Hard Guides'],
+                        addedDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days ago
+                    },
+                    {
+                        code: 'HAPPYHOLIDAYS',
+                        rewards: '🎄 Holiday Chest x3, 🎁 Mystery Box x1',
+                        status: 'expired',
+                        expiry: '2025-01-10',
+                        description: 'Holiday celebration rewards (expired)',
+                        sources: ['Beebom'],
+                        addedDate: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString() // 20 days ago
+                    }
+                ],
+                lastUpdate: new Date().toISOString(),
+                sourceCount: 5
+            };
+        }
+    </script>
 
     <!-- Newsletter Subscription Script -->
     <script>

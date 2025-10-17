@@ -1,0 +1,279 @@
+<!-- Content Updates Notifier Component -->
+<div id="content-updates-notifier" class="fixed bottom-4 right-4 z-50 max-w-sm hidden">
+    <!-- Update notifications will appear here -->
+</div>
+
+<script>
+// Content Updates Notifier
+class ContentUpdatesNotifier {
+    constructor() {
+        this.notifications = [];
+        this.maxNotifications = 3;
+        this.container = document.getElementById('content-updates-notifier');
+    }
+
+    // Show notification for content updates
+    showUpdateNotification(type, data) {
+        const notification = this.createNotification(type, data);
+        this.addNotification(notification);
+    }
+
+    createNotification(type, data) {
+        const templates = {
+            codes: this.createCodesNotification,
+            tierlist: this.createTierListNotification,
+            news: this.createNewsNotification,
+            sync: this.createSyncNotification
+        };
+
+        const template = templates[type] || this.createGenericNotification;
+        return template.call(this, data);
+    }
+
+    createCodesNotification(data) {
+        const codes = data.codes || [];
+        const newCodesCount = codes.filter(c => c.status === 'active').length;
+
+        return {
+            type: 'success',
+            title: '🎫 New Codes Available!',
+            message: `${newCodesCount} active codes updated`,
+            actions: [
+                {
+                    text: 'View Codes',
+                    href: '/codes/',
+                    primary: true
+                }
+            ],
+            duration: 8000
+        };
+    }
+
+    createTierListNotification(data) {
+        return {
+            type: 'info',
+            title: '📊 Tier List Updated',
+            message: 'Character rankings have been refreshed',
+            actions: [
+                {
+                    text: 'View Tier List',
+                    href: '/tier-lists/',
+                    primary: true
+                }
+            ],
+            duration: 6000
+        };
+    }
+
+    createNewsNotification(data) {
+        return {
+            type: 'info',
+            title: '📰 Latest News',
+            message: data.headline || 'New updates available',
+            actions: [
+                {
+                    text: 'Read More',
+                    href: data.url || '#',
+                    primary: false
+                }
+            ],
+            duration: 7000
+        };
+    }
+
+    createSyncNotification(data) {
+        const { successful, failed } = data;
+
+        if (failed === 0) {
+            return {
+                type: 'success',
+                title: '✅ Content Synced',
+                message: `${successful} sources updated successfully`,
+                duration: 4000
+            };
+        } else {
+            return {
+                type: 'warning',
+                title: '⚠️ Partial Sync',
+                message: `${successful} updated, ${failed} failed`,
+                duration: 6000
+            };
+        }
+    }
+
+    createGenericNotification(data) {
+        return {
+            type: 'info',
+            title: data.title || 'Update Available',
+            message: data.message || 'Content has been updated',
+            duration: 5000
+        };
+    }
+
+    addNotification(notification) {
+        // Remove oldest notification if we've reached max
+        if (this.notifications.length >= this.maxNotifications) {
+            const oldest = this.notifications.shift();
+            this.removeNotificationElement(oldest.id);
+        }
+
+        // Create notification element
+        const notificationEl = this.createNotificationElement(notification);
+        const notificationId = 'notification-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+
+        notification.id = notificationId;
+        notification.element = notificationEl;
+
+        // Add to DOM
+        this.container.appendChild(notificationEl);
+        this.notifications.push(notification);
+
+        // Trigger animation
+        setTimeout(() => {
+            notificationEl.classList.add('show');
+        }, 10);
+
+        // Auto-remove after duration
+        setTimeout(() => {
+            this.removeNotification(notificationId);
+        }, notification.duration);
+    }
+
+    createNotificationElement(notification) {
+        const element = document.createElement('div');
+        element.className = `notification notification-${notification.type} bg-white rounded-lg shadow-lg border-l-4 p-4 mb-3 transform translate-x-full transition-all duration-300 ease-out`;
+
+        // Set border color based on type
+        const borderColors = {
+            success: 'border-green-500',
+            error: 'border-red-500',
+            warning: 'border-yellow-500',
+            info: 'border-blue-500'
+        };
+
+        element.classList.add(borderColors[notification.type] || 'border-gray-500');
+
+        element.innerHTML = `
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    ${this.getNotificationIcon(notification.type)}
+                </div>
+                <div class="ml-3 flex-1">
+                    <h4 class="text-sm font-medium text-gray-900">${notification.title}</h4>
+                    <p class="text-sm text-gray-600 mt-1">${notification.message}</p>
+                    ${notification.actions ? this.renderActions(notification.actions) : ''}
+                </div>
+                <button onclick="this.closest('.notification').remove()" class="ml-3 text-gray-400 hover:text-gray-600">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        `;
+
+        return element;
+    }
+
+    getNotificationIcon(type) {
+        const icons = {
+            success: '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>',
+            error: '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>',
+            warning: '<svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>',
+            info: '<svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>'
+        };
+
+        return icons[type] || icons.info;
+    }
+
+    renderActions(actions) {
+        if (!actions || actions.length === 0) return '';
+
+        return `
+            <div class="flex space-x-2 mt-3">
+                ${actions.map(action => `
+                    <a href="${action.href}"
+                       class="${action.primary ? 'bg-blue-600 text-white hover:bg-blue-700' : 'text-blue-600 hover:text-blue-800'} text-xs px-3 py-1 rounded transition-colors">
+                        ${action.text}
+                    </a>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    removeNotification(notificationId) {
+        const index = this.notifications.findIndex(n => n.id === notificationId);
+        if (index !== -1) {
+            const notification = this.notifications[index];
+            this.removeNotificationElement(notificationId);
+            this.notifications.splice(index, 1);
+        }
+    }
+
+    removeNotificationElement(notificationId) {
+        const element = document.getElementById(notificationId);
+        if (element) {
+            element.classList.remove('show');
+            element.classList.add('translate-x-full');
+            setTimeout(() => {
+                if (element.parentNode) {
+                    element.parentNode.removeChild(element);
+                }
+            }, 300);
+        }
+    }
+
+    // Show container when notifications exist
+    updateContainerVisibility() {
+        if (this.notifications.length > 0) {
+            this.container.classList.remove('hidden');
+        } else {
+            this.container.classList.add('hidden');
+        }
+    }
+}
+
+// Global notifier instance
+window.contentUpdatesNotifier = new ContentUpdatesNotifier();
+
+// Set up event listeners for content updates
+document.addEventListener('DOMContentLoaded', () => {
+    // Listen for codes updates
+    window.addEventListener('codesUpdated', (event) => {
+        window.contentUpdatesNotifier.showUpdateNotification('codes', event.detail);
+    });
+
+    // Listen for tier list updates
+    window.addEventListener('tierListUpdated', (event) => {
+        window.contentUpdatesNotifier.showUpdateNotification('tierlist', event.detail);
+    });
+
+    // Listen for sync completion
+    window.addEventListener('syncComplete', (event) => {
+        window.contentUpdatesNotifier.showUpdateNotification('sync', event.detail);
+    });
+
+    // Listen for custom update events
+    window.addEventListener('contentUpdate', (event) => {
+        const { type, data } = event.detail;
+        window.contentUpdatesNotifier.showUpdateNotification(type, data);
+    });
+});
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    .notification {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    .notification.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    .notification.translate-x-full {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+`;
+document.head.appendChild(style);
+</script>

@@ -1,0 +1,338 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-17T00:00:00.000Z",
+  "sources": {
+    "official": {
+      "roblox": {
+        "name": "Anime Raid Official",
+        "url": "https://www.roblox.com/games/81876459126967/Anime-Raid",
+        "type": "official",
+        "priority": 1,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Official Roblox game page",
+        "tags": ["official", "game", "roblox"]
+      },
+      "rolimons": {
+        "name": "Rolimons Game Stats",
+        "url": "https://www.rolimons.com/game/81876459126967",
+        "type": "stats",
+        "priority": 2,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Game statistics and player data",
+        "tags": ["stats", "analytics", "rolimons"]
+      },
+      "discord": {
+        "name": "Anime Raid Official Discord",
+        "url": "https://discord.gg/animeraid",
+        "type": "community",
+        "priority": 1,
+        "updateFrequency": "hourly",
+        "enabled": true,
+        "description": "Official Discord community server",
+        "tags": ["community", "discord", "social"]
+      },
+      "roblox_group": {
+        "name": "Anime Boss Raid Group",
+        "url": "https://www.roblox.com/groups/34632707",
+        "type": "community",
+        "priority": 2,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Official Roblox group",
+        "tags": ["community", "group", "roblox"]
+      }
+    },
+    "codes": {
+      "tryhardguides": {
+        "name": "Try Hard Guides",
+        "url": "https://tryhardguides.com/anime-raid-codes/",
+        "type": "codes",
+        "priority": 2,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Active codes and game wiki",
+        "tags": ["codes", "wiki", "guides"],
+        "selectors": {
+          "codes": ".code-item, .code-list li",
+          "rewards": ".reward-text, .code-rewards",
+          "status": ".status-badge, .code-status"
+        }
+      },
+      "gamerjournalist": {
+        "name": "Gamer Journalist",
+        "url": "https://gamerjournalist.com/anime-raid-codes/",
+        "type": "codes",
+        "priority": 2,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Working codes and rewards list",
+        "tags": ["codes", "rewards", "working"],
+        "selectors": {
+          "codes": ".code-list li, .entry-content ul li",
+          "rewards": ".reward-info, .code-description",
+          "status": ".status, .active-code"
+        }
+      },
+      "beebom": {
+        "name": "Beebom",
+        "url": "https://beebom.com/anime-raid-codes/",
+        "type": "codes",
+        "priority": 3,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Code updates and redemption guide",
+        "tags": ["codes", "guide", "redemption"],
+        "selectors": {
+          "codes": ".wp-block-list-item, .codes-list li",
+          "rewards": ".reward-text, .code-benefits",
+          "status": ".valid-code, .expired-code"
+        }
+      },
+      "pockettactics": {
+        "name": "Pocket Tactics",
+        "url": "https://www.pockettactics.com/anime-raid-codes",
+        "type": "codes",
+        "priority": 3,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Code database and event updates",
+        "tags": ["codes", "events", "database"],
+        "selectors": {
+          "codes": ".entry-content ul li, .code-item",
+          "rewards": ".reward-description, .code-details",
+          "status": ".active-status, .expired-status"
+        }
+      },
+      "gamerant": {
+        "name": "Gamerant",
+        "url": "https://gamerant.com/roblox-anime-raid-codes/",
+        "type": "codes",
+        "priority": 2,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Roblox verified game codes",
+        "tags": ["codes", "roblox", "verified"],
+        "selectors": {
+          "codes": ".code-item, .list-item",
+          "rewards": ".reward-text, .code-info",
+          "status": ".working-codes, .expired-codes"
+        }
+      }
+    },
+    "guides": {
+      "sportskeeda": {
+        "name": "Sportskeeda Anime Raid Guide",
+        "url": "https://www.sportskeeda.com/roblox-news/anime-raid-a-beginner-s-guide",
+        "type": "guide",
+        "priority": 3,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Beginner's guide and gameplay overview",
+        "tags": ["guide", "beginner", "overview"],
+        "selectors": {
+          "content": ".entry-content, .article-content",
+          "sections": "h2, h3",
+          "tips": ".tips-list, .gameplay-tips"
+        }
+      }
+    },
+    "tierlists": {
+      "progameguides": {
+        "name": "Pro Game Guides Tier List",
+        "url": "https://progameguides.com/roblox/anime-raid-units-tier-list/",
+        "type": "tierlist",
+        "priority": 2,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Unit tier list and team composition",
+        "tags": ["tierlist", "units", "team"],
+        "selectors": {
+          "tiers": ".tier-section, .rank-section",
+          "units": ".unit-item, .character-card",
+          "ratings": ".rating-score, .rank-badge"
+        }
+      },
+      "destructoid": {
+        "name": "Destructoid Tier List",
+        "url": "https://www.destructoid.com/anime-raid-tier-list/",
+        "type": "tierlist",
+        "priority": 3,
+        "updateFrequency": "monthly",
+        "enabled": true,
+        "description": "Power rankings and meta units",
+        "tags": ["tierlist", "meta", "rankings"],
+        "selectors": {
+          "tiers": ".tier-category, .power-rankings",
+          "units": ".character-list li, .unit-ranking",
+          "ratings": ".score, .meta-score"
+        }
+      },
+      "gamerempire": {
+        "name": "Gamer Empire",
+        "url": "https://gamerempire.net/anime-raid-tier-list/",
+        "type": "tierlist",
+        "priority": 3,
+        "updateFrequency": "monthly",
+        "enabled": true,
+        "description": "Damage and best unit breakdown",
+        "tags": ["tierlist", "damage", "breakdown"],
+        "selectors": {
+          "tiers": ".tier-table, .damage-ranking",
+          "units": ".unit-row, .character-stats",
+          "ratings": ".damage-value, .unit-score"
+        }
+      },
+      "gamezebo": {
+        "name": "Gamezebo",
+        "url": "https://www.gamezebo.com/walkthroughs/anime-raid-tier-list/",
+        "type": "guide",
+        "priority": 3,
+        "updateFrequency": "monthly",
+        "enabled": true,
+        "description": "Character guide and builds",
+        "tags": ["guide", "character", "builds"],
+        "selectors": {
+          "tiers": ".character-rankings, .build-guide",
+          "units": ".character-profile, .unit-guide",
+          "ratings": ".character-rating, .build-score"
+        }
+      }
+    },
+    "news": {
+      "devforum": {
+        "name": "Roblox DevForum",
+        "url": "https://devforum.roblox.com",
+        "type": "official",
+        "priority": 1,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Official patch notes and updates",
+        "tags": ["official", "updates", "patch-notes"],
+        "selectors": {
+          "posts": ".post-item, .devforum-post",
+          "content": ".post-content, .discussion-body",
+          "dates": ".post-date, .timestamp"
+        }
+      },
+      "destructoid_news": {
+        "name": "Destructoid News",
+        "url": "https://www.destructoid.com/tag/anime-raid/",
+        "type": "news",
+        "priority": 2,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Update and new unit announcements",
+        "tags": ["news", "updates", "announcements"],
+        "selectors": {
+          "articles": ".post-card, .news-item",
+          "content": ".article-excerpt, .post-preview",
+          "dates": ".publish-date, .article-date"
+        }
+      },
+      "sportskeeda_news": {
+        "name": "Sportskeeda Updates",
+        "url": "https://www.sportskeeda.com/roblox/anime-raid",
+        "type": "news",
+        "priority": 3,
+        "updateFrequency": "daily",
+        "enabled": true,
+        "description": "Game events and patch summaries",
+        "tags": ["news", "events", "patches"],
+        "selectors": {
+          "articles": ".article-item, .news-card",
+          "content": ".article-summary, .event-details",
+          "dates": ".event-date, .article-timestamp"
+        }
+      }
+    },
+    "youtube": {
+      "toadboi": {
+        "name": "ToadBoi",
+        "url": "https://www.youtube.com/@ToadBoiRBX",
+        "type": "video",
+        "priority": 3,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Unit showcases and gameplay",
+        "tags": ["video", "showcase", "gameplay"],
+        "api": {
+          "channelId": "UC_TOADBOI_CHANNEL_ID",
+          "maxResults": 10,
+          "order": "date"
+        }
+      },
+      "kinglegacyx": {
+        "name": "KingLegacyX",
+        "url": "https://www.youtube.com/@KingLegacyX",
+        "type": "video",
+        "priority": 3,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Weekly code and tier list updates",
+        "tags": ["video", "codes", "updates"],
+        "api": {
+          "channelId": "UC_KINGLEGACYX_CHANNEL_ID",
+          "maxResults": 10,
+          "order": "date"
+        }
+      },
+      "noobblox": {
+        "name": "NoobBlox",
+        "url": "https://www.youtube.com/@NoobBloxYT",
+        "type": "video",
+        "priority": 3,
+        "updateFrequency": "weekly",
+        "enabled": true,
+        "description": "Gameplay, walkthroughs and strategies",
+        "tags": ["video", "walkthrough", "strategy"],
+        "api": {
+          "channelId": "UC_NOOBBLOX_CHANNEL_ID",
+          "maxResults": 10,
+          "order": "date"
+        }
+      }
+    }
+  },
+  "settings": {
+    "sync": {
+      "enabled": true,
+      "intervals": {
+        "codes": 3600000,
+        "tierlist": 86400000,
+        "news": 21600000,
+        "youtube": 86400000
+      },
+      "retryAttempts": 3,
+      "timeout": 30000
+    },
+    "cache": {
+      "enabled": true,
+      "ttl": {
+        "codes": 3600000,
+        "tierlist": 86400000,
+        "news": 21600000,
+        "youtube": 86400000
+      },
+      "maxSize": "50MB"
+    },
+    "seo": {
+      "enabled": true,
+      "maxLinksPerPage": 5,
+      "relAttributes": ["noopener", "noreferrer"],
+      "anchorTextVariation": true
+    },
+    "notifications": {
+      "enabled": true,
+      "channels": ["console", "localStorage"],
+      "events": ["sync_complete", "sync_error", "new_content"]
+    }
+  },
+  "analytics": {
+    "enabled": true,
+    "trackClicks": true,
+    "trackPerformance": true,
+    "providers": ["google-analytics", "console"]
+  }
+}
