@@ -17,28 +17,100 @@
     <meta property="og:type" content="website">
     <meta property="og:url" href="https://animeraid.wiki/">
 
+    <!-- Performance Optimization: Preload Critical Resources -->
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="assets/images/logo.svg" as="image">
+
+    <!-- DNS Prefetch for External Resources -->
+    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/main.css">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <!-- Favicon - Multiple Formats for Maximum Compatibility -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+    <link rel="shortcut icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
 
-    <!-- Structured Data -->
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Anime Raid Wiki",
-        "description": "Anime Raid game guide with codes, tier list, characters, and tools",
+        "description": "Complete Anime Raid game guide with active codes, character tier list, builds, skills, and drop rates",
         "url": "https://animeraid.wiki/",
         "potentialAction": {
             "@type": "SearchAction",
             "target": "https://animeraid.wiki/search?q={search_term_string}",
             "query-input": "required name=search_term_string"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Anime Raid Wiki",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://animeraid.wiki/assets/images/logo.svg",
+                "width": 200,
+                "height": 50
+            }
         }
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://animeraid.wiki/"
+            }
+        ]
+    }
+    </script>
+
+    <!-- FAQ Schema for Homepage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Anime Raid Wiki?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Anime Raid Wiki is a comprehensive game guide providing the latest codes, character tier lists, build calculators, and detailed strategies for Anime Raid players."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How often are codes updated?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Codes are updated daily as soon as new ones are released. Check our codes page regularly for the latest active codes and exclusive rewards."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are the tier lists regularly updated?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, our character tier lists are updated weekly based on current meta, game updates, and community feedback to ensure accurate rankings."
+                }
+            }
+        ]
     }
     </script>
 </head>
@@ -49,7 +121,12 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="/" class="flex items-center">
-                        <img src="assets/images/logo.png" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
+                        <img src="assets/images/logo.svg"
+                             alt="Anime Raid Wiki - Complete Game Guide"
+                             width="200"
+                             height="50"
+                             loading="lazy"
+                             class="h-8 w-auto mr-3">
                         <span class="text-xl font-bold text-gray-900">Anime Raid Wiki</span>
                     </a>
                 </div>
@@ -221,6 +298,62 @@
                 </a>
             </div>
         </section>
+
+        <!-- Database Preview -->
+        <section id="database" class="mt-12 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-900 flex items-center">
+                <span class="text-2xl mr-2">🗂️</span> Character Database Preview
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4 rounded-lg">
+                    <h3 class="font-semibold text-yellow-800 mb-2">Featured Characters</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                            <span class="text-sm">Shadow Assassin</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
+                            <span class="text-sm">Holy Priest</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">A</div>
+                            <span class="text-sm">Fire Warrior</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">A</div>
+                            <span class="text-sm">Ice Mage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-r from-purple-100 to-purple-200 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 mb-2">Quick Stats</h3>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div>
+                            <div class="font-bold text-purple-600">150+</div>
+                            <div class="text-gray-600">Total Characters</div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-purple-600">15</div>
+                            <div class="text-gray-600">S-Tier Heroes</div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-purple-600">6</div>
+                            <div class="text-gray-600">Elements</div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-purple-600">4</div>
+                            <div class="text-gray-600">Classes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="database/units/" class="inline-block bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                    Browse All Characters →
+                </a>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -266,10 +399,40 @@
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
-    <script src="js/structured-data.js"></script>
-    <script src="js/cms.js"></script>
-    <script src="js/comment-system.js"></script>
+    <!-- Performance Optimized JavaScript -->
+    <script src="js/api-service.js" defer></script>
+    <script src="js/update-manager.js" defer></script>
+    <script src="js/websocket-sync.js" defer></script>
+    <script src="js/smart-updates.js" defer></script>
+    <script src="js/incremental-updates.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/structured-data.js" defer></script>
+    <script src="js/cms.js" defer></script>
+    <script src="js/comment-system.js" defer></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        // 注册Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+
+                        // 请求通知权限
+                        if ('Notification' in window && Notification.permission === 'default') {
+                            Notification.requestPermission().then(permission => {
+                                if (permission === 'granted') {
+                                    console.log('Notification permission granted');
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

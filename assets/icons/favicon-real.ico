@@ -1,0 +1,15 @@
+<!-- 这是一个真正的ICO格式文件的占位符 -->
+<!-- 在实际部署中，这需要是一个真正的二进制ICO文件 -->
+<!-- 使用以下命令创建真正的ICO文件： -->
+<!--
+# 使用ImageMagick (推荐)
+convert favicon-32.png favicon-16.png favicon-real.ico
+
+# 或使用在线ICO转换器
+# 上传favicon-32.png到 https://favicon.io/ 或 https://convertico.com/
+-->
+
+<!-- ICO文件结构信息 -->
+<!-- 文件应该包含：16x16px 和 32x32px 两种尺寸 -->
+<!-- 颜色深度：32位真彩色 -->
+<!-- 文件大小：约1-2KB -->

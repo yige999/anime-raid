@@ -1,0 +1,109 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    <filter id="flameGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="fireEffect">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" result="turbulence"/>
+      <feColorMatrix in="turbulence" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="discrete" tableValues="0 .5 .5 .5 1 1"/>
+      </feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+      <feBlend mode="screen"/>
+    </filter>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="url(#flameGradient)"/>
+
+  <!-- Character Body -->
+  <g fill="white" filter="url(#flameGlow)">
+    <!-- Head -->
+    <circle cx="60" cy="40" r="15"/>
+
+    <!-- Armor Body -->
+    <path d="M45 55 Q60 50 75 55 L70 95 L50 95 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+
+    <!-- Pauldrons (Shoulder Armor) -->
+    <ellipse cx="42" cy="60" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+    <ellipse cx="78" cy="60" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+
+    <!-- Arms with Armor -->
+    <rect x="35" y="60" width="10" height="25" rx="2" transform="rotate(-15 40 72)" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+    <rect x="75" y="60" width="10" height="25" rx="2" transform="rotate(15 80 72)" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+
+    <!-- Legs with Armor -->
+    <rect x="48" y="95" width="8" height="20" rx="2" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+    <rect x="64" y="95" width="8" height="20" rx="2" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+  </g>
+
+  <!-- Fire Sword -->
+  <g filter="url(#fireEffect)">
+    <!-- Sword Blade -->
+    <rect x="85" y="50" width="4" height="25" fill="#ef4444" transform="rotate(45 87 62)"/>
+
+    <!-- Fire Effect on Blade -->
+    <path d="M85 45 L90 40 L88 48 L92 42 L90 50" fill="#f97316" opacity="0.8" transform="rotate(45 87 62)"/>
+    <path d="M85 65 L88 70 L86 65 L90 72 L87 67" fill="#fbbf24" opacity="0.6" transform="rotate(45 87 62)"/>
+
+    <!-- Hilt -->
+    <rect x="82" y="72" width="10" height="3" fill="#8b4513" transform="rotate(45 87 73)"/>
+    <circle cx="87" cy="75" r="3" fill="#dc2626" transform="rotate(45 87 75)"/>
+  </g>
+
+  <!-- Helmet -->
+  <g fill="white" opacity="0.9">
+    <!-- Helmet Base -->
+    <path d="M45 38 Q60 32 75 38 L72 45 L48 45 Z" fill="#fbbf24" stroke="#f59e0b" stroke-width="1"/>
+
+    <!-- Helmet Crest -->
+    <path d="M55 32 L60 28 L65 32 L63 35 L57 35 Z" fill="#dc2626"/>
+  </g>
+
+  <!-- Fire Aura -->
+  <g opacity="0.3">
+    <circle cx="60" cy="60" r="50" fill="none" stroke="#ef4444" stroke-width="2">
+      <animate attributeName="r" values="50;55;50" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Eyes (Glowing) -->
+  <g fill="#fbbf24" opacity="0.9">
+    <circle cx="54" cy="38" r="2">
+      <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="66" cy="38" r="2">
+      <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Fire Particles -->
+  <g fill="#f97316" opacity="0.7">
+    <circle cx="40" cy="85" r="2">
+      <animate attributeName="cy" values="85;75;85" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="80" cy="90" r="1.5">
+      <animate attributeName="cy" values="90;80;90" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="60" cy="95" r="1">
+      <animate attributeName="cy" values="95;85;95" dur="3.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.2;0.7" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Shadow Effect -->
+  <ellipse cx="60" cy="115" rx="25" ry="5" fill="black" opacity="0.3"/>
+</svg>

@@ -1,0 +1,72 @@
+<!-- Performance Optimized Footer Template -->
+<!-- Use this template for all HTML pages -->
+
+<!-- Performance Optimized JavaScript -->
+<script src="{{BASE_URL}}js/main.js" defer></script>
+<script src="{{BASE_URL}}js/structured-data.js" defer></script>
+
+<!-- Conditional Scripts -->
+{{ADDITIONAL_SCRIPTS}}
+
+<!-- Lazy Loading Script -->
+<script>
+    // Intersection Observer for lazy loading images
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        });
+
+        // Observe all images with 'lazy' class
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyImages = document.querySelectorAll('img.lazy');
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+    }
+
+    // Service Worker Registration (for PWA)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('{{BASE_URL}}sw.js')
+                .then(registration => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+</script>
+
+<!-- Analytics (if needed) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{GA_TRACKING_ID}}"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{GA_TRACKING_ID}}', {
+        'anonymize_ip': true,
+        'page_title': '{{PAGE_TITLE}}',
+        'page_location': '{{PAGE_URL}}'
+    });
+</script>
+
+<!-- Heatmap/Session Recording (optional) -->
+{{ANALYTICS_SCRIPTS}}
+
+<!-- Schema.org Review/Rating (if applicable) -->
+{{REVIEW_SCHEMA}}
+
+<!-- Custom JavaScript -->
+{{CUSTOM_SCRIPTS}}
+
+</body>
+</html>

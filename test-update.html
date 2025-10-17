@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动更新测试 - Anime Raid Wiki</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">自动更新功能测试</h1>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">测试结果</h2>
+            <div id="test-results" class="space-y-2">
+                <div class="text-gray-600">正在测试...</div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">兑换码数据</h2>
+            <div id="codes-display" class="space-y-2">
+                <div class="text-gray-600">加载中...</div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">操作按钮</h2>
+            <div class="space-x-4">
+                <button onclick="testUpdate()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    测试更新检查
+                </button>
+                <button onclick="testCodes()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    测试兑换码加载
+                </button>
+                <button onclick="clearCache()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    清除缓存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载必要的JS文件 -->
+    <script src="js/api-service.js"></script>
+    <script src="js/cms.js"></script>
+
+    <script>
+        // 测试函数
+        async function testUpdate() {
+            const resultDiv = document.getElementById('test-results');
+            resultDiv.innerHTML = '<div class="text-blue-600">正在检查更新...</div>';
+
+            try {
+                const response = await apiService.checkForUpdates();
+
+                if (response.success) {
+                    resultDiv.innerHTML = `
+                        <div class="text-green-600">✅ 更新检查成功</div>
+                        <div class="text-sm text-gray-600">
+                            版本: ${response.data.version}<br>
+                            最后更新: ${response.data.lastUpdate}<br>
+                            有更新: ${response.data.hasUpdates ? '是' : '否'}
+                        </div>
+                    `;
+
+                    if (response.data.hasUpdates) {
+                        resultDiv.innerHTML += `
+                            <div class="mt-2 p-2 bg-yellow-100 rounded text-sm">
+                                🔄 发现更新: ${response.data.updates[0].title}
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = `<div class="text-red-600">❌ 更新检查失败: ${response.error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="text-red-600">❌ 错误: ${error.message}</div>`;
+            }
+        }
+
+        async function testCodes() {
+            const codesDiv = document.getElementById('codes-display');
+            codesDiv.innerHTML = '<div class="text-blue-600">正在加载兑换码...</div>';
+
+            try {
+                const response = await apiService.getCodes();
+
+                if (response.success) {
+                    const activeCodes = response.data.active.slice(0, 3); // 只显示前3个
+                    codesDiv.innerHTML = `
+                        <div class="text-green-600 mb-3">✅ 成功加载 ${response.data.metadata.totalActive} 个有效兑换码</div>
+                        <div class="text-sm text-gray-600 mb-3">
+                            版本: ${response.data.metadata.version}<br>
+                            最后更新: ${new Date(response.data.metadata.lastUpdated).toLocaleString()}
+                        </div>
+                        <div class="space-y-2">
+                            ${activeCodes.map(code => `
+                                <div class="p-2 border rounded">
+                                    <div class="font-mono font-bold">${code.code}</div>
+                                    <div class="text-sm text-gray-600">${code.rewards}</div>
+                                    <div class="text-xs text-gray-500">过期时间: ${code.expires}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    codesDiv.innerHTML = `<div class="text-red-600">❌ 加载失败: ${response.error}</div>`;
+                }
+            } catch (error) {
+                codesDiv.innerHTML = `<div class="text-red-600">❌ 错误: ${error.message}</div>`;
+            }
+        }
+
+        function clearCache() {
+            if (window.apiService) {
+                apiService.clearCache();
+                localStorage.clear();
+                alert('缓存已清除！页面将在2秒后刷新...');
+                setTimeout(() => location.reload(), 2000);
+            }
+        }
+
+        // 页面加载时自动测试
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testUpdate();
+                testCodes();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!-- Performance Optimized Head Template -->
+<!-- Use this template for all new HTML pages -->
+
+<!-- Character Encoding & Viewport -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO Meta Tags -->
+<title>{{PAGE_TITLE}}</title>
+<meta name="description" content="{{PAGE_DESCRIPTION}}">
+<meta name="keywords" content="{{PAGE_KEYWORDS}}">
+<meta name="author" content="Anime Raid Wiki">
+<link rel="canonical" href="{{PAGE_URL}}">
+
+<!-- Open Graph / Social Media -->
+<meta property="og:title" content="{{OG_TITLE}}">
+<meta property="og:description" content="{{OG_DESCRIPTION}}">
+<meta property="og:type" content="{{OG_TYPE}}">
+<meta property="og:url" content="{{PAGE_URL}}">
+<meta property="og:image" content="{{OG_IMAGE}}">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{OG_TITLE}}">
+<meta name="twitter:description" content="{{OG_DESCRIPTION}}">
+<meta name="twitter:image" content="{{OG_IMAGE}}">
+
+<!-- Performance Optimization: Preload Critical Resources -->
+<link rel="preload" href="{{BASE_URL}}css/main.css" as="style">
+<link rel="preload" href="{{BASE_URL}}js/main.js" as="script">
+<link rel="preload" href="{{BASE_URL}}assets/images/logo.svg" as="image">
+
+<!-- DNS Prefetch for External Resources -->
+<link rel="dns-prefetch" href="//cdn.tailwindcss.com">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+<!-- Preconnect for Critical External Resources -->
+<link rel="preconnect" href="https://cdn.tailwindcss.com">
+
+<!-- Stylesheets -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="{{BASE_URL}}css/main.css">
+
+<!-- Favicon and Icons -->
+<link rel="icon" type="image/svg+xml" href="{{BASE_URL}}assets/icons/favicon.svg">
+<link rel="icon" type="image/x-icon" href="{{BASE_URL}}assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="{{BASE_URL}}assets/icons/favicon.svg">
+
+<!-- Theme Color -->
+<meta name="theme-color" content="#6366f1">
+<meta name="msapplication-TileColor" content="#6366f1">
+
+<!-- Enhanced Structured Data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "{{SCHEMA_TYPE}}",
+    "headline": "{{SCHEMA_HEADLINE}}",
+    "description": "{{SCHEMA_DESCRIPTION}}",
+    "author": {
+        "@type": "Organization",
+        "name": "Anime Raid Wiki",
+        "url": "https://animeraid.wiki/"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Anime Raid Wiki",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://animeraid.wiki/assets/images/logo.svg",
+            "width": 200,
+            "height": 50
+        }
+    },
+    "datePublished": "{{DATE_PUBLISHED}}",
+    "dateModified": "{{DATE_MODIFIED}}",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{PAGE_URL}}"
+    }
+}
+</script>
+
+<!-- BreadcrumbList Schema -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": {{BREADCRUMB_DATA}}
+}
+</script>
+
+<!-- FAQ Schema (if applicable) -->
+{{FAQ_SCHEMA}}
+
+<!-- Critical CSS (optional - inline for faster rendering) -->
+<style>
+    /* Critical CSS for above-the-fold content */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #6366f1;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<!-- JavaScript for Performance Monitoring (optional) -->
+<script>
+    // Performance monitoring
+    if ('performance' in window) {
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                console.log('Page load time:', loadTime + 'ms');
+
+                // Send performance data to analytics (if needed)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'page_load_time', {
+                        'custom_parameter': loadTime
+                    });
+                }
+            }, 0);
+        });
+    }
+</script>

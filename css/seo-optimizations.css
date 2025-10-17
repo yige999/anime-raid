@@ -1,0 +1,287 @@
+/* SEO和用户体验优化样式 */
+
+/* 面包屑导航优化 */
+.breadcrumb {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+.breadcrumb-list {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb-item {
+    color: #64748b;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item:hover {
+    color: #dc2626;
+}
+
+.breadcrumb-separator {
+    margin: 0 12px;
+    color: #94a3b8;
+}
+
+.breadcrumb-current {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* FAQ区域样式 */
+.faq-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.faq-answer {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* 相关内容推荐 */
+.related-content {
+    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+}
+
+.related-content h3 {
+    color: #92400e;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.related-links {
+    display: grid;
+    gap: 12px;
+}
+
+.related-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    border-left: 4px solid #f59e0b;
+}
+
+.related-link:hover {
+    background: #ffffff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.related-link-icon {
+    margin-right: 12px;
+    color: #f59e0b;
+}
+
+/* 搜索优化 */
+.search-highlight {
+    background: #fef3c7;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* 内容表格优化 */
+.content-table {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.content-table h4 {
+    color: #1e293b;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.content-table ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.content-table li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.content-table li:last-child {
+    border-bottom: none;
+}
+
+.content-table a {
+    color: #3b82f6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.content-table a:hover {
+    color: #dc2626;
+    text-decoration: underline;
+}
+
+/* 性能优化：懒加载占位符 */
+.lazy-placeholder {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .breadcrumb-list {
+        padding: 0 16px;
+        font-size: 12px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .breadcrumb-separator {
+        margin: 0 8px;
+    }
+
+    .related-content {
+        padding: 16px;
+    }
+
+    .related-links {
+        gap: 8px;
+    }
+
+    .related-link {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .faq-section {
+        padding: 16px;
+        margin: 16px 0;
+    }
+
+    .content-table {
+        padding: 12px;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .breadcrumb-item {
+        color: #000000;
+    }
+
+    .faq-question {
+        color: #000000;
+    }
+
+    .related-link {
+        border-left-width: 6px;
+    }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+    .breadcrumb {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border-bottom-color: #475569;
+    }
+
+    .breadcrumb-item {
+        color: #94a3b8;
+    }
+
+    .breadcrumb-current {
+        color: #f1f5f9;
+    }
+
+    .faq-section {
+        background: #1e293b;
+        color: #f1f5f9;
+    }
+
+    .faq-question {
+        color: #f1f5f9;
+    }
+
+    .faq-answer {
+        color: #94a3b8;
+    }
+
+    .content-table {
+        background: #1e293b;
+        border-color: #475569;
+    }
+
+    .content-table h4 {
+        color: #f1f5f9;
+    }
+
+    .content-table li {
+        border-bottom-color: #475569;
+    }
+}
+
+/* 打印样式优化 */
+@media print {
+    .breadcrumb,
+    .related-content,
+    .faq-section {
+        display: none;
+    }
+
+    .content-table {
+        background: #ffffff;
+        border: 1px solid #000000;
+    }
+}

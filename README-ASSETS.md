@@ -26,6 +26,16 @@
   - 金色主题配色
   - 包含治疗光环效果
 
+- **flame-warrior.svg** - 烈焰战士头像
+  - 尺寸：120x120px
+  - 火焰主题配色
+  - 包含火剑和燃烧效果
+
+- **ice-mage.svg** - 寒冰法师头像
+  - 尺寸：120x120px
+  - 冰霜主题配色
+  - 包含冰杖和魔法效果
+
 ### 🎯 图标文件 (Icons)
 
 #### `/assets/icons/`
@@ -33,6 +43,31 @@
   - 尺寸：32x32px
   - 简洁的"AR"标识
   - 渐变背景
+  - 现代浏览器优先使用
+
+- **favicon-32.png** - PNG格式网站图标
+  - 尺寸：32x32px
+  - 高质量位图版本
+  - 支持所有现代浏览器
+
+- **favicon-16.png** - PNG格式小图标
+  - 尺寸：16x16px
+  - 用于小图标显示
+  - 兼容旧版浏览器
+
+- **favicon.ico** - ICO格式网站图标
+  - 包含多种尺寸：16x16px, 32x32px
+  - 传统格式，最大兼容性
+  - ⚠️ **需要转换为真正的ICO格式**
+
+- **convert-favicon.js** - Favicon转换脚本
+  - Node.js脚本，用于生成真正的ICO文件
+  - 包含Windows和Linux构建脚本
+  - 提供多种转换方法指南
+
+- **favicon-real.ico** - ICO文件占位符
+  - 需要替换为真正的二进制ICO文件
+  - 使用构建脚本生成
 
 - **codes-icon.svg** - 兑换码图标
   - 尺寸：64x64px
@@ -90,7 +125,13 @@ inkscape --export-jpg=hero-bg.jpg --export-width=1920 --export-height=600 hero-b
 - [x] `/assets/images/hero-bg.svg` ✅
 - [x] `/assets/images/characters/shadow-assassin.svg` ✅
 - [x] `/assets/images/characters/holy-priest.svg` ✅
+- [x] `/assets/images/characters/flame-warrior.svg` ✅ **新增**
+- [x] `/assets/images/characters/ice-mage.svg` ✅ **新增**
 - [x] `/assets/icons/favicon.svg` ✅
+- [x] `/assets/icons/favicon-32.png` ✅ **新增**
+- [x] `/assets/icons/favicon-16.png` ✅ **新增**
+- [x] `/assets/icons/favicon.ico` ⚠️ **需要转换**
+- [x] `/assets/icons/convert-favicon.js` ✅ **新增**
 - [x] `/assets/icons/codes-icon.svg` ✅
 - [x] `/assets/icons/tier-icon.svg` ✅
 - [x] `/assets/icons/database-icon.svg` ✅
@@ -102,8 +143,12 @@ inkscape --export-jpg=hero-bg.jpg --export-width=1920 --export-height=600 hero-b
 <!-- Logo引用 -->
 <img src="assets/images/logo.svg" alt="Anime Raid Wiki">
 
-<!-- Favicon引用 -->
-<link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+<!-- Favicon引用 - 多格式支持 -->
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="shortcut icon" href="assets/icons/favicon.ico">
+<link rel="apple-touch-icon" href="assets/icons/favicon.svg">
 
 <!-- 背景图片引用 -->
 <style>
@@ -146,9 +191,21 @@ inkscape --export-jpg=hero-bg.jpg --export-width=1920 --export-height=600 hero-b
 ### 当前文件大小估算
 - Logo SVG: ~2KB
 - Favicon SVG: ~1KB
+- Favicon PNG-32: ~1.2KB
+- Favicon PNG-16: ~0.8KB
 - Hero Background SVG: ~8KB
-- Character Avatars SVG: ~3KB each
+- Character Avatars SVG: ~2-3KB each
 - Icons SVG: ~1KB each
+
+### 🚨 紧急修复项目
+- **Favicon ICO转换**: 需要将SVG转换为真正的ICO格式
+  ```bash
+  # 使用构建脚本
+  node assets/icons/convert-favicon.js
+
+  # 或使用ImageMagick
+  convert assets/icons/favicon-32.png assets/icons/favicon-16.png assets/icons/favicon.ico
+  ```
 
 ### 优化目标
 - 首页加载时间 < 2秒
