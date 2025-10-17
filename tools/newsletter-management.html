@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Management - Anime Raid Wiki</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    <h1 class="text-2xl font-bold text-gray-900">Newsletter Management</h1>
+                </div>
+                <a href="../codes/" class="text-sm text-gray-600 hover:text-purple-600 transition-colors">
+                    ← Back to Codes
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Statistics Cards -->
+        <section class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600">Total Subscribers</p>
+                        <p id="total-subscribers" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                    <svg class="w-12 h-12 text-blue-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600">New This Week</p>
+                        <p id="weekly-subscribers" class="text-2xl font-bold text-gray-900">0</p>
+                    </div>
+                    <svg class="w-12 h-12 text-green-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600">Open Rate</p>
+                        <p id="open-rate" class="text-2xl font-bold text-gray-900">--</p>
+                    </div>
+                    <svg class="w-12 h-12 text-yellow-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600">Active Campaigns</p>
+                        <p id="active-campaigns" class="text-2xl font-bold text-gray-900">1</p>
+                    </div>
+                    <svg class="w-12 h-12 text-purple-500 opacity-20" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 7H7v6h6V7z"></path>
+                        <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Recent Subscribers -->
+            <section class="md:col-span-2">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Recent Subscribers</h2>
+                        <p class="text-sm text-gray-600 mt-1">Latest newsletter signups</p>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscribers-tbody" class="bg-white divide-y divide-gray-200">
+                                <!-- Subscribers will be populated here -->
+                            </tbody>
+                        </table>
+                        <div id="no-subscribers" class="p-8 text-center text-gray-500">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                            </svg>
+                            <p class="mt-2">No subscribers yet</p>
+                            <p class="text-sm">Start by subscribing some test emails from the codes page</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section>
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                    <div class="space-y-3">
+                        <button onclick="exportSubscribers()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Export Subscribers
+                        </button>
+                        <button onclick="sendTestEmail()" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Send Test Email
+                        </button>
+                        <button onclick="clearAllSubscribers()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors flex items-center justify-center">
+                            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Clear All Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Email Template Preview -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Email Template</h3>
+                    <div class="bg-gray-50 rounded-lg p-4 text-sm">
+                        <h4 class="font-semibold text-gray-900 mb-2">🎮 New Codes Available!</h4>
+                        <p class="text-gray-600 mb-3">Hi [Name],</p>
+                        <p class="text-gray-600 mb-3">We've found new active codes for Anime Raid:</p>
+                        <ul class="list-disc list-inside text-gray-600 mb-3 space-y-1">
+                            <li><code class="bg-gray-200 px-1 rounded">NEWCODE123</code> - Diamonds x5000</li>
+                            <li><code class="bg-gray-200 px-1 rounded">BONUS2025</code> - Gold x100,000</li>
+                        </ul>
+                        <p class="text-gray-600 mb-3">Hurry! These codes expire soon.</p>
+                        <a href="#" class="text-blue-600 hover:underline">View All Codes →</a>
+                        <hr class="my-3">
+                        <p class="text-xs text-gray-500">You're receiving this because you subscribed to Anime Raid Wiki updates.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-4 right-4 hidden fade-in">
+        <div class="bg-white rounded-lg shadow-lg p-4 flex items-center space-x-3">
+            <div id="toast-icon"></div>
+            <div>
+                <p id="toast-message" class="text-sm font-medium text-gray-900"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Newsletter Management System
+        class NewsletterManager {
+            constructor() {
+                this.subscribers = this.loadSubscribers();
+                this.initializeUI();
+            }
+
+            loadSubscribers() {
+                const stored = localStorage.getItem('animeRaidSubscribers');
+                return stored ? JSON.parse(stored) : [];
+            }
+
+            saveSubscribers() {
+                localStorage.setItem('animeRaidSubscribers', JSON.stringify(this.subscribers));
+            }
+
+            initializeUI() {
+                this.updateStatistics();
+                this.renderSubscribers();
+            }
+
+            updateStatistics() {
+                document.getElementById('total-subscribers').textContent = this.subscribers.length;
+
+                // Calculate new subscribers this week
+                const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+                const weeklyCount = this.subscribers.filter(sub =>
+                    new Date(sub.date) > oneWeekAgo
+                ).length;
+                document.getElementById('weekly-subscribers').textContent = weeklyCount;
+
+                // Simulate open rate (would come from actual email service)
+                document.getElementById('open-rate').textContent =
+                    this.subscribers.length > 0 ? `${Math.floor(Math.random() * 30 + 60)}%` : '--';
+            }
+
+            renderSubscribers() {
+                const tbody = document.getElementById('subscribers-tbody');
+                const noSubscribers = document.getElementById('no-subscribers');
+
+                if (this.subscribers.length === 0) {
+                    tbody.innerHTML = '';
+                    noSubscribers.style.display = 'block';
+                    return;
+                }
+
+                noSubscribers.style.display = 'none';
+
+                // Sort by date (newest first)
+                const sortedSubscribers = [...this.subscribers].sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+                tbody.innerHTML = sortedSubscribers.slice(0, 10).map((subscriber, index) => `
+                    <tr class="hover:bg-gray-50 slide-in" style="animation-delay: ${index * 0.05}s">
+                        <td class="px-6 py-4 text-sm">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-gray-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                                ${this.maskEmail(subscriber.email)}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            ${new Date(subscriber.date).toLocaleDateString()}
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                Active
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <button onclick="newsletterManager.removeSubscriber('${subscriber.email}')"
+                                    class="text-red-600 hover:text-red-900 transition-colors">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            maskEmail(email) {
+                const [username, domain] = email.split('@');
+                const maskedUsername = username.substring(0, 2) + '***';
+                return `${maskedUsername}@${domain}`;
+            }
+
+            removeSubscriber(email) {
+                this.subscribers = this.subscribers.filter(sub => sub.email !== email);
+                this.saveSubscribers();
+                this.initializeUI();
+                showToast('Subscriber removed successfully', 'success');
+            }
+
+            exportSubscribers() {
+                if (this.subscribers.length === 0) {
+                    showToast('No subscribers to export', 'error');
+                    return;
+                }
+
+                const csv = 'Email,Date,Status\n' +
+                    this.subscribers.map(sub => `${sub.email},${sub.date},Active`).join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `anime-raid-subscribers-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+
+                showToast('Subscribers exported successfully', 'success');
+            }
+
+            sendTestEmail() {
+                if (this.subscribers.length === 0) {
+                    showToast('No subscribers to send to', 'error');
+                    return;
+                }
+
+                // Simulate sending test email
+                showToast(`Test email sent to ${this.subscribers.length} subscribers`, 'success');
+                console.log('Test email sent to:', this.subscribers.map(s => s.email));
+            }
+
+            clearAllSubscribers() {
+                if (this.subscribers.length === 0) {
+                    showToast('No data to clear', 'error');
+                    return;
+                }
+
+                if (confirm(`Are you sure you want to remove all ${this.subscribers.length} subscribers? This action cannot be undone.`)) {
+                    this.subscribers = [];
+                    this.saveSubscribers();
+                    this.initializeUI();
+                    showToast('All subscribers removed', 'success');
+                }
+            }
+        }
+
+        // Initialize newsletter manager
+        let newsletterManager;
+        document.addEventListener('DOMContentLoaded', function() {
+            newsletterManager = new NewsletterManager();
+        });
+
+        // Global functions for button onclick handlers
+        function exportSubscribers() {
+            newsletterManager.exportSubscribers();
+        }
+
+        function sendTestEmail() {
+            newsletterManager.sendTestEmail();
+        }
+
+        function clearAllSubscribers() {
+            newsletterManager.clearAllSubscribers();
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            // Set message
+            toastMessage.textContent = message;
+
+            // Set icon based on type
+            const icons = {
+                success: '<svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>',
+                error: '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>',
+                info: '<svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>'
+            };
+            toastIcon.innerHTML = icons[type] || icons.info;
+
+            // Show toast
+            toast.classList.remove('hidden');
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

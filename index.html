@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Raid Wiki - Latest Guides, Codes & Tier List 2025</title>
-    <meta name="description" content="Complete Anime Raid guide with active codes, character tier list, builds, skills, and drop rates. Become an Anime Raid master with our comprehensive攻略!">
+    <meta name="description" content="Complete Anime Raid guide with active codes, character tier list, builds, skills, and drop rates. Become an Anime Raid master with our comprehensive guides!">
 
     <!-- SEO Meta Tags -->
     <meta name="keywords" content="anime raid, codes, tier list, guide, builds, skills, equipment, drops, characters">
@@ -131,11 +131,11 @@
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#guides" class="text-gray-700 hover:text-red-600 transition-colors">Guides</a>
-                    <a href="#codes" class="text-gray-700 hover:text-red-600 transition-colors">Codes</a>
-                    <a href="#tier-lists" class="text-gray-700 hover:text-red-600 transition-colors">Tier List</a>
-                    <a href="#database" class="text-gray-700 hover:text-red-600 transition-colors">Database</a>
-                    <a href="#tools" class="text-gray-700 hover:text-red-600 transition-colors">Tools</a>
+                    <a href="guides/" class="text-gray-700 hover:text-red-600 transition-colors">Guides</a>
+                    <a href="codes/" class="text-gray-700 hover:text-red-600 transition-colors">Codes</a>
+                    <a href="tier-lists/" class="text-gray-700 hover:text-red-600 transition-colors">Tier List</a>
+                    <a href="database/units/" class="text-gray-700 hover:text-red-600 transition-colors">Database</a>
+                    <a href="tools/" class="text-gray-700 hover:text-red-600 transition-colors">Tools</a>
                 </div>
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-700 hover:text-red-600">
@@ -148,16 +148,51 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden">
+        <div class="fixed inset-0 z-50 bg-black bg-opacity-50">
+            <div class="fixed right-0 top-0 h-full w-64 bg-white shadow-xl">
+                <div class="flex justify-between items-center p-4 border-b">
+                    <span class="font-bold text-lg">Menu</span>
+                    <button id="close-mobile-menu" class="text-gray-500 hover:text-gray-700">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <nav class="space-y-2">
+                        <a href="guides/" class="block px-3 py-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors">
+                            <span class="mr-2">📖</span> Guides
+                        </a>
+                        <a href="codes/" class="block px-3 py-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors">
+                            <span class="mr-2">🎁</span> Codes
+                        </a>
+                        <a href="tier-lists/" class="block px-3 py-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors">
+                            <span class="mr-2">🏆</span> Tier List
+                        </a>
+                        <a href="database/units/" class="block px-3 py-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors">
+                            <span class="mr-2">🗂️</span> Database
+                        </a>
+                        <a href="tools/" class="block px-3 py-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors">
+                            <span class="mr-2">🛠️</span> Tools
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-red-600 to-purple-600 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold mb-6">Anime Raid Ultimate Guide</h1>
             <p class="text-xl mb-8 max-w-3xl mx-auto">Get the latest codes, character rankings, build calculator, and drop rate simulator. Become an Anime Raid master!</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#codes" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                <a href="codes/" class="bg-yellow-400 text-gray-900 px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
                     🎁 Latest Codes
                 </a>
-                <a href="#tools" class="bg-blue-500 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-400 transition-colors">
+                <a href="tools/build-calculator/" class="bg-blue-500 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-400 transition-colors">
                     🛠️ Build Calculator
                 </a>
             </div>
@@ -307,22 +342,46 @@
             <div class="grid md:grid-cols-2 gap-6 mb-6">
                 <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 p-4 rounded-lg">
                     <h3 class="font-semibold text-yellow-800 mb-2">Featured Characters</h3>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-3">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-white text-xs">S</div>
-                            <span class="text-sm">Shadow Assassin</span>
+                            <img src="assets/images/characters/shadow-assassin.svg" alt="Shadow Assassin" class="w-10 h-10 rounded-full border-2 border-gray-300" loading="lazy">
+                            <div>
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-xs bg-gray-700 text-white px-1 rounded">S</span>
+                                    <span class="text-sm font-medium">Shadow Assassin</span>
+                                </div>
+                                <div class="text-xs text-gray-600">DPS • Dark</div>
+                            </div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white text-xs">S</div>
-                            <span class="text-sm">Holy Priest</span>
+                            <img src="assets/images/characters/holy-priest.svg" alt="Holy Priest" class="w-10 h-10 rounded-full border-2 border-yellow-300" loading="lazy">
+                            <div>
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-xs bg-yellow-500 text-white px-1 rounded">S</span>
+                                    <span class="text-sm font-medium">Holy Priest</span>
+                                </div>
+                                <div class="text-xs text-gray-600">Healer • Light</div>
+                            </div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-xs">A</div>
-                            <span class="text-sm">Fire Warrior</span>
+                            <img src="assets/images/characters/flame-warrior.svg" alt="Fire Warrior" class="w-10 h-10 rounded-full border-2 border-red-300" loading="lazy">
+                            <div>
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-xs bg-red-500 text-white px-1 rounded">A</span>
+                                    <span class="text-sm font-medium">Fire Warrior</span>
+                                </div>
+                                <div class="text-xs text-gray-600">DPS • Fire</div>
+                            </div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">A</div>
-                            <span class="text-sm">Ice Mage</span>
+                            <img src="assets/images/characters/ice-mage.svg" alt="Ice Mage" class="w-10 h-10 rounded-full border-2 border-blue-300" loading="lazy">
+                            <div>
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-xs bg-blue-500 text-white px-1 rounded">A</span>
+                                    <span class="text-sm font-medium">Ice Mage</span>
+                                </div>
+                                <div class="text-xs text-gray-600">Control • Water</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -405,21 +464,27 @@
     <script src="js/websocket-sync.js" defer></script>
     <script src="js/smart-updates.js" defer></script>
     <script src="js/incremental-updates.js" defer></script>
+    <script src="js/cms.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/structured-data.js" defer></script>
-    <script src="js/cms.js" defer></script>
     <script src="js/comment-system.js" defer></script>
+
+    <!-- Auto Content Scraping System -->
+    <script src="js/scraper-compliance.js" defer></script>
+    <script src="js/game-content-scraper.js" defer></script>
+    <script src="js/website-monitor.js" defer></script>
+    <script src="js/auto-content-integrator.js" defer></script>
 
     <!-- Service Worker Registration -->
     <script>
-        // 注册Service Worker
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
 
-                        // 请求通知权限
+                        // Request notification permission
                         if ('Notification' in window && Notification.permission === 'default') {
                             Notification.requestPermission().then(permission => {
                                 if (permission === 'granted') {

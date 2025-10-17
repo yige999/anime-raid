@@ -12,7 +12,10 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="icon" type="image/x-icon" href="../../assets/icons/favicon.ico">
+    <link rel="icon" href="../../assets/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.png">
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
@@ -21,7 +24,7 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <a href="../../" class="flex items-center">
-                        <img src="../../assets/images/logo.png" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
+                        <img src="../../assets/images/logo.svg" alt="Anime Raid Wiki" class="h-8 w-auto mr-3">
                         <span class="text-xl font-bold text-gray-900">Anime Raid Wiki</span>
                     </a>
                 </div>
@@ -59,12 +62,12 @@
     <section class="bg-white border-b sticky top-16 z-40">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex overflow-x-auto py-4 space-x-6 text-sm">
-                <a href="#overview" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">概述</a>
-                <a href="#active-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">主动技能</a>
-                <a href="#passive-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">被动技能</a>
-                <a href="#combo-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">连携技</a>
-                <a href="#skill-points" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">技能点分配</a>
-                <a href="#upgrade-priority" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">升级优先级</a>
+                <a href="#overview" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Overview</a>
+                <a href="#active-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Active Skills</a>
+                <a href="#passive-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Passive Skills</a>
+                <a href="#combo-skills" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Combo Skills</a>
+                <a href="#skill-points" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Skill Points</a>
+                <a href="#upgrade-priority" class="whitespace-nowrap text-gray-700 hover:text-purple-600 font-medium">Upgrade Priority</a>
             </div>
         </div>
     </section>
@@ -76,66 +79,66 @@
         <section id="overview" class="mb-16">
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <h2 class="text-3xl font-bold mb-6 flex items-center">
-                    <span class="text-3xl mr-3">📚</span> 技能系统概述
+                    <span class="text-3xl mr-3">📚</span> Skill System Overview
                 </h2>
 
                 <div class="grid md:grid-cols-3 gap-6 mb-8">
                     <div class="bg-purple-50 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-purple-700 mb-3">⚔️ 主动技能</h3>
-                        <p class="text-gray-600 mb-4">需要手动释放的技能，包含攻击、防御、辅助等多种类型。是角色战斗的核心。</p>
+                        <h3 class="text-xl font-bold text-purple-700 mb-3">⚔️ Active Skills</h3>
+                        <p class="text-gray-600 mb-4">Manually activated skills including attack, defense, and support types. Core to character combat.</p>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li>• 消耗能量释放</li>
-                            <li>• 有冷却时间</li>
-                            <li>• 可手动升级</li>
-                            <li>• 决定战斗策略</li>
+                            <li>• Consume energy to activate</li>
+                            <li>• Have cooldown times</li>
+                            <li>• Can be manually upgraded</li>
+                            <li>• Determine combat strategy</li>
                         </ul>
                     </div>
 
                     <div class="bg-blue-50 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-blue-700 mb-3">🛡️ 被动技能</h3>
-                        <p class="text-gray-600 mb-4">自动生效的常驻技能，提供属性加成和特殊效果，增强角色综合实力。</p>
+                        <h3 class="text-xl font-bold text-blue-700 mb-3">🛡️ Passive Skills</h3>
+                        <p class="text-gray-600 mb-4">Automatically effective permanent skills providing attribute bonuses and special effects, enhancing overall character strength.</p>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li>• 自动触发</li>
-                            <li>• 无需消耗</li>
-                            <li>• 永久生效</li>
-                            <li>• 基础实力保障</li>
+                            <li>• Auto-trigger</li>
+                            <li>• No consumption required</li>
+                            <li>• Always active</li>
+                            <li>• Foundation of strength</li>
                         </ul>
                     </div>
 
                     <div class="bg-yellow-50 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold text-yellow-700 mb-3">⚡ 连携技</h3>
-                        <p class="text-gray-600 mb-4">多个角色配合释放的强力技能，需要特定角色组合和条件触发。</p>
+                        <h3 class="text-xl font-bold text-yellow-700 mb-3">⚡ Combo Skills</h3>
+                        <p class="text-gray-600 mb-4">Powerful skills released through character cooperation, requiring specific character combinations and trigger conditions.</p>
                         <ul class="text-sm text-gray-600 space-y-1">
-                            <li>• 需要角色配合</li>
-                            <li>• 超强威力</li>
-                            <li>• 战术核心</li>
-                            <li>• 团队协作体现</li>
+                            <li>• Require character coordination</li>
+                            <li>• Super powerful effects</li>
+                            <li>• Tactical core</li>
+                            <li>• Teamwork manifestation</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">🎯 技能等级系统</h3>
+                    <h3 class="text-xl font-bold mb-4">🎯 Skill Level System</h3>
                     <div class="grid md:grid-cols-4 gap-4">
                         <div class="text-center">
                             <div class="text-2xl font-bold text-green-600 mb-2">Lv. 1-5</div>
-                            <div class="text-sm text-gray-600">基础阶段</div>
-                            <div class="text-xs text-gray-500 mt-1">学习技能基本效果</div>
+                            <div class="text-sm text-gray-600">Basic Stage</div>
+                            <div class="text-xs text-gray-500 mt-1">Learn basic skill effects</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-blue-600 mb-2">Lv. 6-10</div>
-                            <div class="text-sm text-gray-600">进阶阶段</div>
-                            <div class="text-xs text-gray-500 mt-1">解锁额外效果</div>
+                            <div class="text-sm text-gray-600">Advanced Stage</div>
+                            <div class="text-xs text-gray-500 mt-1">Unlock additional effects</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-purple-600 mb-2">Lv. 11-15</div>
-                            <div class="text-sm text-gray-600">精通阶段</div>
-                            <div class="text-xs text-gray-500 mt-1">大幅提升威力</div>
+                            <div class="text-sm text-gray-600">Master Stage</div>
+                            <div class="text-xs text-gray-500 mt-1">Significantly boost power</div>
                         </div>
                         <div class="text-center">
                             <div class="text-2xl font-bold text-orange-600 mb-2">Lv. 16-20</div>
-                            <div class="text-sm text-gray-600">大师阶段</div>
-                            <div class="text-xs text-gray-500 mt-1">获得终极效果</div>
+                            <div class="text-sm text-gray-600">Expert Stage</div>
+                            <div class="text-xs text-gray-500 mt-1">Gain ultimate effects</div>
                         </div>
                     </div>
                 </div>
@@ -145,71 +148,71 @@
         <!-- Active Skills Section -->
         <section id="active-skills" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <span class="text-3xl mr-3">⚔️</span> 主动技能详解
+                <span class="text-3xl mr-3">⚔️</span> Active Skills Detailed
             </h2>
 
             <div class="grid lg:grid-cols-2 gap-8">
                 <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 text-red-600">攻击型技能</h3>
+                    <h3 class="text-xl font-bold mb-4 text-red-600">Attack Skills</h3>
                     <div class="space-y-4">
                         <div class="border-l-4 border-red-500 pl-4">
-                            <h4 class="font-semibold">单体攻击技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">针对单个敌人造成高额伤害，适合Boss战和PvP。</p>
+                            <h4 class="font-semibold">Single Target Attack</h4>
+                            <p class="text-sm text-gray-600 mt-1">Deals high damage to single enemies, suitable for Boss battles and PvP.</p>
                             <div class="mt-2 text-sm">
-                                <span class="tag">高伤害</span>
-                                <span class="tag">精确打击</span>
-                                <span class="tag">核心输出</span>
+                                <span class="tag">High Damage</span>
+                                <span class="tag">Precise Strike</span>
+                                <span class="tag">Core DPS</span>
                             </div>
                         </div>
                         <div class="border-l-4 border-orange-500 pl-4">
-                            <h4 class="font-semibold">群体攻击技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">同时攻击多个敌人，适合清怪和群体战斗。</p>
+                            <h4 class="font-semibold">Area Attack</h4>
+                            <p class="text-sm text-gray-600 mt-1">Attacks multiple enemies simultaneously, ideal for clearing mobs and group battles.</p>
                             <div class="mt-2 text-sm">
                                 <span class="tag">AOE</span>
-                                <span class="tag">清怪利器</span>
-                                <span class="tag">效率优先</span>
+                                <span class="tag">Mob Clear</span>
+                                <span class="tag">Efficiency Focus</span>
                             </div>
                         </div>
                         <div class="border-l-4 border-yellow-500 pl-4">
-                            <h4 class="font-semibold">持续伤害技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">施加持续伤害效果，长期战斗中有优势。</p>
+                            <h4 class="font-semibold">Damage Over Time</h4>
+                            <p class="text-sm text-gray-600 mt-1">Applies damage over time effects, advantageous in prolonged battles.</p>
                             <div class="mt-2 text-sm">
                                 <span class="tag">DoT</span>
-                                <span class="tag">持续输出</span>
-                                <span class="tag">战术选择</span>
+                                <span class="tag">Sustained DPS</span>
+                                <span class="tag">Tactical Choice</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold mb-4 text-blue-600">辅助型技能</h3>
+                    <h3 class="text-xl font-bold mb-4 text-blue-600">Support Skills</h3>
                     <div class="space-y-4">
                         <div class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-semibold">治疗技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">恢复队友生命值，提升队伍生存能力。</p>
+                            <h4 class="font-semibold">Healing Skills</h4>
+                            <p class="text-sm text-gray-600 mt-1">Restores team members' health, improving team survivability.</p>
                             <div class="mt-2 text-sm">
-                                <span class="tag">治疗</span>
-                                <span class="tag">生存保障</span>
-                                <span class="tag">团队核心</span>
+                                <span class="tag">Healing</span>
+                                <span class="tag">Survival</span>
+                                <span class="tag">Team Core</span>
                             </div>
                         </div>
                         <div class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-semibold">增益技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">为队友提供属性加成，增强整体战斗力。</p>
+                            <h4 class="font-semibold">Buff Skills</h4>
+                            <p class="text-sm text-gray-600 mt-1">Provides attribute bonuses to teammates, enhancing overall combat power.</p>
                             <div class="mt-2 text-sm">
                                 <span class="tag">Buff</span>
-                                <span class="tag">属性提升</span>
-                                <span class="tag">战术增强</span>
+                                <span class="tag">Attribute Boost</span>
+                                <span class="tag">Tactical Enhancement</span>
                             </div>
                         </div>
                         <div class="border-l-4 border-purple-500 pl-4">
-                            <h4 class="font-semibold">护盾技能</h4>
-                            <p class="text-sm text-gray-600 mt-1">提供伤害吸收护盾，关键时刻保护队友。</p>
+                            <h4 class="font-semibold">Shield Skills</h4>
+                            <p class="text-sm text-gray-600 mt-1">Provides damage absorption shields, protecting teammates at critical moments.</p>
                             <div class="mt-2 text-sm">
-                                <span class="tag">防护</span>
-                                <span class="tag">伤害吸收</span>
-                                <span class="tag">应急保障</span>
+                                <span class="tag">Protection</span>
+                                <span class="tag">Damage Absorption</span>
+                                <span class="tag">Emergency Support</span>
                             </div>
                         </div>
                     </div>
@@ -218,57 +221,57 @@
 
             <!-- Skill Mechanics -->
             <div class="bg-white rounded-lg shadow-lg p-6 mt-8">
-                <h3 class="text-xl font-bold mb-6">🎮 技能机制详解</h3>
+                <h3 class="text-xl font-bold mb-6">🎮 Skill Mechanics Details</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="font-semibold mb-4 text-gray-800">能量系统</h4>
+                        <h4 class="font-semibold mb-4 text-gray-800">Energy System</h4>
                         <div class="space-y-3">
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-blue-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">基础能量恢复</div>
-                                    <div class="text-sm text-gray-600">每秒恢复2%最大能量</div>
+                                    <div class="font-medium">Base Energy Recovery</div>
+                                    <div class="text-sm text-gray-600">Regenerates 2% max energy per second</div>
                                 </div>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-green-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">攻击回复能量</div>
-                                    <div class="text-sm text-gray-600">普通攻击回复1%能量</div>
+                                    <div class="font-medium">Attack Energy Gain</div>
+                                    <div class="text-sm text-gray-600">Normal attacks restore 1% energy</div>
                                 </div>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-purple-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">受击回复能量</div>
-                                    <div class="text-sm text-gray-600">受到伤害回复0.5%能量</div>
+                                    <div class="font-medium">Hit Energy Gain</div>
+                                    <div class="text-sm text-gray-600">Taking damage restores 0.5% energy</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-semibold mb-4 text-gray-800">冷却机制</h4>
+                        <h4 class="font-semibold mb-4 text-gray-800">Cooldown Mechanism</h4>
                         <div class="space-y-3">
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-red-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">基础冷却</div>
-                                    <div class="text-sm text-gray-600">技能固有冷却时间</div>
+                                    <div class="font-medium">Base Cooldown</div>
+                                    <div class="text-sm text-gray-600">Skill's inherent cooldown time</div>
                                 </div>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-orange-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">冷却缩减</div>
-                                    <div class="text-sm text-gray-600">装备和技能可减少冷却</div>
+                                    <div class="font-medium">Cooldown Reduction</div>
+                                    <div class="text-sm text-gray-600">Equipment and skills can reduce cooldown</div>
                                 </div>
                             </div>
                             <div class="flex items-center">
                                 <div class="w-4 h-4 bg-yellow-500 rounded-full mr-3"></div>
                                 <div>
-                                    <div class="font-medium">技能重置</div>
-                                    <div class="text-sm text-gray-600">特定条件可立即重置冷却</div>
+                                    <div class="font-medium">Skill Reset</div>
+                                    <div class="text-sm text-gray-600">Specific conditions can instantly reset cooldown</div>
                                 </div>
                             </div>
                         </div>
@@ -280,7 +283,7 @@
         <!-- Passive Skills Section -->
         <section id="passive-skills" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <span class="text-3xl mr-3">🛡️</span> 被动技能系统
+                <span class="text-3xl mr-3">🛡️</span> Passive Skills System
             </h2>
 
             <div class="grid md:grid-cols-3 gap-6">
@@ -288,13 +291,13 @@
                     <div class="bg-red-100 text-red-600 p-3 rounded-lg inline-block mb-4">
                         <span class="text-2xl">🔥</span>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">属性强化型</h3>
-                    <p class="text-gray-600 mb-4">直接提升角色基础属性，包括攻击、防御、生命等。</p>
+                    <h3 class="text-lg font-bold mb-3">Attribute Enhancement</h3>
+                    <p class="text-gray-600 mb-4">Directly boosts character base attributes including attack, defense, health, etc.</p>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• 攻击力 +15%</li>
-                        <li>• 防御力 +10%</li>
-                        <li>• 生命值 +20%</li>
-                        <li>• 暴击率 +5%</li>
+                        <li>• Attack +15%</li>
+                        <li>• Defense +10%</li>
+                        <li>• Health +20%</li>
+                        <li>• Critical Rate +5%</li>
                     </ul>
                 </div>
 
@@ -302,13 +305,13 @@
                     <div class="bg-blue-100 text-blue-600 p-3 rounded-lg inline-block mb-4">
                         <span class="text-2xl">⚡</span>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">效果触发型</h3>
-                    <p class="text-gray-600 mb-4">在特定条件下触发，提供额外效果或加成。</p>
+                    <h3 class="text-lg font-bold mb-3">Effect Trigger</h3>
+                    <p class="text-gray-600 mb-4">Triggers under specific conditions, providing additional effects or bonuses.</p>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• 生命低于30%时攻击+25%</li>
-                        <li>• 暴击时恢复生命值</li>
-                        <li>• 受击时减少伤害</li>
-                        <li>• 释放技能后加速</li>
+                        <li>• Attack +25% when HP below 30%</li>
+                        <li>• Restore HP on critical hit</li>
+                        <li>• Reduce damage when hit</li>
+                        <li>• Gain speed after using skills</li>
                     </ul>
                 </div>
 
@@ -316,13 +319,13 @@
                     <div class="bg-green-100 text-green-600 p-3 rounded-lg inline-block mb-4">
                         <span class="text-2xl">💚</span>
                     </div>
-                    <h3 class="text-lg font-bold mb-3">环境适应型</h3>
-                    <p class="text-gray-600 mb-4">根据战斗环境或队伍配置提供适应性加成。</p>
+                    <h3 class="text-lg font-bold mb-3">Environmental Adaptation</h3>
+                    <p class="text-gray-600 mb-4">Provides adaptive bonuses based on combat environment or team configuration.</p>
                     <ul class="text-sm text-gray-600 space-y-1">
-                        <li>• 同属性队友+10%攻击</li>
-                        <li>• 特定地图效果增强</li>
-                        <li>• 人数优势时加成</li>
-                        <li>• 时间流逝效果</li>
+                        <li>• Same element teammates +10% attack</li>
+                        <li>• Enhanced effects on specific maps</li>
+                        <li>• Bonus when having numerical advantage</li>
+                        <li>• Time-based effects</li>
                     </ul>
                 </div>
             </div>
@@ -331,52 +334,52 @@
         <!-- Combo Skills Section -->
         <section id="combo-skills" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <span class="text-3xl mr-3">⚡</span> 连携技系统
+                <span class="text-3xl mr-3">⚡</span> Combo Skills System
             </h2>
 
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <div class="grid lg:grid-cols-2 gap-8 mb-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-4">🔗 连携条件</h3>
+                        <h3 class="text-xl font-bold mb-4">🔗 Combo Conditions</h3>
                         <div class="space-y-4">
                             <div class="flex items-start">
                                 <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">1</span>
                                 <div>
-                                    <h4 class="font-semibold">角色组合</h4>
-                                    <p class="text-sm text-gray-600">需要特定的角色组合同时在场，如火+水、光+暗等属性组合。</p>
+                                    <h4 class="font-semibold">Character Combination</h4>
+                                    <p class="text-sm text-gray-600">Requires specific character combinations to be present simultaneously, such as 🔥+💧, ☀️+🌙 element combinations.</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">2</span>
                                 <div>
-                                    <h4 class="font-semibold">能量要求</h4>
-                                    <p class="text-sm text-gray-600">参与连携的所有角色都需要有足够的能量（通常为50%以上）。</p>
+                                    <h4 class="font-semibold">Energy Requirement</h4>
+                                    <p class="text-sm text-gray-600">All participating characters need sufficient energy (usually above 50%).</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
                                 <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">3</span>
                                 <div>
-                                    <h4 class="font-semibold">时机把握</h4>
-                                    <p class="text-sm text-gray-600">在战斗特定时机或满足条件时才能触发，如Boss战阶段转换。</p>
+                                    <h4 class="font-semibold">Timing</h4>
+                                    <p class="text-sm text-gray-600">Can only be triggered at specific combat moments or when conditions are met, such as Boss battle phase transitions.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-bold mb-4">💫 连携效果</h3>
+                        <h3 class="text-xl font-bold mb-4">💫 Combo Effects</h3>
                         <div class="space-y-4">
                             <div class="bg-gradient-to-r from-red-50 to-orange-50 p-4 rounded-lg">
-                                <h4 class="font-semibold text-red-700">元素爆发连携</h4>
-                                <p class="text-sm text-gray-600 mt-1">造成超大范围元素伤害，并施加相应元素效果。</p>
+                                <h4 class="font-semibold text-red-700">Elemental Burst Combo</h4>
+                                <p class="text-sm text-gray-600 mt-1">Deals massive elemental damage in a large area and applies corresponding elemental effects.</p>
                             </div>
                             <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 rounded-lg">
-                                <h4 class="font-semibold text-blue-700">治疗护盾连携</h4>
-                                <p class="text-sm text-gray-600 mt-1">为全队提供大量治疗和强力护盾。</p>
+                                <h4 class="font-semibold text-blue-700">Healing Shield Combo</h4>
+                                <p class="text-sm text-gray-600 mt-1">Provides massive healing and strong shields to the entire team.</p>
                             </div>
                             <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg">
-                                <h4 class="font-semibold text-purple-700">增益强化连携</h4>
-                                <p class="text-sm text-gray-600 mt-1">大幅提升全队属性，持续较长时间。</p>
+                                <h4 class="font-semibold text-purple-700">Buff Enhancement Combo</h4>
+                                <p class="text-sm text-gray-600 mt-1">Significantly boosts entire team's attributes for extended duration.</p>
                             </div>
                         </div>
                     </div>
@@ -384,29 +387,29 @@
 
                 <!-- Combo Examples -->
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-xl font-bold mb-4">🎯 经典连携组合</h3>
+                    <h3 class="text-xl font-bold mb-4">🎯 Classic Combo Combinations</h3>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div class="bg-white p-4 rounded-lg">
-                            <h4 class="font-semibold mb-3">🔥❄️ 冰火连携</h4>
+                            <h4 class="font-semibold mb-3">🔥❄️ Ice Fire Combo</h4>
                             <div class="flex items-center mb-3">
-                                <div class="w-8 h-8 bg-red-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">火</div>
+                                <div class="w-8 h-8 bg-red-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">🔥</div>
                                 <span class="mx-2">+</span>
-                                <div class="w-8 h-8 bg-blue-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">冰</div>
+                                <div class="w-8 h-8 bg-blue-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">❄️</div>
                                 <span class="mx-2">=</span>
-                                <span class="font-bold text-purple-600">蒸汽爆发</span>
+                                <span class="font-bold text-purple-600">Steam Burst</span>
                             </div>
-                            <p class="text-sm text-gray-600">造成范围蒸汽伤害，并使敌人陷入混乱状态。</p>
+                            <p class="text-sm text-gray-600">Deals area steam damage and puts enemies in confusion state.</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg">
-                            <h4 class="font-semibold mb-3">💀👼 生死连携</h4>
+                            <h4 class="font-semibold mb-3">💀👼 Life Death Combo</h4>
                             <div class="flex items-center mb-3">
-                                <div class="w-8 h-8 bg-purple-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">暗</div>
+                                <div class="w-8 h-8 bg-purple-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">🌙</div>
                                 <span class="mx-2">+</span>
-                                <div class="w-8 h-8 bg-green-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">光</div>
+                                <div class="w-8 h-8 bg-green-500 rounded-full mr-2 flex items-center justify-center text-white text-sm">☀️</div>
                                 <span class="mx-2">=</span>
-                                <span class="font-bold text-yellow-600">均衡之力</span>
+                                <span class="font-bold text-yellow-600">Balance Force</span>
                             </div>
-                            <p class="text-sm text-gray-600">提供全队平衡增益，攻防全面提升。</p>
+                            <p class="text-sm text-gray-600">Provides balanced team buff, enhancing both attack and defense.</p>
                         </div>
                     </div>
                 </div>
@@ -416,17 +419,17 @@
         <!-- Skill Points Distribution -->
         <section id="skill-points" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <span class="text-3xl mr-3">📊</span> 技能点分配策略
+                <span class="text-3xl mr-3">📊</span> Skill Points Allocation Strategy
             </h2>
 
             <div class="grid lg:grid-cols-3 gap-6">
                 <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-lg font-bold mb-4 text-red-600">🔥 主流输出流</h3>
+                    <h3 class="text-lg font-bold mb-4 text-red-600">🔥 Main DPS Build</h3>
                     <div class="mb-4">
-                        <div class="font-semibold mb-2">技能点分配比例：</div>
+                        <div class="font-semibold mb-2">Skill Point Distribution:</div>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">主动攻击技能</span>
+                                <span class="text-sm">Active Attack Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-red-500 h-2 rounded-full" style="width: 60%"></div>
@@ -435,7 +438,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">被动技能</span>
+                                <span class="text-sm">Passive Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-blue-500 h-2 rounded-full" style="width: 30%"></div>
@@ -444,7 +447,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">辅助技能</span>
+                                <span class="text-sm">Support Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-green-500 h-2 rounded-full" style="width: 10%"></div>
@@ -454,16 +457,16 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600">适合烈焰战士、暗影刺客等输出角色，最大化伤害输出。</p>
+                    <p class="text-sm text-gray-600">Suitable for Flame Warrior, Shadow Assassin and other DPS characters to maximize damage output.</p>
                 </div>
 
                 <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-lg font-bold mb-4 text-blue-600">🛡️ 均衡发展流</h3>
+                    <h3 class="text-lg font-bold mb-4 text-blue-600">🛡️ Balanced Build</h3>
                     <div class="mb-4">
-                        <div class="font-semibold mb-2">技能点分配比例：</div>
+                        <div class="font-semibold mb-2">Skill Point Distribution:</div>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">主动技能</span>
+                                <span class="text-sm">Active Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-red-500 h-2 rounded-full" style="width: 40%"></div>
@@ -472,7 +475,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">被动技能</span>
+                                <span class="text-sm">Passive Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-blue-500 h-2 rounded-full" style="width: 35%"></div>
@@ -481,7 +484,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">辅助技能</span>
+                                <span class="text-sm">Support Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-green-500 h-2 rounded-full" style="width: 25%"></div>
@@ -491,16 +494,16 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600">适合雷电骑士、血族伯爵等均衡型角色，攻守兼备。</p>
+                    <p class="text-sm text-gray-600">Suitable for Thunder Knight, Blood Count and other balanced characters with both offense and defense.</p>
                 </div>
 
                 <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-lg font-bold mb-4 text-green-600">💚 辅助专精流</h3>
+                    <h3 class="text-lg font-bold mb-4 text-green-600">💚 Support Specialist Build</h3>
                     <div class="mb-4">
-                        <div class="font-semibold mb-2">技能点分配比例：</div>
+                        <div class="font-semibold mb-2">Skill Point Distribution:</div>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">治疗技能</span>
+                                <span class="text-sm">Healing Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-green-500 h-2 rounded-full" style="width: 50%"></div>
@@ -509,7 +512,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">增益技能</span>
+                                <span class="text-sm">Buff Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-blue-500 h-2 rounded-full" style="width: 30%"></div>
@@ -518,7 +521,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="text-sm">防御技能</span>
+                                <span class="text-sm">Defense Skills</span>
                                 <div class="flex items-center">
                                     <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
                                         <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
@@ -528,7 +531,7 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600">适合神圣牧师、寒冰法师等辅助角色，强化团队支持能力。</p>
+                    <p class="text-sm text-gray-600">Suitable for Holy Priest, Ice Mage and other support characters to enhance team support capabilities.</p>
                 </div>
             </div>
         </section>
@@ -536,74 +539,74 @@
         <!-- Upgrade Priority Section -->
         <section id="upgrade-priority" class="mb-16">
             <h2 class="text-3xl font-bold mb-8 flex items-center">
-                <span class="text-3xl mr-3">🎯</span> 技能升级优先级指南
+                <span class="text-3xl mr-3">🎯</span> Skill Upgrade Priority Guide
             </h2>
 
             <div class="bg-white rounded-lg shadow-lg p-8">
                 <div class="grid lg:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-6">🚀 优先升级技能</h3>
+                        <h3 class="text-xl font-bold mb-6">🚀 Priority Upgrade Skills</h3>
                         <div class="space-y-4">
                             <div class="border-l-4 border-green-500 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">1</span>
-                                    <h4 class="font-semibold">核心输出技能</h4>
+                                    <h4 class="font-semibold">Core DPS Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">主C角色的主要伤害技能，优先升至Lv.15</p>
+                                <p class="text-sm text-gray-600 mb-2">Main damage skills for primary DPS characters, prioritize to Lv.15</p>
                                 <div class="text-xs text-gray-500">
-                                    烈焰战士: 烈焰斩 | 暗影刺客: 影袭 | 血族伯爵: 血之吻
+                                    Flame Warrior: Flame Slash | Shadow Assassin: Shadow Strike | Blood Count: Blood Kiss
                                 </div>
                             </div>
 
                             <div class="border-l-4 border-blue-500 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
-                                    <h4 class="font-semibold">关键控制技能</h4>
+                                    <h4 class="font-semibold">Key Control Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">决定战斗节奏的控制技能，升至Lv.12</p>
+                                <p class="text-sm text-gray-600 mb-2">Control skills that determine battle rhythm, upgrade to Lv.12</p>
                                 <div class="text-xs text-gray-500">
-                                    寒冰法师: 冰霜新星 | 神圣牧师: 神圣束缚
+                                    Ice Mage: Frost Nova | Holy Priest: Divine Binding
                                 </div>
                             </div>
 
                             <div class="border-l-4 border-yellow-500 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-yellow-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
-                                    <h4 class="font-semibold">团队增益技能</h4>
+                                    <h4 class="font-semibold">Team Buff Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">提升团队整体实力的技能，升至Lv.10</p>
+                                <p class="text-sm text-gray-600 mb-2">Skills that enhance overall team strength, upgrade to Lv.10</p>
                                 <div class="text-xs text-gray-500">
-                                    神圣牧师: 群体治疗 | 寒冰法师: 护盾祝福
+                                    Holy Priest: Group Heal | Ice Mage: Shield Blessing
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h3 class="text-xl font-bold mb-6">⏳ 后续升级技能</h3>
+                        <h3 class="text-xl font-bold mb-6">⏳ Later Upgrade Skills</h3>
                         <div class="space-y-4">
                             <div class="border-l-4 border-gray-400 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-gray-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">4</span>
-                                    <h4 class="font-semibold">AOE清理技能</h4>
+                                    <h4 class="font-semibold">AOE Clear Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">主要用于刷图和清理小怪，后期提升</p>
+                                <p class="text-sm text-gray-600 mb-2">Mainly used for farming and mob clearing, upgrade later</p>
                             </div>
 
                             <div class="border-l-4 border-gray-400 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-gray-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">5</span>
-                                    <h4 class="font-semibold">辅助被动技能</h4>
+                                    <h4 class="font-semibold">Support Passive Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">提供额外属性加成，有资源再提升</p>
+                                <p class="text-sm text-gray-600 mb-2">Provide additional attribute bonuses, upgrade when resources available</p>
                             </div>
 
                             <div class="border-l-4 border-gray-400 pl-4">
                                 <div class="flex items-center mb-2">
                                     <span class="bg-gray-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">6</span>
-                                    <h4 class="font-semibold">终极技能</h4>
+                                    <h4 class="font-semibold">Ultimate Skills</h4>
                                 </div>
-                                <p class="text-sm text-gray-600 mb-2">威力强大但消耗巨大，最后优先级</p>
+                                <p class="text-sm text-gray-600 mb-2">Powerful but high consumption, lowest priority</p>
                             </div>
                         </div>
                     </div>
@@ -611,24 +614,24 @@
 
                 <!-- Upgrade Tips -->
                 <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg mt-8">
-                    <h3 class="text-lg font-bold mb-4">💡 升级技巧建议</h3>
+                    <h3 class="text-lg font-bold mb-4">💡 Upgrade Tips & Suggestions</h3>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <h4 class="font-semibold mb-2">🎯 资源分配原则</h4>
+                            <h4 class="font-semibold mb-2">🎯 Resource Allocation Principles</h4>
                             <ul class="text-sm text-gray-600 space-y-1">
-                                <li>• 主力角色技能优先升级</li>
-                                <li>• 核心技能升至Lv.15再升级其他</li>
-                                <li>• 保留部分资源用于版本更新</li>
-                                <li>• 根据队伍需要灵活调整</li>
+                                <li>• Prioritize upgrading main character skills</li>
+                                <li>• Upgrade core skills to Lv.15 before others</li>
+                                <li>• Reserve some resources for version updates</li>
+                                <li>• Adjust flexibly based on team needs</li>
                             </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-2">⚡ 快速升级技巧</h4>
+                            <h4 class="font-semibold mb-2">⚡ Fast Upgrade Techniques</h4>
                             <ul class="text-sm text-gray-600 space-y-1">
-                                <li>• 参与技能经验活动</li>
-                                <li>• 使用技能经验药剂</li>
-                                <li>• 完成技能相关任务</li>
-                                <li>• 加入公会获得技能加成</li>
+                                <li>• Participate in skill EXP events</li>
+                                <li>• Use skill EXP potions</li>
+                                <li>• Complete skill-related tasks</li>
+                                <li>• Join guild for skill bonuses</li>
                             </ul>
                         </div>
                     </div>
@@ -638,15 +641,15 @@
 
         <!-- Related Tools -->
         <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
-            <h2 class="text-2xl font-bold mb-6">🛠️ 相关工具推荐</h2>
+            <h2 class="text-2xl font-bold mb-6">🛠️ Related Tools</h2>
             <div class="grid md:grid-cols-2 gap-6">
                 <a href="../../tools/build-calculator/" class="block bg-white bg-opacity-10 hover:bg-opacity-20 p-6 rounded-lg transition-colors">
-                    <h3 class="text-xl font-bold mb-3">🧮 Build计算器</h3>
-                    <p class="text-white text-opacity-90">测试不同技能等级和装备搭配的效果，找到最优Build方案</p>
+                    <h3 class="text-xl font-bold mb-3">🧮 Build Calculator</h3>
+                    <p class="text-white text-opacity-90">Test different skill levels and equipment combinations to find optimal build strategies</p>
                 </a>
                 <a href="../../database/units/" class="block bg-white bg-opacity-10 hover:bg-opacity-20 p-6 rounded-lg transition-colors">
-                    <h3 class="text-xl font-bold mb-3">👥 角色数据库</h3>
-                    <p class="text-white text-opacity-90">查看所有角色的详细技能信息，制定技能升级计划</p>
+                    <h3 class="text-xl font-bold mb-3">👥 Character Database</h3>
+                    <p class="text-white text-opacity-90">View detailed skill information for all characters and create skill upgrade plans</p>
                 </a>
             </div>
         </section>

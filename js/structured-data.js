@@ -1,8 +1,8 @@
-// 结构化数据生成器
-// 为不同页面生成相应的Schema.org结构化数据
+// Structured Data Generator
+// Generates corresponding Schema.org structured data for different pages
 
 class StructuredDataGenerator {
-    // 生成FAQ结构化数据
+    // Generate FAQ structured data
     static generateFAQSchema(faqData) {
         return {
             "@context": "https://schema.org",
@@ -18,7 +18,7 @@ class StructuredDataGenerator {
         };
     }
 
-    // 生成HowTo结构化数据
+    // Generate HowTo structured data
     static generateHowToSchema(title, description, steps, image = null) {
         return {
             "@context": "https://schema.org",
@@ -39,7 +39,7 @@ class StructuredDataGenerator {
         };
     }
 
-    // 生成游戏攻略结构化数据
+    // Generate game guide structured data
     static generateGameGuideSchema(title, description, author, gameName) {
         return {
             "@context": "https://schema.org",
@@ -71,7 +71,7 @@ class StructuredDataGenerator {
         };
     }
 
-    // 生成角色数据库结构化数据
+    // Generate character database structured data
     static generateCharacterSchema(characterData) {
         return {
             "@context": "https://schema.org",
@@ -114,7 +114,7 @@ class StructuredDataGenerator {
         };
     }
 
-    // 生成工具页面结构化数据
+    // Generate tool page structured data
     static generateSoftwareApplicationSchema(name, description, url) {
         return {
             "@context": "https://schema.org",
@@ -138,9 +138,9 @@ class StructuredDataGenerator {
         };
     }
 
-    // 动态注入结构化数据到页面
+    // Dynamically inject structured data into page
     static injectStructuredData(schemaData) {
-        // 移除现有的结构化数据脚本
+        // Remove existing structured data scripts
         const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
         existingScripts.forEach(script => {
             if (script.textContent.includes('schema.org')) {
@@ -148,20 +148,20 @@ class StructuredDataGenerator {
             }
         });
 
-        // 创建新的结构化数据脚本
+        // Create new structured data script
         const script = document.createElement('script');
         script.type = 'application/ld+json';
         script.textContent = JSON.stringify(schemaData, null, 2);
         document.head.appendChild(script);
     }
 
-    // 根据页面类型自动生成并注入结构化数据
+    // Automatically generate and inject structured data based on page type
     static autoGenerateStructuredData() {
         const path = window.location.pathname;
         const title = document.title;
         const description = document.querySelector('meta[name="description"]')?.content || '';
 
-        // 兑换码页面 - 添加FAQ Schema
+        // Codes page - Add FAQ Schema
         if (path.includes('/codes/')) {
             const faqData = [
                 {
@@ -182,7 +182,7 @@ class StructuredDataGenerator {
             this.injectStructuredData(faqSchema);
         }
 
-        // 新手指南页面 - 添加HowTo Schema
+        // Beginner guide page - Add HowTo Schema
         if (path.includes('beginner-guide')) {
             const howToData = {
                 title: "How to Get Started in Anime Raid",
@@ -215,7 +215,7 @@ class StructuredDataGenerator {
             this.injectStructuredData(howToSchema);
         }
 
-        // 竞技场战术页面 - 添加HowTo Schema
+        // Arena tactics page - Add HowTo Schema
         if (path.includes('arena-tactics')) {
             const arenaHowTo = {
                 title: "How to Master Arena Battles in Anime Raid",
@@ -248,7 +248,7 @@ class StructuredDataGenerator {
             this.injectStructuredData(arenaSchema);
         }
 
-        // 工具页面 - 添加SoftwareApplication Schema
+        // Tools pages - Add SoftwareApplication Schema
         if (path.includes('/tools/')) {
             if (path.includes('build-calculator')) {
                 const toolSchema = this.generateSoftwareApplicationSchema(
@@ -269,13 +269,13 @@ class StructuredDataGenerator {
             }
         }
 
-        // 角色页面 - 添加角色专用Schema
+        // Character pages - Add character-specific Schema
         if (path.includes('/database/units/') && path !== '/database/units/') {
-            // 从页面内容提取角色信息
+            // Extract character information from page content
             const characterName = document.querySelector('h1')?.textContent || 'Unknown Character';
             const characterData = {
                 name: characterName,
-                tier: 'S', // 默认值，实际应从页面内容获取
+                tier: 'S', // Default value, should be extracted from page content
                 role: 'DPS',
                 element: 'Dark',
                 rating: 95
@@ -285,7 +285,7 @@ class StructuredDataGenerator {
             this.injectStructuredData(characterSchema);
         }
 
-        // 通用文章Schema - 应用于所有指南页面
+        // Generic article Schema - Apply to all guide pages
         if (path.includes('/guides/')) {
             const guideSchema = this.generateGameGuideSchema(
                 title,
@@ -298,12 +298,12 @@ class StructuredDataGenerator {
     }
 }
 
-// 页面加载完成后自动生成结构化数据
+// Automatically generate structured data after page loads
 document.addEventListener('DOMContentLoaded', () => {
     StructuredDataGenerator.autoGenerateStructuredData();
 });
 
-// 导出供其他脚本使用
+// Export for use by other scripts
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = StructuredDataGenerator;
 }

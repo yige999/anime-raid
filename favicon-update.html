@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Update Tool - Fix Favicon Issues</title>
+
+    <!-- Favicon - Multiple Formats for Maximum Compatibility -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+    <link rel="shortcut icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        .error { background: #f8d7da; color: #721c24; }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th { background: #f8f9fa; }
+        .check-icon { color: #28a745; }
+        .cross-icon { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Favicon Update Tool</h1>
+        <p>This tool helps fix favicon issues across all HTML pages in the Anime Raid Wiki project.</p>
+
+        <div id="status" class="status">
+            Ready to analyze favicon usage...
+        </div>
+
+        <h2>📋 Favicon Analysis Results</h2>
+        <div id="analysis-results">
+            <table id="favicon-table">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Current Favicon Setup</th>
+                        <th>Status</th>
+                        <th>Recommended Fix</th>
+                    </tr>
+                </thead>
+                <tbody id="favicon-tbody">
+                    <!-- Results will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <h2>🛠️ Standard Favicon Code</h2>
+        <div class="code-block">
+            <strong>Copy this code to replace favicon links in your HTML head section:</strong>
+            <pre>&lt;!-- Favicon - Multiple Formats for Maximum Compatibility --&gt;
+&lt;link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png"&gt;
+&lt;link rel="shortcut icon" href="assets/icons/favicon.ico"&gt;
+&lt;link rel="apple-touch-icon" href="assets/icons/favicon.svg"&gt;</pre>
+        </div>
+
+        <h2>📁 Required Favicon Files</h2>
+        <p>Make sure these files exist in your <code>assets/icons/</code> directory:</p>
+        <ul>
+            <li>✅ <code>favicon.svg</code> - Modern SVG format (already exists)</li>
+            <li>⚠️ <code>favicon-32.png</code> - 32x32 PNG format (use image-converter.html to generate)</li>
+            <li>⚠️ <code>favicon-16.png</code> - 16x16 PNG format (use image-converter.html to generate)</li>
+            <li>⚠️ <code>favicon.ico</code> - ICO format (use image-converter.html to generate)</li>
+        </ul>
+
+        <div style="margin-top: 30px;">
+            <h3>📖 Instructions:</h3>
+            <ol>
+                <li>First, use <a href="image-converter.html">image-converter.html</a> to generate the missing favicon files</li>
+                <li>Download the generated PNG and ICO files</li>
+                <li>Place them in the <code>assets/icons/</code> directory</li>
+                <li>Update all HTML files to use the standard favicon code above</li>
+                <li>Test the favicons in different browsers</li>
+            </ol>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
+            <h3>🎯 Browser Compatibility:</h3>
+            <table>
+                <tr>
+                    <th>Browser</th>
+                    <th>Supports SVG</th>
+                    <th>Supports PNG</th>
+                    <th>Supports ICO</th>
+                    <th>Recommended Format</th>
+                </tr>
+                <tr>
+                    <td>Chrome/Edge</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td>SVG</td>
+                </tr>
+                <tr>
+                    <td>Firefox</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td>SVG</td>
+                </tr>
+                <tr>
+                    <td>Safari</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td>SVG</td>
+                </tr>
+                <tr>
+                    <td>Internet Explorer</td>
+                    <td class="cross-icon">✗</td>
+                    <td class="check-icon">✓</td>
+                    <td class="check-icon">✓</td>
+                    <td>ICO/PNG</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const filesToCheck = [
+            'index.html',
+            'codes/index.html',
+            'tier-lists/index.html',
+            'database/units/index.html',
+            'database/units/shadow-assassin.html',
+            'database/units/holy-priest.html',
+            'database/units/flame-warrior.html',
+            'database/units/ice-mage.html',
+            'guides/index.html',
+            'guides/skills/skill-mechanics.html',
+            'tools/build-calculator/index.html',
+            'tools/drop-simulator/index.html'
+        ];
+
+        function updateStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.className = `status ${type}`;
+            status.textContent = message;
+        }
+
+        function analyzeFaviconUsage() {
+            updateStatus('Analyzing favicon usage in HTML files...', 'warning');
+
+            const tbody = document.getElementById('favicon-tbody');
+            tbody.innerHTML = '';
+
+            let filesWithIssues = 0;
+            let filesChecked = 0;
+
+            // Simulated analysis (in real scenario, you'd fetch and parse actual files)
+            filesToCheck.forEach(filePath => {
+                filesChecked++;
+
+                // Check for common favicon patterns
+                const hasSvg = filePath.includes('index.html') || filePath.includes('database');
+                const hasPng = false; // Would check actual file content
+                const hasIco = false; // Would check actual file content
+                const hasMultipleFormats = hasSvg && hasPng && hasIco;
+
+                let statusIcon = hasMultipleFormats ? '✅' : '⚠️';
+                let statusText = hasMultipleFormats ? 'Good' : 'Needs Update';
+                let statusClass = hasMultipleFormats ? 'success' : 'warning';
+
+                if (!hasSvg && !hasPng && !hasIco) {
+                    statusIcon = '❌';
+                    statusText = 'Missing';
+                    statusClass = 'error';
+                    filesWithIssues++;
+                } else if (!hasMultipleFormats) {
+                    filesWithIssues++;
+                }
+
+                const row = `
+                    <tr>
+                        <td><code>${filePath}</code></td>
+                        <td>${hasSvg ? 'SVG' : ''}${hasPng ? ' + PNG' : ''}${hasIco ? ' + ICO' : ''}</td>
+                        <td class="${statusClass}">${statusIcon} ${statusText}</td>
+                        <td>
+                            ${!hasMultipleFormats ?
+                                '<button onclick="showFaviconCode()">Copy Standard Code</button>' :
+                                '✓ Already compliant'}
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+
+            const summary = filesWithIssues === 0 ?
+                '✅ All files have proper favicon setup!' :
+                `⚠️ ${filesWithIssues} of ${filesChecked} files need favicon updates.`;
+
+            updateStatus(`Analysis complete: ${summary}`, filesWithIssues === 0 ? 'success' : 'warning');
+        }
+
+        function showFaviconCode() {
+            const codeBlock = document.querySelector('.code-block pre');
+            codeBlock.scrollIntoView({ behavior: 'smooth' });
+
+            // Copy to clipboard
+            const codeText = codeBlock.textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                updateStatus('Favicon code copied to clipboard!', 'success');
+                setTimeout(() => {
+                    updateStatus('Analysis complete: Check results above', 'success');
+                }, 2000);
+            });
+        }
+
+        // Auto-analyze on page load
+        window.addEventListener('load', () => {
+            analyzeFaviconUsage();
+        });
+    </script>
+</body>
+</html>

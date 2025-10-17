@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter - Fix corrupted image files</title>
+
+    <!-- Favicon - Multiple Formats for Maximum Compatibility -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+    <link rel="shortcut icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/favicon.svg">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        .error { background: #f8d7da; color: #721c24; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .image-preview {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        img { max-width: 100%; height: auto; border-radius: 5px; }
+        canvas { border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Anime Raid Image Converter</h1>
+        <p>This tool helps fix corrupted image files by converting SVGs to proper formats.</p>
+
+        <div id="status" class="status">
+            Ready to convert images...
+        </div>
+
+        <div class="grid">
+            <!-- Logo Converter -->
+            <div>
+                <h3>Logo PNG Converter</h3>
+                <div class="image-preview">
+                    <svg id="logo-svg" width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="200" height="50" rx="8" fill="#1f2937"/>
+                        <text x="15" y="35" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="url(#logoGradient)">
+                            Anime Raid
+                        </text>
+                        <text x="140" y="35" font-family="Arial, sans-serif" font-size="12" fill="#9ca3af">
+                            Wiki
+                        </text>
+                    </svg>
+                </div>
+                <canvas id="logo-canvas" width="200" height="50" style="display:none;"></canvas>
+                <button onclick="convertLogoToPNG()">Convert Logo to PNG</button>
+                <button onclick="downloadLogo()">Download PNG</button>
+            </div>
+
+            <!-- Favicon 16px Converter -->
+            <div>
+                <h3>Favicon 16x16 Converter</h3>
+                <div class="image-preview">
+                    <svg id="favicon16-svg" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="faviconGradient16" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="32" height="32" rx="6" fill="url(#faviconGradient16)"/>
+                        <text x="16" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">
+                            AR
+                        </text>
+                    </svg>
+                </div>
+                <canvas id="favicon16-canvas" width="16" height="16" style="display:none;"></canvas>
+                <button onclick="convertFavicon16ToPNG()">Convert Favicon 16x16</button>
+                <button onclick="downloadFavicon16()">Download PNG</button>
+            </div>
+
+            <!-- Favicon 32px Converter -->
+            <div>
+                <h3>Favicon 32x32 Converter</h3>
+                <div class="image-preview">
+                    <svg id="favicon32-svg" width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="faviconGradient32" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="64" height="64" rx="12" fill="url(#faviconGradient32)"/>
+                        <text x="32" y="42" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white" text-anchor="middle">
+                            AR
+                        </text>
+                    </svg>
+                </div>
+                <canvas id="favicon32-canvas" width="32" height="32" style="display:none;"></canvas>
+                <button onclick="convertFavicon32ToPNG()">Convert Favicon 32x32</button>
+                <button onclick="downloadFavicon32()">Download PNG</button>
+            </div>
+
+            <!-- Hero Background Converter -->
+            <div>
+                <h3>Hero Background Converter</h3>
+                <div class="image-preview">
+                    <svg id="hero-bg-svg" width="400" height="200" viewBox="0 0 1920 600" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#312e81;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#581c87;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect width="1920" height="600" fill="url(#heroGradient)"/>
+                        <circle cx="200" cy="150" r="80" fill="none" stroke="white" stroke-width="2" opacity="0.1"/>
+                        <circle cx="1720" cy="450" r="100" fill="none" stroke="white" stroke-width="2" opacity="0.1"/>
+                    </svg>
+                </div>
+                <canvas id="hero-bg-canvas" width="1920" height="600" style="display:none;"></canvas>
+                <button onclick="convertHeroBg()">Convert Hero Background</button>
+                <button onclick="downloadHeroBg()">Download PNG</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px;">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Click the "Convert" buttons to generate proper image files</li>
+                <li>Click "Download" to save the converted images</li>
+                <li>Replace the corrupted files in your project with the downloaded versions</li>
+                <li>Make sure to place them in the correct directories (assets/images/ and assets/icons/)</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let convertedData = {
+            logo: null,
+            favicon16: null,
+            favicon32: null,
+            heroBg: null
+        };
+
+        function updateStatus(message, type = 'success') {
+            const status = document.getElementById('status');
+            status.className = `status ${type}`;
+            status.textContent = message;
+        }
+
+        function svgToCanvas(svgId, canvasId, width, height) {
+            return new Promise((resolve) => {
+                const svg = document.getElementById(svgId);
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+
+                // Create SVG data URL
+                const svgData = new XMLSerializer().serializeToString(svg);
+                const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+                const url = URL.createObjectURL(svgBlob);
+
+                const img = new Image();
+                img.onload = function() {
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    URL.revokeObjectURL(url);
+                    resolve(canvas.toDataURL('image/png'));
+                };
+                img.src = url;
+            });
+        }
+
+        async function convertLogoToPNG() {
+            updateStatus('Converting logo to PNG...', 'warning');
+            try {
+                convertedData.logo = await svgToCanvas('logo-svg', 'logo-canvas', 200, 50);
+                updateStatus('Logo converted successfully! Click "Download PNG" to save.', 'success');
+            } catch (error) {
+                updateStatus('Error converting logo: ' + error.message, 'error');
+            }
+        }
+
+        async function convertFavicon16ToPNG() {
+            updateStatus('Converting favicon 16x16...', 'warning');
+            try {
+                convertedData.favicon16 = await svgToCanvas('favicon16-svg', 'favicon16-canvas', 16, 16);
+                updateStatus('Favicon 16x16 converted successfully!', 'success');
+            } catch (error) {
+                updateStatus('Error converting favicon 16x16: ' + error.message, 'error');
+            }
+        }
+
+        async function convertFavicon32ToPNG() {
+            updateStatus('Converting favicon 32x32...', 'warning');
+            try {
+                convertedData.favicon32 = await svgToCanvas('favicon32-svg', 'favicon32-canvas', 32, 32);
+                updateStatus('Favicon 32x32 converted successfully!', 'success');
+            } catch (error) {
+                updateStatus('Error converting favicon 32x32: ' + error.message, 'error');
+            }
+        }
+
+        async function convertHeroBg() {
+            updateStatus('Converting hero background...', 'warning');
+            try {
+                convertedData.heroBg = await svgToCanvas('hero-bg-svg', 'hero-bg-canvas', 1920, 600);
+                updateStatus('Hero background converted successfully!', 'success');
+            } catch (error) {
+                updateStatus('Error converting hero background: ' + error.message, 'error');
+            }
+        }
+
+        function downloadImage(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function downloadLogo() {
+            if (convertedData.logo) {
+                downloadImage(convertedData.logo, 'logo.svg');
+                updateStatus('Logo PNG downloaded! Place it in assets/images/', 'success');
+            } else {
+                updateStatus('Please convert the logo first!', 'error');
+            }
+        }
+
+        function downloadFavicon16() {
+            if (convertedData.favicon16) {
+                downloadImage(convertedData.favicon16, 'favicon-16.png');
+                updateStatus('Favicon 16x16 downloaded! Place it in assets/icons/', 'success');
+            } else {
+                updateStatus('Please convert the favicon first!', 'error');
+            }
+        }
+
+        function downloadFavicon32() {
+            if (convertedData.favicon32) {
+                downloadImage(convertedData.favicon32, 'favicon-32.png');
+                updateStatus('Favicon 32x32 downloaded! Place it in assets/icons/', 'success');
+            } else {
+                updateStatus('Please convert the favicon first!', 'error');
+            }
+        }
+
+        function downloadHeroBg() {
+            if (convertedData.heroBg) {
+                downloadImage(convertedData.heroBg, 'hero-bg.png');
+                updateStatus('Hero background downloaded! Place it in assets/images/', 'success');
+            } else {
+                updateStatus('Please convert the hero background first!', 'error');
+            }
+        }
+
+        // Auto-convert all on page load
+        window.addEventListener('load', async () => {
+            updateStatus('Auto-converting all images...', 'warning');
+
+            try {
+                await Promise.all([
+                    convertLogoToPNG(),
+                    convertFavicon16ToPNG(),
+                    convertFavicon32ToPNG(),
+                    convertHeroBg()
+                ]);
+                updateStatus('All images converted successfully! Click download buttons to save them.', 'success');
+            } catch (error) {
+                updateStatus('Some conversions failed: ' + error.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 /**
- * Update Manager - 智能更新管理器
- * 处理数据更新、缓存管理、后台同步等
+ * Update Manager - Smart Update Manager
+ * Handles data updates, cache management, background sync, etc.
  */
 class UpdateManager {
     constructor() {
         this.apiService = window.apiService;
-        this.updateInterval = 60000; // 1分钟检查一次
+        this.updateInterval = 60000; // Check once per minute
         this.userActivityScore = 0;
         this.lastActivityTime = Date.now();
         this.backgroundUpdateEnabled = true;
@@ -15,7 +15,7 @@ class UpdateManager {
     }
 
     /**
-     * 初始化更新管理器
+     * Initialize update manager
      */
     init() {
         this.startUpdateScheduler();
@@ -25,20 +25,20 @@ class UpdateManager {
     }
 
     /**
-     * 启动更新调度器
+     * Start update scheduler
      */
     startUpdateScheduler() {
-        // 根据用户活跃度调整检查频率
+        // Adjust check frequency based on user activity
         setInterval(() => {
             this.scheduleUpdate();
         }, this.getUpdateInterval());
     }
 
     /**
-     * 智能更新调度
+     * Smart update scheduling
      */
     async scheduleUpdate() {
-        // 如果用户不活跃，降低更新频率
+        // If user is inactive, reduce update frequency
         if (!this.isUserActive()) {
             return;
         }
@@ -55,7 +55,7 @@ class UpdateManager {
     }
 
     /**
-     * 检查更新
+     * Check for updates
      */
     async checkForUpdates() {
         return await this.apiService.checkForUpdates();
